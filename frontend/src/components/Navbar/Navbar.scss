@@ -1,0 +1,73 @@
+.navbar {
+    $gap: 1rem;
+    $gapText: .5rem;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    position: relative;
+    border-bottom: 1px solid var(--colorGray);
+    
+    &__inner {
+        width: var(--widthContent);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        justify-content: space-between;
+        padding-block: .75rem;
+    }
+
+    &__icon {
+        $size: 2rem;
+        width: $size;
+        height: $size;
+        fill: black;
+
+        &:hover {
+            fill: var(--colorMain);
+        }
+    }
+
+    &__logo {
+        width: 7rem;
+    }
+
+    .search {
+        flex-grow: 1;
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+        gap: $gap;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: $gapText;
+        }
+    }
+
+    nav {
+        ul {
+            display: flex;
+            align-items: center;
+            gap: $gap;
+
+            li {
+                a {
+                    .navbar__user-picture {
+                        $size: 3rem;
+
+                        background: var(--colorText);
+                        width: $size;
+                        height: $size;
+                        border-radius: var(--bdrsDefault);
+                    }
+                }
+            }
+        }
+    }
+}

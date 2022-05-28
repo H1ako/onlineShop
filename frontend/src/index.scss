@@ -8,10 +8,25 @@
     --colorGrayLight: #666C76;
     --colorText: #FFFFFF;
     --colorTextDark: #E9E9E9;
+
+    --widthContent: min(95%, 1400px);
+    --bdrsDefault: 15px;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
 }
 
 body {
     background: var(--colorBg);
     color: var(--colorText);
     font-family: 'Oswald', sans-serif;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
