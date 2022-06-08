@@ -1,0 +1,21 @@
+.search {
+    $iconSize: 2rem;
+
+    border-radius: var(--bdrsDefault);
+    background: var(--colorGrayLight);
+    outline: none;
+    border: none;
+    color: var(--colorText);
+    height: 2.125rem;
+    padding: .5em calc(1em + $iconSize);
+
+    &::placeholder {
+        background: url('../../../public/images/search.svg') no-repeat;
+        background-position: 1em center;
+        background-size: $iconSize $iconSize;
+        color: var(--colorText);
+        font-family: 'Oswald', sans-serif;
+        font-weight: 300;
+        opacity: 1;
+    }
+}

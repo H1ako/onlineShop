@@ -9,8 +9,9 @@
     --colorText: #FFFFFF;
     --colorTextDark: #E9E9E9;
 
-    --widthContent: min(95%, 1400px);
-    --bdrsDefault: 15px;
+    --widthContent: min(95%, 1200px);
+    --bdrsDefault: 10px;
+    --transitionDefault: 200ms;
 }
 
 *,
@@ -23,6 +24,7 @@ body {
     background: var(--colorBg);
     color: var(--colorText);
     font-family: 'Oswald', sans-serif;
+    font-weight: 300;
 }
 
 ul {

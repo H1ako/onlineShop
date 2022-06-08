@@ -1,19 +1,26 @@
+import './Navbar.scss'
+
 import { Link } from 'react-router-dom';
 import Search from '../Search/Search';
-import './Navbar.scss'
+
+import { TruckIcon, LocationMarkerIcon, ShoppingBagIcon, HeartIcon, BellIcon } from '@heroicons/react/solid'
+
+import { InformationCircleIcon, ViewListIcon } from '@heroicons/react/outline'
 
 function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar__inner">
-        <img className='navbar__logo' src="/images/logo.svg" alt="" />
+        <Link to='/'>
+          <img className='navbar__logo' src="/images/logo.svg" alt="" />
+        </Link>
         <ul className='navbar__info'>
           <li>
-            <object className='navbar__icon' data="/images/categories.svg" type="image/svg+xml" />
+            <ViewListIcon className='navbar__icon' />
             Categories
           </li>
           <li>
-            <object className='navbar__icon' data="/images/help.svg" type="image/svg+xml" />
+            <InformationCircleIcon className='navbar__icon' />
             Help
           </li>
         </ul>
@@ -21,26 +28,26 @@ function Navbar() {
         <nav>
           <ul>
             <li>
-              <object className='navbar__icon' data="/images/location.svg" type="image/svg+xml" />
+              <LocationMarkerIcon className='navbar__icon' />
             </li>
             <li>
               <Link to='/notifications'>
-                <object className='navbar__icon' data="/images/notifications.svg" type="image/svg+xml" />
+                <BellIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
               <Link to='/favourites'>
-                <object className='navbar__icon' data="/images/favourites.svg" type="image/svg+xml" />
+                <HeartIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
               <Link to='/delivery'>
-                <object className='navbar__icon' data="/images/delivery.svg" type="image/svg+xml" />
+                <TruckIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
               <Link to='/cart'>
-                <object className='navbar__icon' data="/images/cartBag.svg" type="image/svg+xml" />
+                <ShoppingBagIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
