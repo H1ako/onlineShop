@@ -6,8 +6,11 @@
     top: 0;
     left: 0;
     width: 100vw;
-    position: relative;
+    overflow: hidden;
+    height: var(--navbarHeight);
     border-bottom: 1px solid var(--colorGray);
+    background: none;
+    z-index: 9999;
     
     &__inner {
         width: var(--widthContent);
@@ -33,6 +36,7 @@
 
     .search {
         flex-grow: 1;
+        max-width: 50%;
     }
 
     &__info {

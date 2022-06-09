@@ -1,0 +1,132 @@
+.home-page {
+    position: relative;
+    margin: 0 auto;
+
+    header {
+        $headerHight: min(650px, 100vh);
+
+        position: relative;
+        width: 100%;
+        height: $headerHight;
+        background: red;
+
+        .bg-picture {
+            top: 0; left: 0;
+            position: absolute;
+            position: relative;
+            width: 100%;
+            height: $headerHight;
+            overflow: hidden;
+
+            &::after {
+                content: '';
+                position: absolute;
+                background: linear-gradient(180deg, var(--colorBg) 5.23%, var(--colorMainTransparent) 100%);
+                inset: 0;
+                pointer-events: none;
+            }
+
+            &__pictures {
+                display: flex;
+                align-items: center;
+
+                li {
+                    a {
+                        img {
+                            width: 100vw;
+                            height: $headerHight;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .tools {
+            $margin: 1rem;
+            position: absolute;
+            top: calc(var(--navbarHeight) + $margin);
+            right: $margin;
+            display: flex;
+            gap: .125rem;
+            align-items: center;
+
+            &__icon {
+                width: 30px;
+                cursor: pointer;
+            }
+
+        }
+
+        .arrows {
+            pointer-events: none;
+            width: 100%;
+            position: absolute;
+            top: var(--navbarHeight);
+            height: calc($headerHight - var(--navbarHeight));
+            display: flex;
+            justify-content: space-between;
+
+            &__icon {
+                height: 80px;
+                cursor: pointer;
+            }
+
+            &__left-area,
+            &__right-area {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0.15;
+                transition: var(--transitionDefault);
+                pointer-events: all;
+
+                &:hover {
+                    opacity: .8;
+                }
+            }
+        }
+    }
+
+    main {
+        width: var(--widthContent);
+
+        .advertisment {
+
+            &__list {
+                li {
+
+                }
+            }
+        }
+
+        .recommendations {
+
+            &__list {
+                li {
+                    
+                }
+            }
+        }
+
+        .sale {
+
+            &__list {
+                li {
+                    
+                }
+            }
+        }
+
+        .history {
+
+            &__list {
+                li {
+                    
+                }
+            }
+        }
+    }
+}

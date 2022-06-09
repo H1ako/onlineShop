@@ -9,6 +9,10 @@
     height: 2.125rem;
     padding: .5em calc(1em + $iconSize);
 
+    &:not([value=""]) {
+        padding-inline: 1em;
+    }
+
     &::placeholder {
         background: url('../../../public/images/search.svg') no-repeat;
         background-position: 1em center;
