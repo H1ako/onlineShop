@@ -3,15 +3,22 @@
 :root {
     --colorBg: #222428;
     --colorMain: #2861CF;
+    --colorMainTransparent: rgba(40, 97, 207, 0.25);
     --colorAccent: #CF2828;
     --colorGray: #3C4047;
     --colorGrayLight: #666C76;
     --colorText: #FFFFFF;
     --colorTextDark: #E9E9E9;
+    --navbarHeight: 5.25rem;
 
-    --widthContent: min(95%, 1200px);
+    --widthContent: min(95%, 1400px);
     --bdrsDefault: 10px;
     --transitionDefault: 200ms;
+    --fontSize1: ;
+    --fontSize2: ;
+    --fontSize3: ;
+    --fontSize4: ;
+    --fontSize5: ;
 }
 
 *,
