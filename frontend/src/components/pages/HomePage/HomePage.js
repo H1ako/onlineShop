@@ -1,43 +1,39 @@
 import './HomePage.scss'
 
-import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon, ArrowsExpandIcon } from '@heroicons/react/outline'
-import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import HorizontalSlider from '../../HorizontalSlider/HorizontalSlider';
 
 function HomePage() {
-  const [bgIsChanging, setBgIsChanging] = useState(true)
+  const pictures = [
+    {
+      image: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      product: {
+        id: 1
+      }
+    },
+    {
+      image: '/images/kros.png',
+      product: {
+        id: 2
+      }
+    },
+    {
+      image: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      product: {
+        id: 3
+      }
+    },
+    {
+      image: '/images/kros.png',
+      product: {
+        id: 4
+      }
+    }
+  ]
 
   return (
     <div className="home-page">
       <header>
-        <div className="bg-picture">
-          <ul className="bg-picture__pictures">
-            <li>
-              <Link to="/product/">
-                <img src="/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg" alt="" />
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="tools">
-          <ChevronLeftIcon className='tools__icon left-arrow' />
-          {
-            bgIsChanging ?
-            <PauseIcon className='tools__icon pause' onClick={() => setBgIsChanging(false)} />
-            :
-            <PlayIcon className='tools__icon play' onClick={() => setBgIsChanging(true)} />
-          }
-          <ChevronRightIcon className='tools__icon right-arrow' />
-          <ArrowsExpandIcon className='tools__icon expand' />
-        </div>
-        <div className="arrows">
-          <div className="arrows__left-area">
-            <ChevronLeftIcon className='arrows__icon left-arrow' />
-          </div>
-          <div className="arrows__right-area">
-            <ChevronRightIcon className='arrows__icon right-arrow' />
-          </div>          
-        </div>
+        <HorizontalSlider withLinks={true} pictures={pictures} />
       </header>
       <main>
         <section className="advertisment">

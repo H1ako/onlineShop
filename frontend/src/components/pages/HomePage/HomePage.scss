@@ -10,13 +10,9 @@
         height: $headerHight;
         background: red;
 
-        .bg-picture {
-            top: 0; left: 0;
-            position: absolute;
-            position: relative;
+        .horizontal-slider {
             width: 100%;
             height: $headerHight;
-            overflow: hidden;
 
             &::after {
                 content: '';
@@ -26,66 +22,21 @@
                 pointer-events: none;
             }
 
-            &__pictures {
-                display: flex;
-                align-items: center;
-
-                li {
-                    a {
-                        img {
-                            width: 100vw;
-                            height: $headerHight;
-                            object-fit: cover;
-                            object-position: center;
-                        }
-                    }
-                }
-            }
-        }
-
-        .tools {
-            $margin: 1rem;
-            position: absolute;
-            top: calc(var(--navbarHeight) + $margin);
-            right: $margin;
-            display: flex;
-            gap: .125rem;
-            align-items: center;
-
-            &__icon {
-                width: 30px;
-                cursor: pointer;
+            &__pictures img {
+                width: 100vw;
+                height: $headerHight;
             }
 
-        }
+            &__tools {
+                $margin: 1rem;
 
-        .arrows {
-            pointer-events: none;
-            width: 100%;
-            position: absolute;
-            top: var(--navbarHeight);
-            height: calc($headerHight - var(--navbarHeight));
-            display: flex;
-            justify-content: space-between;
-
-            &__icon {
-                height: 80px;
-                cursor: pointer;
+                top: calc(var(--navbarHeight) + $margin);
+                right: $margin;
             }
 
-            &__left-area,
-            &__right-area {
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                opacity: 0.15;
-                transition: var(--transitionDefault);
-                pointer-events: all;
-
-                &:hover {
-                    opacity: .8;
-                }
+            &__arrows {
+                top: var(--navbarHeight);
+                height: calc($headerHight - var(--navbarHeight));
             }
         }
     }

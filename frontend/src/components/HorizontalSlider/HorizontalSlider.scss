@@ -1,0 +1,71 @@
+.horizontal-slider {
+    // size and other styles should be configurated in the different file
+
+    position: relative;
+    overflow: hidden;
+
+    &__pictures {
+        display: flex;
+        align-items: center;
+
+        li {
+            img {
+                // size should be configurated in the different file
+
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+    }
+
+    &__tools {
+        // position should be configurated in the different file
+
+        position: absolute;
+        display: flex;
+        gap: .125rem;
+        align-items: center;
+        z-index: 120;
+
+        .tools__icon {
+            width: 30px;
+            cursor: pointer;
+            transition: var(--transitionDefault);
+
+            &:hover {
+                color: var(--colorMain);
+            }
+        }
+    }
+
+    &__arrows {
+        // height and position should be configurated in the different file
+
+        pointer-events: none;
+        width: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        z-index: 100;
+
+        .arrows__left-area,
+        .arrows__right-area {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.15;
+            transition: var(--transitionDefault);
+            pointer-events: all;
+
+            &:hover {
+                opacity: .8;
+            }
+
+            .arrows__icon {
+                height: 80px;
+                cursor: pointer;
+            }
+        }
+    }
+}

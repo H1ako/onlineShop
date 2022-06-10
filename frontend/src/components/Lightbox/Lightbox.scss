@@ -1,0 +1,94 @@
+.lightbox-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--colorMainTransparent);
+    z-index: 100000;
+
+    &__lightbox {
+        position: relative;
+        background: var(--colorBg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: min(90vw, 1200px);
+        height: 80vh;
+        border-radius: var(--bdrsDefault) var(--bdrsDefault) 0 0;
+
+
+        .lightbox__btns {
+            flex-shrink: none;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: .5rem;
+
+            .btns__icon {
+                $size: 2rem;
+
+                height: $size;
+                width: $size;
+                color: var(--colorText);
+                transition: var(--transitionDefault);
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--colorMain);
+                }
+            }
+        }
+
+        .lightbox__picture {
+            position: relative;
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .picture__arrows {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                pointer-events: none;
+                display: flex;
+                justify-content: space-between;
+    
+                .arrows__left-area,
+                .arrows__right-area {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: var(--colorBg);
+                    opacity: 0.15;
+                    transition: var(--transitionDefault);
+                    pointer-events: all;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: .8;
+                    }
+    
+                    .arrows__icon {
+                        height: 80px;
+                    }
+                }
+            }
+
+            img {
+                user-select: none;
+                width: 100%;
+                max-height: 80vh;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+    }
+}

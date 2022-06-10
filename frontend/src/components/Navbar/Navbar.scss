@@ -49,10 +49,27 @@
             align-items: center;
             gap: $gapText;
             transition: var(--transitionDefault);
+            position: relative;
             cursor: pointer;
+
+            &::after {
+                content: '';
+                position: absolute;
+                transform-origin: center;
+                width: 120%;
+                height: 1px;
+                left: 0;
+                top: 150%;
+                background: var(--colorText);
+                transform: scaleX(0);
+                transition: var(--transitionDefault);
+            }
 
 
             &:hover {
+                &::after {
+                    transform: scaleX(1);
+                }
 
                 .navbar__icon {
                     color: var(--colorMain);
