@@ -48,7 +48,7 @@ function HorizontalSlider({
     if (isChanging && !changingInterval.current) {
       const interval = setInterval(() => {
         setCurrentPictureId(currentId => currentId === pictures.length - 1 ? 0 : currentId + 1)
-      }, 3000)
+      }, 5000)
 
       changingInterval.current = interval
     }
