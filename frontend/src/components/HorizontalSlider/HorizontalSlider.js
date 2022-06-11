@@ -15,17 +15,15 @@ function HorizontalSlider({
 
   const [isChanging, setIsChanging] = useState(true)
   const [currentPictureId, setCurrentPictureId] = useState(0)
-  const [isPictureExpanded, setIsPictureExpanded] = useState(false)
+  const [isLightboxOpened, setIsLightboxOpened] = useState(false)
   const changingInterval = useRef()
 
-  const openLightbox = () => {
-    setIsChanging(false)
-    setIsPictureExpanded(true)
-  }
-
-  const closeLightbox = () => {
-    setIsChanging(true)
-    setIsPictureExpanded(false)
+  // creating a new picture changing interval
+  const setChangingInterval = () => {
+    const interval = setInterval(() => {
+      setCurrentPictureId(currentId => currentId === pictures.length - 1 ? 0 : currentId + 1)
+    }, 3000)
+    changingInterval.current = interval
   }
 
   // change main picture
@@ -40,17 +38,16 @@ function HorizontalSlider({
     }
 
     setCurrentPictureId(nextPictureNumber)
+
+    if (changingInterval.current) { // clear prev interval
+      clearInterval(changingInterval.current)
+    }
+    setChangingInterval()
   }
-
-
 
   useEffect(() => {
     if (isChanging && !changingInterval.current) {
-      const interval = setInterval(() => {
-        setCurrentPictureId(currentId => currentId === pictures.length - 1 ? 0 : currentId + 1)
-      }, 5000)
-
-      changingInterval.current = interval
+      setChangingInterval()
     }
     else if (!isChanging) {
       clearInterval(changingInterval.current)
@@ -82,7 +79,7 @@ function HorizontalSlider({
           <PlayIcon className='tools__icon play' onClick={() => setIsChanging(true)} />
         }
         <ChevronRightIcon className='tools__icon right-arrow' onClick={() => changeCurrentPicture(1)} />
-        <ArrowsExpandIcon className='tools__icon expand' onClick={openLightbox} />
+        <ArrowsExpandIcon className='tools__icon expand' onClick={() => setIsLightboxOpened(state => !state)} />
       </div>
       <div className="horizontal-slider__arrows">
         <div className="arrows__left-area">
@@ -93,12 +90,12 @@ function HorizontalSlider({
         </div>          
       </div>
       {
-        isPictureExpanded &&
+        isLightboxOpened &&
         <Lightbox
           isChanging={isChanging}
           setIsChanging={setIsChanging}
           currentPicture={pictures[currentPictureId]}
-          closeLightbox={closeLightbox}
+          closeLightbox={() => setIsLightboxOpened(false)}
           changeCurrentPicture={changeCurrentPicture}
         />
       }
