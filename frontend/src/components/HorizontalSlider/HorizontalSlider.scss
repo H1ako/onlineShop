@@ -5,8 +5,13 @@
     overflow: hidden;
 
     &__pictures {
+        --currentIndex: 1;
+
         display: flex;
         align-items: center;
+        position: absolute;
+        top: 0;
+        transition: var(--transitionDefault);
 
         li {
             img {
