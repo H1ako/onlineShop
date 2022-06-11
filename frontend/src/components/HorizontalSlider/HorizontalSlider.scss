@@ -5,18 +5,19 @@
     overflow: hidden;
 
     &__pictures {
-        --currentIndex: 1;
+        --currentIndex: 0;
 
         display: flex;
         align-items: center;
         position: absolute;
         top: 0;
         transition: var(--transitionDefault);
+        left: calc(-100vw * var(--currentIndex));
 
         li {
             img {
                 // size should be configurated in the different file
-
+                user-select: none;
                 object-fit: cover;
                 object-position: center;
             }

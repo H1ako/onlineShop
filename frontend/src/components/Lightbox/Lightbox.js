@@ -2,10 +2,12 @@ import './Lightbox.scss'
 
 import { Link } from 'react-router-dom'
 
-import { ChevronLeftIcon, ChevronRightIcon, XIcon, ExternalLinkIcon } from '@heroicons/react/outline'
+import { ChevronLeftIcon, ChevronRightIcon, XIcon, ExternalLinkIcon, PlayIcon, PauseIcon } from '@heroicons/react/outline'
 
 function Lightbox({
     changeCurrentPicture,
+    isChanging,
+    setIsChanging,
     closeLightbox,
     currentPicture
 }) {
@@ -16,11 +18,17 @@ function Lightbox({
     <div className="lightbox-area">
         <div className="lightbox-area__lightbox">
             <div className="lightbox__btns">
-                { changeCurrentPicture &&
-                    <>
+                {changeCurrentPicture &&
                     <ChevronLeftIcon className='btns__icon left-arrow' onClick={() => changeCurrentPicture(-1)} />
+                }
+                {setIsChanging !== null && isChanging ?
+                    <PauseIcon className='btns__icon left-arrow' onClick={() => setIsChanging(false)} />
+                :
+                    <PlayIcon className='btns__icon left-arrow' onClick={() => setIsChanging(true)} />
+                }
+                
+                {changeCurrentPicture &&
                     <ChevronRightIcon className='btns__icon right-arrow' onClick={() => changeCurrentPicture(1)} />
-                    </>
                 }
                 <Link to={`/products/${currentPicture.product?.id}`} >
                     <ExternalLinkIcon className='btns__icon link' />

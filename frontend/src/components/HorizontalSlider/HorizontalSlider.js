@@ -1,7 +1,7 @@
 // styles
 import './HorizontalSlider.scss'
 // global
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 // icons
 import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon, ArrowsExpandIcon } from '@heroicons/react/outline'
@@ -16,11 +16,7 @@ function HorizontalSlider({
   const [isChanging, setIsChanging] = useState(true)
   const [currentPictureId, setCurrentPictureId] = useState(0)
   const [isPictureExpanded, setIsPictureExpanded] = useState(false)
-  const slides = pictures.map(picture => (
-    <Link key={picture.product?.id} to={`/products/${picture.product?.id}`}>
-      <img src={picture.image} alt='' />
-    </Link>
-  ))
+  const changingInterval = useRef()
 
   const openLightbox = () => {
     setIsChanging(false)
@@ -42,35 +38,40 @@ function HorizontalSlider({
     else if (nextPictureNumber <= -1) {
       nextPictureNumber = pictures.length - 1
     }
-    console.log(currentPictureId)
+
     setCurrentPictureId(nextPictureNumber)
   }
 
 
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPictureId(currentId => currentId === pictures.length - 1 ? 0 : currentId + 1)
-    }, 3000)
+    if (isChanging && !changingInterval.current) {
+      const interval = setInterval(() => {
+        setCurrentPictureId(currentId => currentId === pictures.length - 1 ? 0 : currentId + 1)
+      }, 3000)
 
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-  }, [currentPictureId])
+      changingInterval.current = interval
+    }
+    else if (!isChanging) {
+      clearInterval(changingInterval.current)
+      changingInterval.current = null
+    }
+    
+    return () => clearInterval(changingInterval)
+  }, [isChanging])
 
   return (
     <div className="horizontal-slider">
-      <ul className="horizontal-slider__pictures">
-        <li className="pictures__prev">
-          {/* {slides[]} */}
-        </li>
-        <li className="pictures__current">
-          {slides[currentPictureId]}
-        </li>
-        <li className="pictures__next">
-
-        </li>
+      <ul className="horizontal-slider__pictures" style={{"--currentIndex": currentPictureId}}>
+        {
+          pictures.map(picture => (
+            <li key={picture.product?.id}>
+              <Link to={`/products/${picture.product?.id}`}>
+                <img src={picture.image} alt='' />
+              </Link>
+            </li>
+          ))
+        }
       </ul>
       <div className="horizontal-slider__tools">
         <ChevronLeftIcon className='tools__icon left-arrow' onClick={() => changeCurrentPicture(-1)} />
@@ -93,7 +94,13 @@ function HorizontalSlider({
       </div>
       {
         isPictureExpanded &&
-        <Lightbox currentPicture={pictures[currentPictureId]} closeLightbox={closeLightbox} changeCurrentPicture={changeCurrentPicture} />
+        <Lightbox
+          isChanging={isChanging}
+          setIsChanging={setIsChanging}
+          currentPicture={pictures[currentPictureId]}
+          closeLightbox={closeLightbox}
+          changeCurrentPicture={changeCurrentPicture}
+        />
       }
     </div>
   );
