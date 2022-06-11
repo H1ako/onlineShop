@@ -39,6 +39,8 @@ function HorizontalSlider({
 
     setCurrentPictureId(nextPictureNumber)
 
+    if (!isChanging) return
+    
     if (changingInterval.current) { // clear prev interval
       clearInterval(changingInterval.current)
     }
@@ -64,29 +66,43 @@ function HorizontalSlider({
           pictures.map(picture => (
             <li key={picture.product?.id}>
               <Link to={`/products/${picture.product?.id}`}>
-                <img src={picture.image} alt='' />
+                <img src={picture.image} alt='' title='click to open product page' />
               </Link>
             </li>
           ))
         }
       </ul>
       <div className="horizontal-slider__tools">
-        <ChevronLeftIcon className='tools__icon left-arrow' onClick={() => changeCurrentPicture(-1)} />
+        <button onClick={() => changeCurrentPicture(-1)} title='previous image'>
+          <ChevronLeftIcon className='tools__icon left-arrow' />
+        </button>
         {
           isChanging ?
-          <PauseIcon className='tools__icon pause' onClick={() => setIsChanging(false)} />
+          <button onClick={() => setIsChanging(false)} title='stop changing images'>
+            <PauseIcon className='tools__icon pause' />
+          </button>
           :
-          <PlayIcon className='tools__icon play' onClick={() => setIsChanging(true)} />
+          <button onClick={() => setIsChanging(true)} title='continue changing images'>
+            <PlayIcon className='tools__icon play' />
+          </button>
         }
-        <ChevronRightIcon className='tools__icon right-arrow' onClick={() => changeCurrentPicture(1)} />
-        <ArrowsExpandIcon className='tools__icon expand' onClick={() => setIsLightboxOpened(state => !state)} />
+        <button onClick={() => changeCurrentPicture(1)} title='next image'>
+          <ChevronRightIcon className='tools__icon right-arrow' />
+        </button>
+        <button onClick={() => setIsLightboxOpened(state => !state)} title='open full image'>
+          <ArrowsExpandIcon className='tools__icon expand' />
+        </button>
       </div>
       <div className="horizontal-slider__arrows">
         <div className="arrows__left-area">
-          <ChevronLeftIcon className='arrows__icon left-arrow' onClick={() => changeCurrentPicture(-1)} />
+          <button onClick={() => changeCurrentPicture(-1)} title='previous image'>
+            <ChevronLeftIcon className='arrows__icon left-arrow' />
+          </button>
         </div>
         <div className="arrows__right-area">
-          <ChevronRightIcon className='arrows__icon right-arrow' onClick={() => changeCurrentPicture(1)} />
+          <button onClick={() => changeCurrentPicture(1)} title='next image'>
+            <ChevronRightIcon className='arrows__icon right-arrow' />
+          </button>
         </div>          
       </div>
       {

@@ -19,31 +19,41 @@ function Lightbox({
         <div className="lightbox-area__lightbox">
             <div className="lightbox__btns">
                 {changeCurrentPicture &&
-                    <ChevronLeftIcon className='btns__icon left-arrow' onClick={() => changeCurrentPicture(-1)} />
+                    <button onClick={() => changeCurrentPicture(-1)} title='previous image'>
+                        <ChevronLeftIcon className='btns__icon left-arrow' />
+                    </button>
                 }
                 {setIsChanging !== null && isChanging ?
-                    <PauseIcon className='btns__icon left-arrow' onClick={() => setIsChanging(false)} />
+                    <button onClick={() => setIsChanging(false)} title='stop changing images'>
+                        <PauseIcon className='btns__icon left-arrow' />
+                    </button>
                 :
-                    <PlayIcon className='btns__icon left-arrow' onClick={() => setIsChanging(true)} />
+                    <button onClick={() => setIsChanging(true)} title='continue changing images'>
+                        <PlayIcon className='btns__icon left-arrow' />
+                    </button>
                 }
                 
                 {changeCurrentPicture &&
-                    <ChevronRightIcon className='btns__icon right-arrow' onClick={() => changeCurrentPicture(1)} />
+                    <button onClick={() => changeCurrentPicture(1)} title='next image'>
+                        <ChevronRightIcon className='btns__icon right-arrow' />
+                    </button>
                 }
-                <Link to={`/products/${currentPicture.product?.id}`} >
+                <Link to={`/products/${currentPicture.product?.id}`} title='product page' >
                     <ExternalLinkIcon className='btns__icon link' />
                 </Link>
-                <XIcon className='btns__icon close' onClick={closeLightbox} />
+                <button onClick={closeLightbox} title='close window'>
+                    <XIcon className='btns__icon close' />
+                </button>
             </div>
             <div className="lightbox__picture">
                 {changeCurrentPicture &&
                     <div className="picture__arrows">
-                        <div className="arrows__left-area" onClick={() => changeCurrentPicture(-1)}>
+                        <button className="arrows__left-area" onClick={() => changeCurrentPicture(-1)} title='previous image'>
                             <ChevronLeftIcon className='arrows__icon left-arrow' />
-                        </div>
-                        <div className="arrows__right-area" onClick={() => changeCurrentPicture(1)}>
+                        </button>
+                        <button className="arrows__right-area" onClick={() => changeCurrentPicture(1)} title='next image'>
                             <ChevronRightIcon className='arrows__icon right-arrow' />
-                        </div>          
+                        </button>          
                     </div>
                 }
                 <img src={currentPicture.image} alt='' />

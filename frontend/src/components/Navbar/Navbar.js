@@ -11,47 +11,53 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar__inner">
-        <Link to='/'>
+        <Link to='/' title='Blue | Home Page'>
           <img className='navbar__logo' src="/images/logo.svg" alt="" />
         </Link>
         <ul className='navbar__info'>
           <li>
-            <ViewListIcon className='navbar__icon' />
-            Categories
+            <button title='categories'>
+              <ViewListIcon className='navbar__icon' />
+              Categories
+            </button>
           </li>
-          <li>
-            <InformationCircleIcon className='navbar__icon' />
-            Help
+          <li title='information about us'>
+            <button>
+              <InformationCircleIcon className='navbar__icon' />
+              Help
+            </button>
           </li>
         </ul>
         <Search />
         <nav>
           <ul>
             <li>
-              <LocationMarkerIcon className='navbar__icon' />
+              <button title='your location'>
+                <LocationMarkerIcon className='navbar__icon' />
+              </button>
             </li>
             <li>
-              <Link to='/notifications'>
+              <Link to='/notifications' title='your notofications'>
                 <BellIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
-              <Link to='/favourites'>
+              <Link to='/favourites' title='your favourites'>
                 <HeartIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
-              <Link to='/delivery'>
+              <Link to='/delivery' title='your delivery'>
                 <TruckIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
-              <Link to='/cart'>
+              <Link to='/cart' title='your cart'>
                 <ShoppingBagIcon className='navbar__icon' />
               </Link>
             </li>
             <li>
-              <Link to='/profile'>
+              <Link to='/profile' title='your profile'>
                 <img className='navbar__user-picture' alt="" />
               </Link>
             </li>

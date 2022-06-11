@@ -36,7 +36,6 @@
                 width: $size;
                 color: var(--colorText);
                 transition: var(--transitionDefault);
-                cursor: pointer;
 
                 &:hover {
                     color: var(--colorMain);
@@ -70,7 +69,6 @@
                     opacity: 0.15;
                     transition: var(--transitionDefault);
                     pointer-events: all;
-                    cursor: pointer;
 
                     &:hover {
                         opacity: .8;

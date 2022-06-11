@@ -45,12 +45,14 @@
         gap: $gap;
 
         li {
-            display: flex;
-            align-items: center;
-            gap: $gapText;
-            transition: var(--transitionDefault);
             position: relative;
-            cursor: pointer;
+            button {
+                display: flex;
+                align-items: center;
+                gap: $gapText;
+                transition: var(--transitionDefault);
+                font-size: 1.125rem;
+            }
 
             &::after {
                 content: '';
@@ -64,7 +66,6 @@
                 transform: scaleX(0);
                 transition: var(--transitionDefault);
             }
-
 
             &:hover {
                 &::after {
@@ -98,7 +99,6 @@
 
                 .navbar__icon:hover {
                     color: var(--colorMain);
-                    cursor: pointer;
                 }
             }
         }

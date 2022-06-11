@@ -35,7 +35,6 @@
 
         .tools__icon {
             width: 30px;
-            cursor: pointer;
             transition: var(--transitionDefault);
 
             &:hover {
@@ -70,7 +69,6 @@
 
             .arrows__icon {
                 height: 80px;
-                cursor: pointer;
             }
         }
     }
