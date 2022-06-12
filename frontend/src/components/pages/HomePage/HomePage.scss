@@ -101,10 +101,12 @@
             }
 
             &__list {
+                $cardHeight: 12rem;
+                
                 width: 100%;
                 display: grid;
                 grid-template-columns: repeat(3, minmax(15rem, 1fr)); // auto-fit
-                grid-template-rows: 10rem 10rem;
+                grid-template-rows: $cardHeight $cardHeight;
                 gap: 1rem;
             }
         }
