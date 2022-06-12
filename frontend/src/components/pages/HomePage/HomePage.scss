@@ -1,9 +1,10 @@
 .home-page {
+    $headingGap: 1rem;
     position: relative;
     margin: 0 auto;
 
     header {
-        $headerHight: min(650px, 100vh);
+        $headerHight: min(600px, 100vh);
 
         position: relative;
         width: 100%;
@@ -41,23 +42,70 @@
     }
 
     main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: var(--widthContent);
+        position: relative;
+        margin: 0 auto;
+        padding-block: 2rem;
+        gap: 2rem;
 
         .advertisment {
+            width: 100%;
 
             &__list {
-                li {
+                display: grid;
+                grid-template-rows: 8rem 8rem;
+                grid-template-areas: "A A A A B B B C C"
+                                    "D D D D D E E E E";
+                gap: 1rem;
 
+                .list__ad {
+                    background: var(--colorMain);
+                    border-radius: var(--bdrsDefault);
+                    padding: 0.25rem;
+
+                    &:nth-child(1) {
+                        grid-area: A;
+                    }
+
+                    &:nth-child(2) {
+                        grid-area: B;
+                    }
+
+                    &:nth-child(3) {
+                        grid-area: C;
+                    }
+
+                    &:nth-child(4) {
+                        grid-area: D;
+                    }
+
+                    &:nth-child(5) {
+                        grid-area: E;
+                    }
                 }
             }
         }
 
         .recommendations {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: $headingGap;
+
+            h2 {
+                color: var(--colorText);
+            }
 
             &__list {
-                li {
-                    
-                }
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(3, minmax(15rem, 1fr)); // auto-fit
+                grid-template-rows: 10rem 10rem;
+                gap: 1rem;
             }
         }
 

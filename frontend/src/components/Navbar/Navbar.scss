@@ -51,7 +51,7 @@
                 align-items: center;
                 gap: $gapText;
                 transition: var(--transitionDefault);
-                font-size: 1.125rem;
+                font-size: var(--fontSize4);
             }
 
             &::after {

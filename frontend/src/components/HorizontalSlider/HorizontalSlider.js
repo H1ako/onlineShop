@@ -57,6 +57,7 @@ function HorizontalSlider({
     }
     
     return () => clearInterval(changingInterval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChanging])
 
   return (
