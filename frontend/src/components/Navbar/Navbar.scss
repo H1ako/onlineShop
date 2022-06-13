@@ -9,7 +9,7 @@
     overflow: hidden;
     height: var(--navbarHeight);
     border-bottom: 1px solid var(--colorGray);
-    background: none;
+    background: linear-gradient(180deg, var(--colorBg) 5.23%, var(--colorBgTransparent) 100%);
     z-index: 9999;
     
     &__inner {
@@ -23,9 +23,8 @@
     }
 
     &__icon {
-        $size: 1.75rem;
-        width: $size;
-        height: $size;
+        width: var(--navbarIconSize);
+        height: var(--navbarIconSize);
         transition: var(--transitionDefault);
         color: var(--colorText);
     }

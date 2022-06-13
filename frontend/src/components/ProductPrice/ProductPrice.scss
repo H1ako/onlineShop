@@ -10,7 +10,24 @@
         align-items: center;
         gap: .25rem;
         border-radius: var(--bdrsDefault);
-        font-size: var(--fontSize3);
+
+        .prices {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            &__original {
+                position: relative;
+                color: var(--colorTextDark);
+                font-size: var(--fontSize4);
+                text-decoration: line-through;
+	            text-decoration-color: var(--colorAccent);
+            }
+
+            &__main {
+                font-size: var(--fontSize3);
+            }
+        }
 
         &:hover .btn__icon {
             color: var(--colorMain);
@@ -33,7 +50,7 @@
                 color: var(--colorAccent);
             }
         }
-        
+
         .favourite__icon {
             color: var(--colorText);
             transition: var(--transitionDefault);

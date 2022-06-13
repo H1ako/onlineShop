@@ -53,3 +53,11 @@ class Favourite(models.Model):
     
     def __str__(self):
         return self.product
+
+class ViewHistory(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    createdAt = models.DateTimeField("Created At", auto_now_add=True)
+    
+    def __str__(self):
+        return self.product

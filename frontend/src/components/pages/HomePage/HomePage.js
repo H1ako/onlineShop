@@ -1,9 +1,9 @@
+// styles
 import './HomePage.scss'
-
+// components
 import HorizontalSlider from '../../HorizontalSlider/HorizontalSlider';
-import { Link } from 'react-router-dom';
-import ProductPrice from '../../ProductPrice/ProductPrice';
 import ProductCard from '../../ProductCard/ProductCard';
+import ProductList from '../../ProductList/ProductList';
 
 function HomePage() {
   const pictures = [
@@ -84,6 +84,122 @@ function HomePage() {
     }
   ]
 
+  const saleList = [
+    {
+      id: 1,
+      name: 'Raf Simons',
+      price: '40000руб.',
+      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      isFavourite: true,
+      inCartNumber: 1,
+      discount: 100,
+      discountPrice: '0руб.'
+    },
+    {
+      id: 2,
+      name: 'Roof Simpsons',
+      price: '400000руб.',
+      thumbnail: '/images/kros.png',
+      isFavourite: true,
+      inCartNumber: 0,
+      discount: 1,
+      discountPrice: '394000руб.'
+    },
+    {
+      id: 3,
+      name: 'Raf Simons',
+      price: '40000руб.',
+      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      isFavourite: false,
+      inCartNumber: 1,
+      discount: 50,
+      discountPrice: '20000руб.'
+    },
+    {
+      id: 4,
+      name: 'Roof Simpsons',
+      price: '400000руб.',
+      thumbnail: '/images/kros.png',
+      isFavourite: false,
+      inCartNumber: 0,
+      discount: 50,
+      discountPrice: '20000руб.'
+    },
+    {
+      id: 5,
+      name: 'Raf Simons',
+      price: '40000руб.',
+      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      isFavourite: true,
+      inCartNumber: 1,
+      discount: 50,
+      discountPrice: '20000руб.'
+    },
+    {
+      id: 6,
+      name: 'Roof Simpsons',
+      price: '400000руб.',
+      thumbnail: '/images/kros.png',
+      isFavourite: true,
+      inCartNumber: 0,
+      discount: 50,
+      discountPrice: '20000руб.'
+    }
+  ]
+
+  const historyList = [
+    {
+      id: 1,
+      name: 'Raf Simons',
+      price: '40000руб.',
+      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      isFavourite: true,
+      inCartNumber: 1,
+      discount: 100,
+      discountPrice: '0руб.'
+    },
+    {
+      id: 2,
+      name: 'Roof Simpsons',
+      price: '400000руб.',
+      thumbnail: '/images/kros.png',
+      isFavourite: true,
+      inCartNumber: 0,
+      discount: 1,
+      discountPrice: '394000руб.'
+    },
+    {
+      id: 3,
+      name: 'Raf Simons',
+      price: '40000руб.',
+      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      isFavourite: false,
+      inCartNumber: 1,
+      discount: 50,
+      discountPrice: '20000руб.'
+    },
+    {
+      id: 4,
+      name: 'Roof Simpsons',
+      price: '400000руб.',
+      thumbnail: '/images/kros.png',
+      isFavourite: false,
+      inCartNumber: 0,
+      discount: 50,
+      discountPrice: '20000руб.'
+    },
+    {
+      id: 5,
+      name: 'Raf Simons',
+      price: '40000руб.',
+      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      isFavourite: true,
+      inCartNumber: 1,
+      discount: 50,
+      discountPrice: '20000руб.'
+    },
+  ]
+
   return (
     <div className="home-page">
       <header>
@@ -111,31 +227,33 @@ function HomePage() {
                 productImg={recProduct.thumbnail}
                 productName={recProduct.name}
                 productPrice={recProduct.price}
+                productDiscount={recProduct.discount}
+                productDiscountPrice={recProduct.discountPrice}
               />
             )}
-            
           </ul>
         </section>
         <section className="sale">
-          <h2>Sale</h2>
+          <h3>Sale</h3>
           <ul className="sale__list">
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-            <li className='list__product'></li>
+            {saleList.map(recProduct => 
+              <ProductCard
+                key={recProduct.id}
+                productId={recProduct.id}
+                productInCartNumber={recProduct.inCartNumber}
+                productIsFavourite={recProduct.isFavourite}
+                productImg={recProduct.thumbnail}
+                productName={recProduct.name}
+                productPrice={recProduct.price}
+                productDiscount={recProduct.discount}
+                productDiscountPrice={recProduct.discountPrice}
+              />
+            )}
           </ul>
         </section>
         <section className="history">
-          <h2>History</h2>
-          <ul className="history__list">
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-            <li className='list__product'></li>
-          </ul>
+          <h3>History</h3>
+          <ProductList products={historyList} />
         </section>
       </main>
     </div>

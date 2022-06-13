@@ -1,11 +1,12 @@
+// styles
 import './Navbar.scss'
-
-import { Link } from 'react-router-dom';
-import Search from '../Search/Search';
-
+// icons
 import { TruckIcon, LocationMarkerIcon, ShoppingBagIcon, HeartIcon, BellIcon } from '@heroicons/react/solid'
-
 import { InformationCircleIcon, ViewListIcon } from '@heroicons/react/outline'
+// global
+import { Link } from 'react-router-dom';
+// components
+import Search from '../Search/Search';
 
 function Navbar() {
   return (

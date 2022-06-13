@@ -7,6 +7,7 @@ from products.models import Product
 class Tag(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField('Name', max_length=50)
+    isMain = models.BooleanField('Is Main', default=False)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
     def __str__(self):

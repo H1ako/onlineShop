@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def index():
+def index(req):
     pass
 
-def helpPage():
+def helpPage(req):
     pass

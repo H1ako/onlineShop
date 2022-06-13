@@ -1,25 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 
 :root {
+    // colors
     --colorBg: #222428;
-    --colorBgTransparent: rgba(34, 36, 40, .7);
+    --colorBgTransparent: rgba(34, 36, 40, .2);
     --colorMain: #2861CF;
     --colorMainTransparent: rgba(40, 97, 207, 0.25);
     --colorAccent: #CF2828;
     --colorGray: #3C4047;
     --colorGrayLight: #666C76;
     --colorText: #FFFFFF;
-    --colorTextDark: #E9E9E9;
-    --navbarHeight: 5.25rem;
-
-    --widthContent: min(95%, 1400px);
+    --colorTextDark: #cccccc;
+    // border radiuses
     --bdrsDefault: 10px;
+    // transitions
     --transitionDefault: 200ms;
-    --fontSize1: 3rem;
-    --fontSize2: 2.25rem;
-    --fontSize3: 1.8rem;
-    --fontSize4: 1.125rem;
-    --fontSize5: .825rem;
+    // font sizes
+    --fontSize1: clamp(3rem, 6vw, 5rem);
+    --fontSize2: clamp(1.75rem, 2.75vw, 2.25rem);
+    --fontSize3: clamp(1.2rem, 2.6vw, 1.8rem);
+    --fontSize4: clamp(.825rem, 2vw, 1.125rem);
+    --fontSize5: clamp(.5rem, 1vw, .825rem);
+    // sizes
+    --widthContent: min(90%, 1400px);
+    --navbarIconSize: 1.75rem;
+    --navbarHeight: 5.25rem;
+    //screen sizes
+    --sizeScreenSmallPhone: 320px;
+    --sizeScreenPhone: 480px;
+    --sizeScreenBigPhone: 640px;
+    --sizeScreenTablet: 960px;
+    --sizeScreenBigTablet: 1025px;
+    --sizeScreenDesktop: 1280px;
+    // grid templates
+    --gridTemplateColRec: repeat(3, minmax(15rem, 1fr));
+    --gridTemplateColSale: repeat(3, minmax(15rem, 1fr));
 }
 
 *,

@@ -1,10 +1,10 @@
 // styles
 import './HorizontalSlider.scss'
+// icons
+import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon, ArrowsExpandIcon } from '@heroicons/react/outline'
 // global
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-// icons
-import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon, ArrowsExpandIcon } from '@heroicons/react/outline'
 // components
 import Lightbox from '../Lightbox/Lightbox'
 

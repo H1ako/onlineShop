@@ -1,5 +1,6 @@
+// styles
 import './ProductPrice.scss'
-
+// icons
 import { ShoppingBagIcon as ShoppingBagIconOutline, HeartIcon as HeartIconOutline } from '@heroicons/react/outline'
 import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/solid'
 
@@ -7,7 +8,9 @@ function ProductPrice({
     price,
     productId,
     isFavourite,
-    inCart
+    inCart,
+    discount,
+    discountPrice
 }) {
 
   return (
@@ -18,7 +21,16 @@ function ProductPrice({
             :
                 <ShoppingBagIconOutline className='btn__icon' title='not in cart' />
             }
-            {price}
+            { discount > 0 ?
+                <div className="prices">
+                    <div className="prices__original">{price}</div>
+                    <div className="prices__main">{discountPrice}</div>
+                </div>
+            :
+                <div className="prices">
+                    <div className="prices__main">{price}</div>
+                </div>
+            }
         </button>
         { isFavourite ?
             <button className='product-price__favourite' title='remove from favourites'>

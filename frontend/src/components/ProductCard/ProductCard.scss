@@ -4,6 +4,7 @@
     position: relative;
     border-radius: var(--bdrsDefault);
     overflow: hidden;
+    height: 12rem;
 
     &:hover {
         &:after {
@@ -12,6 +13,10 @@
 
         .product-card__info {
             opacity: 1;
+        }
+
+        .product-card__discount-tag {
+            background: var(--colorBg);
         }
     }
 
@@ -25,6 +30,23 @@
         transition: var(--transitionDefault);
         opacity: 0;
         z-index: 10;
+    }
+
+    &__discount-tag {
+        position: absolute;
+        background: var(--colorMain);
+        transition: var(--transitionDefault);
+        transform: rotate(45deg);
+        transform-origin: center;
+        top: 1rem;
+        right: -4rem;
+        display: grid;
+        place-items: center;
+        z-index: 1000;
+        width: 12rem;
+        padding-block: .125rem;
+        font-size: var(--fontSize3);
+        font-weight: 700;
     }
 
     &__bg {
@@ -55,9 +77,13 @@
         .info__heading {
             font-weight: 400;
             cursor: pointer;
-            text-decoration: underline;
             font-size: var(--fontSize2);
             color: var(--colorText);
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         button {

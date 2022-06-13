@@ -1,5 +1,6 @@
+// styles
 import './Search.scss'
-
+// global
 import { useState } from 'react'
 
 function Search() {

@@ -1,10 +1,12 @@
 .home-page {
+    $sizeScreenTablet: 800px;
     $headingGap: 1rem;
+
     position: relative;
     margin: 0 auto;
 
     header {
-        $headerHight: min(600px, 100vh);
+        $headerHight: min(700px, 100vh);
 
         position: relative;
         width: 100%;
@@ -55,8 +57,10 @@
             width: 100%;
 
             &__list {
+                $adHeight: 10rem;
+
                 display: grid;
-                grid-template-rows: 8rem 8rem;
+                grid-template-rows: $adHeight $adHeight;
                 grid-template-areas: "A A A A B B B C C"
                                     "D D D D D E E E E";
                 gap: 1rem;
@@ -101,31 +105,49 @@
             }
 
             &__list {
-                $cardHeight: 12rem;
-                
                 width: 100%;
                 display: grid;
-                grid-template-columns: repeat(3, minmax(15rem, 1fr)); // auto-fit
-                grid-template-rows: $cardHeight $cardHeight;
+                grid-template-columns: var(--gridTemplateColRec);
                 gap: 1rem;
+
+                @media screen and (max-width: $sizeScreenTablet) {
+                    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+                }
             }
         }
 
         .sale {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: $headingGap;
+
+            h2 {
+                color: var(--colorText);
+            }
 
             &__list {
-                li {
-                    
+                width: 100%;
+                display: grid;
+                grid-template-columns: var(--gridTemplateColSale);
+                gap: 1rem;
+
+                @media screen and (max-width: $sizeScreenTablet) {
+                    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
                 }
             }
         }
 
         .history {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: $headingGap;
 
-            &__list {
-                li {
-                    
-                }
+            h2 {
+                color: var(--colorText);
             }
         }
     }
