@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 from products.models import Product
@@ -11,6 +12,7 @@ class Customer(models.Model):
     email = models.EmailField("Email")
     phone = models.CharField("Phone", max_length=20)
     address = models.CharField("Address", max_length=255)
+    picture = models.ImageField('Profile Picture', upload_to='profilePictures/', null=True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
     def __str__(self):

@@ -14,19 +14,19 @@ function HomePage() {
       }
     },
     {
-      image: '/images/kros.png',
+      image: '/static/images/kros.png',
       product: {
         id: 2
       }
     },
     {
-      image: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       product: {
         id: 3
       }
     },
     {
-      image: '/images/kros.png',
+      image: '/static/images/kros.png',
       product: {
         id: 4
       }
@@ -38,7 +38,7 @@ function HomePage() {
       id: 1,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: true,
       inCartNumber: 1
     },
@@ -46,7 +46,7 @@ function HomePage() {
       id: 2,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: true,
       inCartNumber: 0
     },
@@ -54,7 +54,7 @@ function HomePage() {
       id: 3,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: false,
       inCartNumber: 1
     },
@@ -62,7 +62,7 @@ function HomePage() {
       id: 4,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: false,
       inCartNumber: 0
     },
@@ -70,7 +70,7 @@ function HomePage() {
       id: 5,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: true,
       inCartNumber: 1
     },
@@ -78,7 +78,7 @@ function HomePage() {
       id: 6,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: true,
       inCartNumber: 0
     }
@@ -89,7 +89,7 @@ function HomePage() {
       id: 1,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: true,
       inCartNumber: 1,
       discount: 100,
@@ -99,7 +99,7 @@ function HomePage() {
       id: 2,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: true,
       inCartNumber: 0,
       discount: 1,
@@ -109,7 +109,7 @@ function HomePage() {
       id: 3,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: false,
       inCartNumber: 1,
       discount: 50,
@@ -119,7 +119,7 @@ function HomePage() {
       id: 4,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: false,
       inCartNumber: 0,
       discount: 50,
@@ -129,7 +129,7 @@ function HomePage() {
       id: 5,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: true,
       inCartNumber: 1,
       discount: 50,
@@ -139,7 +139,7 @@ function HomePage() {
       id: 6,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: true,
       inCartNumber: 0,
       discount: 50,
@@ -152,7 +152,7 @@ function HomePage() {
       id: 1,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: true,
       inCartNumber: 1,
       discount: 100,
@@ -162,7 +162,7 @@ function HomePage() {
       id: 2,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: true,
       inCartNumber: 0,
       discount: 1,
@@ -172,7 +172,7 @@ function HomePage() {
       id: 3,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: false,
       inCartNumber: 1,
       discount: 50,
@@ -182,7 +182,7 @@ function HomePage() {
       id: 4,
       name: 'Roof Simpsons',
       price: '400000руб.',
-      thumbnail: '/images/kros.png',
+      thumbnail: '/static/images/kros.png',
       isFavourite: false,
       inCartNumber: 0,
       discount: 50,
@@ -192,12 +192,20 @@ function HomePage() {
       id: 5,
       name: 'Raf Simons',
       price: '40000руб.',
-      thumbnail: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       isFavourite: true,
       inCartNumber: 1,
       discount: 50,
       discountPrice: '20000руб.'
     },
+    {
+      id: 6,
+      name: 'Roof Simpsons',
+      price: '400000руб.',
+      thumbnail: '/static/images/kros.png',
+      isFavourite: true,
+      inCartNumber: 0
+    }
   ]
 
   return (

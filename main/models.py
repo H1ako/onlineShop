@@ -16,7 +16,7 @@ class Tag(models.Model):
 class Image(models.Model):
     name = models.CharField('Name', max_length=255)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField('Image', upload_to='productPictures/')
 
     def __str__(self):
         return self.image

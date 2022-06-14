@@ -8,12 +8,14 @@ import { Link } from 'react-router-dom';
 // components
 import Search from '../Search/Search';
 
+import logo from '../../static/images/logo.svg'
+
 function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar__inner">
         <Link to='/' title='Blue | Home Page'>
-          <img className='navbar__logo' src="/images/logo.svg" alt="" />
+          <img className='navbar__logo' src={logo} alt="" />
         </Link>
         <ul className='navbar__info'>
           <li>

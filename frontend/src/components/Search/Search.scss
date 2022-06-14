@@ -14,7 +14,7 @@
     }
 
     &::placeholder {
-        background: url('../../../public/images/search.svg') no-repeat;
+        background: url('../../static/images/search.svg') no-repeat;
         background-position: 1em center;
         background-size: $iconSize $iconSize;
         color: var(--colorText);
