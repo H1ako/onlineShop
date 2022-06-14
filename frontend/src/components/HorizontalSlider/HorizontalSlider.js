@@ -65,10 +65,14 @@ function HorizontalSlider({
       <ul className="horizontal-slider__pictures" style={{"--currentIndex": currentPictureId}}>
         {
           pictures.map(picture => (
-            <li key={picture.product?.id}>
-              <Link to={`/products/${picture.product?.id}`}>
-                <img src={picture.image} alt='' title='click to open product page' />
-              </Link>
+            <li key={picture.image}>
+              {withLinks ?
+                <Link to={`/products/${picture.product?.id}`}>
+                  <img src={picture.image} alt='' title='click to open product page' />
+                </Link>
+              :
+                <img src={picture.image} alt='' />
+              }
             </li>
           ))
         }

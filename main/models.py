@@ -14,7 +14,6 @@ class Tag(models.Model):
         return self.name
 
 class Image(models.Model):
-    name = models.CharField('Name', max_length=255)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField('Image', upload_to='productPictures/')
 
