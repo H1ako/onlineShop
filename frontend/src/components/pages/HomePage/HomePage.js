@@ -8,7 +8,7 @@ import ProductList from '../../ProductList/ProductList';
 function HomePage() {
   const pictures = [
     {
-      image: '/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
+      image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
       product: {
         id: 1
       }
