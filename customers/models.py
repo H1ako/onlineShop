@@ -1,22 +1,38 @@
-from email.policy import default
 from django.db import models
-
+from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.base_user import AbstractBaseUser
+from customers.managers import CustomerManager
+from django.utils.translation import gettext_lazy as _
 from products.models import Product
 
 # Create your models here.
 
-class Customer(models.Model):
+class Customer(AbstractBaseUser, PermissionsMixin):
     firstName = models.CharField("First name", max_length=50)
     lastName = models.CharField("Last name", max_length=50)
     password = models.CharField(max_length=100)
-    email = models.EmailField("Email")
-    phone = models.CharField("Phone", max_length=20)
-    address = models.CharField("Address", max_length=255)
-    picture = models.ImageField('Profile Picture', upload_to='profilePictures/', null=True)
+    email = models.EmailField("Email", unique=True)
+    phone = models.CharField("Phone", max_length=20, null=True, blank=True)
+    address = models.CharField("Address", max_length=255, null=True, blank=True)
+    picture = models.ImageField('Profile Picture', upload_to='profilePictures/', null=True, blank=True)
+    is_staff = models.BooleanField('Is Staff Member', default=False)
+    is_superuser = models.BooleanField('Is Admin', default=False)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['firstName', 'lastName', 'phone']
+
+    objects = CustomerManager()
+
+    class Meta:
+        verbose_name = _('Customer')
+        verbose_name_plural = _('Customers')
+
     def __str__(self):
-        return self.firstName
+        return self.email
+
+    def getFullName(self):
+        return f"{self.firstName} {self.lastName}"
 
 class Cart(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)

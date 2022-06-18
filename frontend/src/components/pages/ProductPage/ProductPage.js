@@ -2,7 +2,7 @@
 import './ProductPage.scss'
 // global
 import { useParams } from 'react-router-dom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // components
 import HorizontalSlider from '../../HorizontalSlider/HorizontalSlider';
 import ProductList from '../../ProductList/ProductList';
@@ -10,55 +10,26 @@ import ProductPrice from '../../ProductPrice/ProductPrice';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 function ProductPage() {
-    const { productId } = useParams()
-    const [ isScrolled, setIsScrolled ] = useState(false)
-    // const { productInfo, setProductInfo } = useState()
-    const productInfo = {
-        id: 1,
-        name: 'Raf Simons',
-        description: 'КРОССОВКИ FORUM LOW МОСКВА посвящены городу, который никогда не спит. Москва – это город, где круглосуточно кипит жизнь, здесь всегда доступен любой сервис и множество мест, где в любое время можно встретиться с друзьями.',
-        brand: 'addidas',
-        author: 'Artem Turkin',
-        price: '40000руб',
-        discount: 50,
-        discountPrice: '20000руб.',
-        thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-        isFavourite: true,
-        inCart: 1,
-        images: [
-            {
-              image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-            },
-            {
-              image: '/static/images/kros.png'
-            }
-        ],
-        tags: [
-            {
-              name: 'sport',
-              isMain: true,
-            },
-            {
-              name: 'addidas',
-              isMain: true,
-            },
-            {
-              name: 'fashion',
-              isMain: true,
-            },
-        ],
+  const { productId } = useParams()
+  const [ isScrolled, setIsScrolled ] = useState(false)
+  const [ productInfo, setProductInfo ] = useState({})
 
-    }
-
-    // const getProductInfo = async () => {
-    //     await fetch(`/api/products${productId}`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=utf-8',
-    //             'X-CSRF-Token': document.querySelector('meta[name="_token"]').getAttribute('content'),
-    //         }
-    //     })
-    // }
+  const getProductInfo = async () => {
+    await fetch(`/api/products/${productId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            // 'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        }
+    })
+    .then(data => data.json())
+    .then(data => {
+      if (data.product !== undefined) {
+        console.log(data.product)
+        setProductInfo(data.product)
+      }
+    })
+  }
 
   const pictures = [
     {
@@ -164,17 +135,22 @@ function ProductPage() {
     }
   }
 
+  useEffect(() => {
+    getProductInfo()
+    // setProductInfo(productData)
+  }, [])
+
   return (
     <div className="product-page" onWheel={scrollHandler}>
-      <HorizontalSlider pictures={productInfo.images} />
+      <HorizontalSlider pictures={productInfo.images ?? []} />
       <main>
         <div className="main-info">
           <h5 className='main-info__id'>{productInfo.id}</h5>
           <h4 className='main-info__author'>{productInfo.author}</h4>
           <h1 className='main-info__name'>{productInfo.name}</h1>
           <ul className="main-info__tags">
-              {productInfo.tags.map(tag => (
-                <li key={tag.name}>{tag.name}</li>
+              {productInfo.tags && productInfo.tags.map(tag => (
+                <li key={tag.id}>{tag.name}</li>
               ))}
           </ul>
         </div>

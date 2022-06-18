@@ -1,3 +1,5 @@
+// TODO: replace changing animation to other via CSSTransition
+
 // styles
 import './HorizontalSlider.scss'
 // icons
@@ -65,9 +67,9 @@ function HorizontalSlider({
       <ul className="horizontal-slider__pictures" style={{"--currentIndex": currentPictureId}}>
         {
           pictures.map(picture => (
-            <li key={picture.image}>
+            <li key={picture.id}>
               {withLinks ?
-                <Link to={`/products/${picture.product?.id}`}>
+                <Link to={`/products/${picture.product}`}>
                   <img src={picture.image} alt='' title='click to open product page' />
                 </Link>
               :
@@ -111,7 +113,7 @@ function HorizontalSlider({
         </div>          
       </div>
       {
-        isLightboxOpened &&
+        isLightboxOpened && pictures[currentPictureId] && 
         <Lightbox
           isChanging={isChanging}
           setIsChanging={setIsChanging}

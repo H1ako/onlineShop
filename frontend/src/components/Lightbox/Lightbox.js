@@ -37,7 +37,7 @@ function Lightbox({
                     <ChevronRightIcon className='btns__icon right-arrow' />
                 </button>
             }
-            <Link to={`/products/${currentPicture.product?.id}`} title='product page' >
+            <Link to={`/products/${currentPicture.product}`} title='product page' >
                 <ExternalLinkIcon className='btns__icon link' />
             </Link>
             <button onClick={closeLightbox} title='close window'>
