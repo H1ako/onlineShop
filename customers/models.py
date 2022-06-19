@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from customers.managers import CustomerManager
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from products.models import Product
 
@@ -73,9 +74,16 @@ class Favourite(models.Model):
         return self.product
 
 class ViewHistory(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(Customer, related_name='viewHistory', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='viewHistory', on_delete=models.DO_NOTHING)
+    viewedAt = models.DateTimeField("Viewed At", editable=True, auto_now_add=True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
     
     def __str__(self):
-        return self.product
+        return f"{self.customer} - {self.product}"
+    
+    def updateViewedAt(self):
+        if self.id:
+            self.viewedAt = timezone.now()
+        return super(ViewHistory, self).save()
+        

@@ -8,4 +8,6 @@ urlpatterns = [
     path('favourites', views.favourites),
     path('delivery', views.delivery),
     path('cart', views.cart),
+    path('view-history', views.ViewHistoryView.as_view()),
+    path('login', views.loginf)
 ]

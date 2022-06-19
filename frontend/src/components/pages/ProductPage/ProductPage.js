@@ -8,62 +8,16 @@ import HorizontalSlider from '../../HorizontalSlider/HorizontalSlider';
 import ProductList from '../../ProductList/ProductList';
 import ProductPrice from '../../ProductPrice/ProductPrice';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+// libs
+import { getProductData, getProducts } from '../../../libs/dataGetters';
 
 function ProductPage() {
   const { productId } = useParams()
   const [ isScrolled, setIsScrolled ] = useState(false)
-  const [ productInfo, setProductInfo ] = useState({})
-
-  const getProductInfo = async () => {
-    await fetch(`/api/products/${productId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            // 'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
-        }
-    })
-    .then(data => data.json())
-    .then(data => {
-      if (data.product !== undefined) {
-        setProductInfo(data.product)
-      }
-    })
-  }
+  const [ productData, setProductData ] = useState({})
+  const [ fromThisBrandList, setFromThisBrandList ] = useState([])
 
   const recommendationsList = [
-    {
-      id: 1,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: true,
-      inCartNumber: 1,
-      discount: 100,
-      discountPrice: '0руб.'
-    },
-    {
-      id: 2,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: true,
-      inCartNumber: 0,
-      discount: 1,
-      discountPrice: '394000руб.'
-    },
-    {
-      id: 3,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: false,
-      inCartNumber: 1,
-      discount: 50,
-      discountPrice: '20000руб.'
-    }
-  ]
-
-  const fromThisBrandList = [
     {
       id: 1,
       name: 'Raf Simons',
@@ -108,22 +62,26 @@ function ProductPage() {
   }
 
   useEffect(() => {
-    getProductInfo()
+    getProductData(productId)
+    .then(data => setProductData(data))
+
+    getProducts(3, [productData.brand])
+    .then(data => setFromThisBrandList(data))
     // eslint-disable-next-line
   }, [])
 
   return (
     <div className="product-page" onWheel={scrollHandler}>
-      {productInfo.images &&
-        <HorizontalSlider pictures={productInfo.images} />
+      {productData.images | productData.thumbnail &&
+        <HorizontalSlider pictures={productData.images ?? [{id: 'thumbnail', image: productData.thumbnail, product: productData.id}]} />
       }
       <main>
         <div className="main-info">
-          <h5 className='main-info__id'>{productInfo.id}</h5>
-          <h4 className='main-info__author'>{productInfo.author}</h4>
-          <h1 className='main-info__name'>{productInfo.name}</h1>
+          <h5 className='main-info__id'>{productData.id}</h5>
+          <h4 className='main-info__author'>{productData.author}</h4>
+          <h1 className='main-info__name'>{productData.name}</h1>
           <ul className="main-info__tags">
-              {productInfo.tags && productInfo.tags.map(tag => (
+              {productData.tags && productData.tags.map(tag => (
                 <li key={tag.id}>{tag.name}</li>
               ))}
           </ul>
@@ -138,7 +96,7 @@ function ProductPage() {
           {isScrolled ?
             <section className="additional-page">
               <p className="additional-page__description">
-                {productInfo.description}
+                {productData.description}
               </p>
               <div className="additional-page__recommendations">
                 <h3 className='recommendations__heading'>Maybe you'll like this</h3>
@@ -160,12 +118,12 @@ function ProductPage() {
                   Цвет модели: Core Black / Core Black / Carbon
               </p>          
               <ProductPrice
-              price={productInfo.price}
-              productId={productInfo.id}
-              isFavourite={productInfo.isFavourite}
-              inCart={productInfo.inCart}
-              discount={productInfo.discount}
-              discountPrice={productInfo.discountPrice}
+              price={productData.price}
+              productId={productData.id}
+              isFavourite={productData.isFavourite}
+              inCart={productData.inCart}
+              discount={productData.discount}
+              discountPrice={productData.discountPrice}
               />
             </section>
           }

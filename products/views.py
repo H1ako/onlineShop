@@ -2,19 +2,44 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
-from products.models import Product
+from customers.models import ViewHistory
+from products.models import Product, Tag
 
 from products.serializers import ProductSerializer
 
 # Create your views here.
 
-class ProductListView(ListAPIView):
-    serializer_class = ProductSerializer
-    queryset = Product.objects.all()[:6]
+class ProductListView(APIView):
+    def get(self, req):
+        tagsString = req.GET.get('tags', '')
+        amount = req.GET.get('amount', 40)
+        
+        if len(tagsString):
+            tagList = tagsString.split(',')
+
+            products = Product.objects.filter(tags__name=tagList[0])
+            for tag in tagList[1:]:
+                products = products.filter(tags__name=tag)
+        else:
+            products = Product.objects.all()
+        
+        if amount != 'all':
+            try:
+                products = products[:int(amount)]
+            except Exception:
+                pass
+        productsData = ProductSerializer(products, many=True).data
+        return Response({'products': productsData})
 
 class ProductView(APIView):
     def get(self, req, productId):
         product = Product.objects.get(id=productId)
         productData = ProductSerializer(product).data
+
+        if req.user:
+            viewHistory, created = ViewHistory.objects.get_or_create(customer=req.user, product=product)
+
+            if not created:
+                viewHistory.updateViewedAt()
         
         return Response({'product': productData})

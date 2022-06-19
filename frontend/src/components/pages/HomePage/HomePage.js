@@ -4,8 +4,15 @@ import './HomePage.scss'
 import HorizontalSlider from '../../HorizontalSlider/HorizontalSlider';
 import ProductCard from '../../ProductCard/ProductCard';
 import ProductList from '../../ProductList/ProductList';
+import { useState, useEffect } from 'react';
+import { getProducts, getViewHistory } from '../../../libs/dataGetters';
+import { login } from '../../../libs/dataPosters';
 
 function HomePage() {
+  const [ viewHistory, setViewHistory ] = useState([])
+  const [ saleProducts, setSaleProducts ] = useState([])
+  const [ recommendationList, setRecommendationList ] = useState([])
+
   const pictures = [
     {
       image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
@@ -33,180 +40,21 @@ function HomePage() {
     }
   ]
 
-  const recommendations = [
-    {
-      id: 1,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: true,
-      inCartNumber: 1
-    },
-    {
-      id: 2,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: true,
-      inCartNumber: 0
-    },
-    {
-      id: 3,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: false,
-      inCartNumber: 1
-    },
-    {
-      id: 4,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: false,
-      inCartNumber: 0
-    },
-    {
-      id: 5,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: true,
-      inCartNumber: 1
-    },
-    {
-      id: 6,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: true,
-      inCartNumber: 0
-    }
-  ]
+  useEffect(() => {
+    // for recommendations list
+    getProducts(6)
+    .then(data => setRecommendationList(data))
 
-  const saleList = [
-    {
-      id: 1,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: true,
-      inCartNumber: 1,
-      discount: 100,
-      discountPrice: '0руб.'
-    },
-    {
-      id: 2,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: true,
-      inCartNumber: 0,
-      discount: 1,
-      discountPrice: '394000руб.'
-    },
-    {
-      id: 3,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: false,
-      inCartNumber: 1,
-      discount: 50,
-      discountPrice: '20000руб.'
-    },
-    {
-      id: 4,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: false,
-      inCartNumber: 0,
-      discount: 50,
-      discountPrice: '20000руб.'
-    },
-    {
-      id: 5,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: true,
-      inCartNumber: 1,
-      discount: 50,
-      discountPrice: '20000руб.'
-    },
-    {
-      id: 6,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: true,
-      inCartNumber: 0,
-      discount: 50,
-      discountPrice: '20000руб.'
-    }
-  ]
+    // for sale list
+    getProducts(6, ['sale'])
+    .then(data => setSaleProducts(data))
+    
+    login()
 
-  const historyList = [
-    {
-      id: 1,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: true,
-      inCartNumber: 1,
-      discount: 100,
-      discountPrice: '0руб.'
-    },
-    {
-      id: 2,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: true,
-      inCartNumber: 0,
-      discount: 1,
-      discountPrice: '394000руб.'
-    },
-    {
-      id: 3,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: false,
-      inCartNumber: 1,
-      discount: 50,
-      discountPrice: '20000руб.'
-    },
-    {
-      id: 4,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: false,
-      inCartNumber: 0,
-      discount: 50,
-      discountPrice: '20000руб.'
-    },
-    {
-      id: 5,
-      name: 'Raf Simons',
-      price: '40000руб.',
-      thumbnail: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      isFavourite: true,
-      inCartNumber: 1,
-      discount: 50,
-      discountPrice: '20000руб.'
-    },
-    {
-      id: 6,
-      name: 'Roof Simpsons',
-      price: '400000руб.',
-      thumbnail: '/static/images/kros.png',
-      isFavourite: true,
-      inCartNumber: 0
-    }
-  ]
+    // for view history
+    getViewHistory()
+    .then(data => setViewHistory(data))
+  }, [])
 
   return (
     <div className="home-page">
@@ -226,7 +74,7 @@ function HomePage() {
         <section className='recommendations'>
           <h3>Maybe you'll like this</h3>
           <ul className='recommendations__list'>
-            {recommendations.map(recProduct => 
+            {recommendationList.map(recProduct => 
               <ProductCard
                 key={recProduct.id}
                 productId={recProduct.id}
@@ -244,7 +92,7 @@ function HomePage() {
         <section className="sale">
           <h3>Sale</h3>
           <ul className="sale__list">
-            {saleList.map(recProduct => 
+            {saleProducts.map(recProduct => 
               <ProductCard
                 key={recProduct.id}
                 productId={recProduct.id}
@@ -261,7 +109,7 @@ function HomePage() {
         </section>
         <section className="history">
           <h3>History</h3>
-          <ProductList products={historyList} />
+          <ProductList products={viewHistory} />
         </section>
       </main>
     </div>

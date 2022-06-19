@@ -23,17 +23,17 @@ function ProductCard({
       }
       <img className='product-card__bg' src={productImg} alt="" />
       <div className="product-card__info">
-          <Link className='info__heading' to={`/products/${productId}`}>
-              {productName}
-          </Link>
-          <ProductPrice
-            discount={productDiscount}
-            discountPrice={productDiscountPrice}
-            price={productPrice}
-            productId={productId}
-            isFavourite={productIsFavourite}
-            inCart={productInCartNumber}
-          />
+        <Link className='info__heading' to={`/products/${productId}`}>
+          {productName}
+        </Link>
+        <ProductPrice
+          discount={productDiscount}
+          discountPrice={productDiscountPrice}
+          price={productPrice}
+          productId={productId}
+          isFavourite={productIsFavourite}
+          inCart={productInCartNumber}
+        />
       </div>
     </li>
   );
