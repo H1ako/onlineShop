@@ -22,6 +22,7 @@ function HorizontalSlider({
 
   // creating a new picture changing interval
   const setChangingInterval = () => {
+    console.log(pictures)
     const interval = setInterval(() => {
       setCurrentPictureId(currentId => currentId === pictures.length - 1 ? 0 : currentId + 1)
     }, 3000)
@@ -113,7 +114,7 @@ function HorizontalSlider({
         </div>          
       </div>
       {
-        isLightboxOpened && pictures[currentPictureId] && 
+        isLightboxOpened && pictures[currentPictureId] !== undefined && 
         <Lightbox
           isChanging={isChanging}
           setIsChanging={setIsChanging}

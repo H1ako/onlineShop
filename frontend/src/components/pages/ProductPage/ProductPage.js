@@ -25,38 +25,10 @@ function ProductPage() {
     .then(data => data.json())
     .then(data => {
       if (data.product !== undefined) {
-        console.log(data.product)
         setProductInfo(data.product)
       }
     })
   }
-
-  const pictures = [
-    {
-      image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      product: {
-        id: 1
-      }
-    },
-    {
-      image: '/static/images/kros.png',
-      product: {
-        id: 2
-      }
-    },
-    {
-      image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      product: {
-        id: 3
-      }
-    },
-    {
-      image: '/static/images/kros.png',
-      product: {
-        id: 4
-      }
-    }
-  ]
 
   const recommendationsList = [
     {
@@ -137,12 +109,14 @@ function ProductPage() {
 
   useEffect(() => {
     getProductInfo()
-    // setProductInfo(productData)
+    // eslint-disable-next-line
   }, [])
 
   return (
     <div className="product-page" onWheel={scrollHandler}>
-      <HorizontalSlider pictures={productInfo.images ?? []} />
+      {productInfo.images &&
+        <HorizontalSlider pictures={productInfo.images} />
+      }
       <main>
         <div className="main-info">
           <h5 className='main-info__id'>{productInfo.id}</h5>
