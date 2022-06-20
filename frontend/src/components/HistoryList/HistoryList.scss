@@ -2,7 +2,9 @@
     $productSize: 10rem;
 
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(10rem, 1fr));
+    grid-template-rows: 10rem;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
@@ -10,7 +12,6 @@
 
     &__product {
         min-width: $productSize;
-        flex-grow: 1;
         position: relative;
         height: $productSize;
         overflow: hidden;

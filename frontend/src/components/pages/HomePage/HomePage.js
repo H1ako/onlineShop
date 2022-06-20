@@ -50,7 +50,7 @@ function HomePage() {
     login()
 
     // for view history
-    getViewHistory()
+    getViewHistory(6)
     .then(data => setViewHistory(data))
   }, [])
 
