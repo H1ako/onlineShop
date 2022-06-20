@@ -7,28 +7,38 @@ from products.models import Product, Tag
 
 from products.serializers import ProductSerializer
 
+import random
+
 # Create your views here.
 
 class ProductListView(APIView):
     def get(self, req):
         tagsString = req.GET.get('tags', '')
         amount = req.GET.get('amount', 40)
-        
+        isRandom = req.GET.get('random', False)
+
         if len(tagsString):
             tagList = tagsString.split(',')
 
-            products = Product.objects.filter(tags__name=tagList[0])
+            productList = list(Product.objects.filter(tags__name=tagList[0]))
             for tag in tagList[1:]:
-                products = products.filter(tags__name=tag)
+                productList = productList.filter(tags__name=tag)
         else:
-            products = Product.objects.all()
-        
+            productList = list(Product.objects.all())
+
         if amount != 'all':
             try:
-                products = products[:int(amount)]
+                if isRandom:
+                    random.sample(productList, int(amount))
+                else:
+                    productList = productList[:int(amount)]
+
             except Exception:
                 pass
-        productsData = ProductSerializer(products, many=True).data
+        else:
+            random.sample(productList, len(productList))
+
+        productsData = ProductSerializer(productList, many=True).data
         return Response({'products': productsData})
 
 class ProductView(APIView):

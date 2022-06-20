@@ -40,14 +40,13 @@ function HomePage() {
 
   useEffect(() => {
     // for recommendations list
-    getProducts(6)
+    getProducts(6, [], true)
     .then(data => setRecommendationList(data))
 
     // for sale list
-    getProducts(6, ['sale'])
+    getProducts(6, ['sale'], true)
     .then(data => setSaleProducts(data))
-    
-    login()
+    // login()
 
     // for view history
     getViewHistory(6)
