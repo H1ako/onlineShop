@@ -9,11 +9,11 @@
       name="description"
       content="Online shoe shop"
     />
-    <!-- {% csrf_token %} -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>BLUE | Online Shop</title>
   </head>
   <body>
+    <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>

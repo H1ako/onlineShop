@@ -18,19 +18,20 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if self.discountPrice == self.price:
-            if self.discount > 0:
-                self.discount = 0
-            try:
-                saleTag = Tag.objects.get(product=self, name='sale')
-                saleTag.delete()
-            except Exception: 
-                pass
-        else:
-            self.discount = 100 - round(self.discountPrice / self.price * 100)
+        if self.id:
+            if self.discountPrice == self.price:
+                if self.discount > 0:
+                    self.discount = 0
+                try:
+                    saleTag = Tag.objects.get(product=self, name='sale')
+                    saleTag.delete()
+                except Exception: 
+                    pass
+            else:
+                self.discount = 100 - round(self.discountPrice / self.price * 100)
 
-            if self.discount:
-                saleTag, exists = Tag.objects.get_or_create(product=self, name='sale')
+                if self.discount:
+                    saleTag, exists = Tag.objects.get_or_create(product=self, name='sale')
         
         super(Product, self).save(*args, **kwargs)
 

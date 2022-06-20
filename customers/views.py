@@ -1,3 +1,4 @@
+from django.http import HttpResponse, JsonResponse
 from customers.serializers import CustomerSerializer, ViewHistorySerializer
 from .models import Customer, Cart, Delivery, Notification, Favourite, ViewHistory, ViewHistory
 from products.models import Product
@@ -6,6 +7,8 @@ from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 class CustomerView(APIView):
@@ -17,7 +20,7 @@ class ViewHistoryView(APIView):
     def get(self, req):
         amount = req.GET.get('amount', 'all')
 
-        viewHistorySet = req.user.viewHistory.all()
+        viewHistorySet = req.user.viewHistory.all().order_by('-viewedAt')
 
         if amount != 'all':
             try:
@@ -65,8 +68,11 @@ def delivery():
 def cart():
     pass
 
+@csrf_exempt
 def loginf(req):
-    if req.method == 'GET':
+    if req.method == 'POST':
         customer = Customer.objects.get(email='nikita@yandex.ru')
         if customer is not None:
-            login(customer, req)
+            login(user=customer, request=req)
+
+        return JsonResponse({'isAuth': req.user.is_authenticated})

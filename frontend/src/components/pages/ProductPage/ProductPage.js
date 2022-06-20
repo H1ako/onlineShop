@@ -64,6 +64,7 @@ function ProductPage() {
   useEffect(() => {
     getProductData(productId)
     .then(data => setProductData(data))
+    
 
     getProducts(3, [productData.brand])
     .then(data => setFromThisBrandList(data))
@@ -72,8 +73,8 @@ function ProductPage() {
 
   return (
     <div className="product-page" onWheel={scrollHandler}>
-      {productData.images | productData.thumbnail &&
-        <HorizontalSlider pictures={productData.images ?? [{id: 'thumbnail', image: productData.thumbnail, product: productData.id}]} />
+      {productData.thumbnail &&
+        <HorizontalSlider pictures={productData.images.length ? productData.images : [{id: 'thumbnail', image: productData.thumbnail, product: productData.id}]} />
       }
       <main>
         <div className="main-info">

@@ -11,11 +11,16 @@ export async function updateViewHistory(productId) {
 
 export async function login() {
     const response = await fetch(`/api/customer/login`, {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
         },
     })
+
     const data = await response.json()
+
+    console.log(data)
+    
     return data
 }

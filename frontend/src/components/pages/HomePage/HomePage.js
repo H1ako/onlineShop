@@ -3,8 +3,10 @@ import './HomePage.scss'
 // components
 import HorizontalSlider from '../../HorizontalSlider/HorizontalSlider';
 import ProductCard from '../../ProductCard/ProductCard';
-import ProductList from '../../ProductList/ProductList';
+import HistoryList from '../../HistoryList/HistoryList';
+// global
 import { useState, useEffect } from 'react';
+// libs
 import { getProducts, getViewHistory } from '../../../libs/dataGetters';
 import { login } from '../../../libs/dataPosters';
 
@@ -15,28 +17,24 @@ function HomePage() {
 
   const pictures = [
     {
+      id: 1,
       image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      product: {
-        id: 1
-      }
+      product: 1
     },
     {
+      id: 2,
       image: '/static/images/kros.png',
-      product: {
-        id: 2
-      }
+      product: 2
     },
     {
+      id: 3,
       image: '/static/images/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg',
-      product: {
-        id: 3
-      }
+      product: 3
     },
     {
+      id: 4,
       image: '/static/images/kros.png',
-      product: {
-        id: 4
-      }
+      product: 4
     }
   ]
 
@@ -109,7 +107,7 @@ function HomePage() {
         </section>
         <section className="history">
           <h3>History</h3>
-          <ProductList products={viewHistory} />
+          <HistoryList histories={viewHistory} />
         </section>
       </main>
     </div>
