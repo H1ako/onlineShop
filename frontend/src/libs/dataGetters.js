@@ -33,7 +33,7 @@ export async function getProducts(amount='all', tags=[], isRandom=false) {
         }
     })
     const data = await response.json()
-    console.log(data)
+    console.log(`/api/products/?amount=${amount}&tags=${tagsString}${isRandom && '&random'}`)
 
     return data.products
 }

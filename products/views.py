@@ -14,7 +14,7 @@ import random
 class ProductListView(APIView):
     def get(self, req):
         tagsString = req.GET.get('tags', '')
-        amount = req.GET.get('amount', 40)
+        amount = req.GET.get('amount', 'all')
         isRandom = req.GET.get('random', False)
 
         if len(tagsString):
@@ -28,15 +28,15 @@ class ProductListView(APIView):
 
         if amount != 'all':
             try:
-                if isRandom:
-                    random.sample(productList, int(amount))
+                if isRandom != False:
+                    productList = random.sample(productList, int(amount))
                 else:
                     productList = productList[:int(amount)]
 
             except Exception:
                 pass
         else:
-            random.sample(productList, len(productList))
+            productList = random.sample(productList, len(productList))
 
         productsData = ProductSerializer(productList, many=True).data
         return Response({'products': productsData})
