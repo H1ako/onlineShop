@@ -98,14 +98,18 @@ function ProductPage() {
               <p className="additional-page__description">
                 {productData.description}
               </p>
-              <div className="additional-page__recommendations">
-                <h3 className='recommendations__heading'>Maybe you'll like this</h3>
-                <ProductList products={recommendationsList} />
-              </div>
-              <div className="additional-page__brand-similarities">
-                <h3 className='brand-similarities__heading'>From this brand</h3>
-                <ProductList products={fromThisBrandList} />
-              </div>
+              {recommendationsList.length &&
+                <div className="additional-page__recommendations">
+                  <h3 className='recommendations__heading'>Maybe you'll like this</h3>
+                  <ProductList products={recommendationsList} />
+                </div>
+              }
+              {fromThisBrandList.length &&
+                <div className="additional-page__brand-similarities">
+                  <h3 className='brand-similarities__heading'>From this brand</h3>
+                  <ProductList products={fromThisBrandList} />
+                </div>
+              }
             </section>
           :
             <section className="main-page">

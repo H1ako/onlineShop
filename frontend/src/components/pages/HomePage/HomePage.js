@@ -8,7 +8,6 @@ import HistoryList from '../../HistoryList/HistoryList';
 import { useState, useEffect } from 'react';
 // libs
 import { getProducts, getViewHistory } from '../../../libs/dataGetters';
-import { login } from '../../../libs/dataPosters';
 
 function HomePage() {
   const [ viewHistory, setViewHistory ] = useState([])
@@ -46,7 +45,6 @@ function HomePage() {
     // for sale list
     getProducts(6, ['sale'], true)
     .then(data => setSaleProducts(data))
-    // login()
 
     // for view history
     getViewHistory(6)
