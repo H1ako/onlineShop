@@ -1,5 +1,7 @@
 // styles
 import './ProductPage.scss'
+// icons
+import ScrollDown from '../../../static/images/scroll_down.svg'
 // global
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
@@ -72,6 +74,7 @@ function ProductPage() {
 
   return (
     <div className="product-page" onWheel={scrollHandler}>
+      <img src={ScrollDown} alt="" className='scroll-down'/>
       {productData.thumbnail &&
         <HorizontalSlider pictures={productData.images.length ? productData.images : [{id: 'thumbnail', image: productData.thumbnail, product: productData.id}]} />
       }

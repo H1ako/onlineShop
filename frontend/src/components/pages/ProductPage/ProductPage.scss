@@ -4,6 +4,17 @@
     height: 100vh;
     overflow: hidden;
 
+    .scroll-down {
+        position: fixed;
+        pointer-events: none;
+        user-select: none;
+        width: 4rem;
+        bottom: 2.5vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+    }
+
     .horizontal-slider {
         $sliderHeight: 100vh;
 

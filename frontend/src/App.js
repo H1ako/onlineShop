@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import HelpPage from "./components/pages/HelpPage/HelpPage";
 import HomePage from "./components/pages/HomePage/HomePage";
 import ProductPage from "./components/pages/ProductPage/ProductPage";
-import ProductsPage from "./components/pages/ProductsPage/ProductPage";
+import ProductsPage from "./components/pages/ProductsPage/ProductsPage";
 
 function App() {
   return (
