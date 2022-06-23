@@ -5,4 +5,5 @@ from .models import *
 
 admin.site.register(Product)
 admin.site.register(Tag)
+admin.site.register(TagCategory)
 admin.site.register(Image)

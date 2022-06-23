@@ -33,9 +33,20 @@ export async function getProducts(amount='all', tags=[], isRandom=false) {
         }
     })
     const data = await response.json()
-    console.log(`/api/products/?amount=${amount}&tags=${tagsString}${isRandom && '&random'}`)
 
     return data.products
+}
+
+export async function getCategories() {
+    const response = await fetch(`/api/products/categories`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        }
+    })
+    const data = await response.json()
+
+    return data.categories
 }
 
 export async function getCustomerData() {

@@ -1,11 +1,9 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from customers.models import ViewHistory
-from products.models import Product, Tag
+from products.models import Product, TagCategory
 
-from products.serializers import ProductSerializer
+from products.serializers import ProductSerializer, TagCategorySerializer
 
 import random
 
@@ -53,3 +51,9 @@ class ProductView(APIView):
                 viewHistory.updateViewedAt()
         
         return Response({'product': productData})
+
+class CategoryView(APIView):
+    def get(self, req):
+        categories = TagCategory.objects.all()
+        categoriesData = TagCategorySerializer(categories, many=True).data
+        return Response({'categories': categoriesData})
