@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 // components
 import ProductList from '../../ProductList/ProductList';
 import HistoryList from '../../HistoryList/HistoryList';
-import ProductPrice from '../../ProductPrice/ProductPrice';
+import CatalogProductCard from '../../CatalogProductCard/CatalogProductCard';
 // libs
 import { getCategories, getProducts, getViewHistory } from '../../../libs/dataGetters';
 
@@ -18,8 +18,11 @@ function ProductsPage() {
 
 
   useEffect(() => {
-    getProducts('all', tags)
-    .then(data => setProducts(data))
+    getProducts('all', tags, false)
+    .then(data => {
+      console.log(data)
+      setProducts(data)
+    })
 
     getViewHistory()
     .then(data => setHistories(data))
@@ -29,12 +32,12 @@ function ProductsPage() {
   }, [tags])
   return (
     <div className="products-page">
-      <header></header>
       <aside>
+        <h3>Tags</h3>
         <div className="categories">
           {categories.map(category => 
             <ul className='categories__category'>
-              <h1>{category.name}</h1>
+              <h4 className='category__name'>{category.name}</h4>
               {category?.tags.map(tag =>
                 <li className='category__tag'>{tag.name}</li>  
               )}
@@ -42,8 +45,34 @@ function ProductsPage() {
           )}
         </div>
       </aside>
-      <main></main>
+      <main>
+        <h4 className='current-tags'>Current tags: {tags.join(', ')}</h4>
+        <section className="products">
+          <ul className="products__list">
+            {products.map(product => 
+              <CatalogProductCard key={product.id} product={product} />  
+            )}
+            
+          </ul>
+        </section>
+        <section className="pages">
+          <ul className="pages__list">
+            <li className="page__prev">prev</li>
+            <li className="list__page">
+              1
+            </li>
+            <li className="list__page">
+              2
+            </li>
+            <li className="list__page">
+              3
+            </li>
+            <li className="page__next">next</li>
+          </ul>
+        </section>
+      </main>
       <footer>
+        <h3>History</h3>
         <HistoryList histories={histories} />
       </footer>
     </div>

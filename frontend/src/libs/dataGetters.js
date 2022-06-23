@@ -26,7 +26,7 @@ export async function getProductData(productId) {
 export async function getProducts(amount='all', tags=[], isRandom=false) {
     const tagsString = await tags.join(',')
 
-    const response = await fetch(`/api/products/?amount=${amount}&tags=${tagsString}${isRandom && '&random'}`, {
+    const response = await fetch(`/api/products/${amount ? `?amount=${amount}` : ''}${tagsString ? `&tags=${tagsString}` : ''}${isRandom ? '&random' : ''}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',

@@ -1,0 +1,32 @@
+.catalog-product-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--colorGray);
+    border-radius: var(--bdrsDefault);
+    display: flex;
+    flex-direction: column;
+
+    &__image {
+        width: 100%;
+        height: 12rem;
+        object-fit: cover;
+        border-radius: var(--bdrsDefault) var(--bdrsDefault) 0 0;
+    }
+
+    &__content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: .5rem .75rem;
+
+        .content__name {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            padding-block: 1rem;
+        }
+
+        .product-price {
+        }
+    }
+}
