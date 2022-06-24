@@ -39,19 +39,20 @@ class Product(models.Model):
     discount = models.IntegerField('Discount', null=True, blank=True, default=0)
     discountPrice = models.PositiveIntegerField('Price with Discount', null=True, blank=True)
     color = models.CharField('Color', max_length=50, null=True, blank=True)
-    tags = models.ManyToManyField(Tag, related_name='products')
+    tags = models.ManyToManyField(Tag, related_name='products', blank=True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
     def __str__(self):
         return self.name
 
     def updateTags(self):
+        prevProduct = Product.objects.get(id=self.id)
+        self.updateTag()
         # categories
         authorCategory, created = TagCategory.objects.get_or_create(name='author')
         colorCategory, created = TagCategory.objects.get_or_create(name='color')
         brandCategory, created = TagCategory.objects.get_or_create(name='brand')
         # tags
-        
         authorTag, created = Tag.objects.get_or_create(name=self.author.lower(), category=authorCategory)
         colorTag, created = Tag.objects.get_or_create(name=self.color.lower(), category=colorCategory)
         brandTag, created = Tag.objects.get_or_create(name=self.brand.lower(), category=brandCategory, isMain=True)
@@ -64,7 +65,7 @@ class Product(models.Model):
         self.tags.add(authorTag, colorTag, brandTag)
 
     def updateTag(self, prevTagName, tagName, categoryName):
-        prevTag = Tag.objects.filter(name=prevTagName.lower()).first()
+        prevTag = Tag.objects.filter(name=prevTagName.lower(), category__name=categoryName.lower()).first()
         if prevTag:
             self.tags.remove(prevTag)
 
@@ -72,20 +73,22 @@ class Product(models.Model):
         tag, created = Tag.objects.get_or_create(name=tagName.lower(), category=tagCategory)
         self.tags.add(tag)
         
-        
     def save(self, *args, **kwargs):
         if self.id:
             prevProduct = Product.objects.get(id=self.id)
 
             if self.price != prevProduct.price or self.discountPrice != prevProduct.discountPrice:
+
                 if self.discountPrice == self.price:
                     self.discount = 0
                     
-                    saleTag = Tag.objects.filter(name='sale').first()
+                    priceCategory, created = TagCategory.objects.get_or_create(name='price')
+                    saleTag = Tag.objects.filter(name='sale', category=priceCategory).first()
                     if saleTag:
                         self.tags.remove(saleTag)
                     
                 else:
+                    self.discount = 100 - round(self.discountPrice / self.price* 100)
                     priceCategory, created = TagCategory.objects.get_or_create(name='price')
                     saleTag, created = Tag.objects.get_or_create(name='sale', category=priceCategory, isMain=True)
                     self.tags.add(saleTag)

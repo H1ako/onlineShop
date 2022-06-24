@@ -16,16 +16,35 @@ class ProductListView(APIView):
         isRandom = req.GET.get('random', False)
         searchQuery = req.GET.get('searchQuery', '')
 
+        def getTagsDictFromStr(tagsString):
+            rawTagDict = list(e.split(' : ') for e in tagsString.split(','))
+            tagDict = {}
+
+            for categoryAndTag in rawTagDict:
+                category = categoryAndTag[0]
+                tag = categoryAndTag[1]
+
+                if category in tagDict.keys():
+                    tagDict[category].append(tag)
+                else:
+                    tagDict[category] = [tag]
+
+            # e.g. [{'price': ['sale']}]
+            return tagDict
+
         if len(tagsString):
-            tagList = tagsString.split(',')
-            categoriesList = list(TagCategory.objects.filter(tags__name__in=tagList).distinct())
+            tagDict = getTagsDictFromStr(tagsString)
 
-            firstCategoryAskedTagsNames = categoriesList[0].tags.filter(name__in=tagList).values_list('name', flat=True)
-            productList = Product.objects.filter(tags__name__in=firstCategoryAskedTagsNames)
+            # e.g. [{'price': ['sale']}] -----> [['price', ['sale']]]
+            # for slicing in the loop
+            categoryAndTagsList = list(tagDict.items())
+            
+            tagsIds = Tag.objects.filter(category__name=categoryAndTagsList[0][0], name__in=categoryAndTagsList[0][1]).values_list('id', flat=True)
+            productList = Product.objects.filter(tags__id__in=tagsIds)
 
-            for category in categoriesList[1:]:
-                categoryAskedTagsNames = category.tags.filter(name__in=tagList).values_list('name', flat=True)
-                productList = productList.filter(tags__name__in=categoryAskedTagsNames)
+            for category, tags in categoryAndTagsList[1:]:
+                tagsIds = Tag.objects.filter(category__name=category, name__in=tags).values_list('id', flat=True)
+                productList = productList.filter(tags__id__in=tagsIds)
         else:
             productList = list(Product.objects.all())
 

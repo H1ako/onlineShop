@@ -51,12 +51,11 @@ function ProductsPage() {
               <h3 className='category__name'>{category.name}</h3>
               {category?.tags.map(tag =>
                 <li className='category__tag'>
-                  <input value={tag.name} type="checkbox" className='tag__input' id={`tag-checkbox-${tag.id}`} onChange={checkboxHandle} />
+                  <input value={`${category.name} : ${tag.name}`} type="checkbox" className='tag__input' id={`tag-checkbox-${tag.id}`} onChange={checkboxHandle} />
                   <label htmlFor={`tag-checkbox-${tag.id}`} className='tag__label'>
                     <div className="label__checkbox" />
                     <span className="label__name">{tag.name}</span>
                   </label>
-                  
                 </li>  
               )}
             </ul>
