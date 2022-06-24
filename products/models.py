@@ -46,8 +46,6 @@ class Product(models.Model):
         return self.name
 
     def updateTags(self):
-        prevProduct = Product.objects.get(id=self.id)
-        self.updateTag()
         # categories
         authorCategory, created = TagCategory.objects.get_or_create(name='author')
         colorCategory, created = TagCategory.objects.get_or_create(name='color')
@@ -78,6 +76,7 @@ class Product(models.Model):
             prevProduct = Product.objects.get(id=self.id)
 
             if self.price != prevProduct.price or self.discountPrice != prevProduct.discountPrice:
+                
 
                 if self.discountPrice == self.price:
                     self.discount = 0
