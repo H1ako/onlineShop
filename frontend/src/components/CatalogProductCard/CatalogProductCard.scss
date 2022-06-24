@@ -24,9 +24,22 @@
             display: flex;
             align-items: center;
             padding-block: 1rem;
+            text-decoration: none;
+            color: var(--colorText);
+            font-size: var(--fontSize3);
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         .product-price {
+            // width: 100%;
+            // justify-content: space-between;
+
+            &__btn {
+                height: 5rem;
+            }
         }
     }
 }

@@ -13,28 +13,77 @@
             "F F F F F F";
 
     aside {
+        position: sticky;
+        top: $marginTop;
         width: 17.5rem;
         grid-area: A;
         border-radius: var(--bdrsDefault);
         padding: .85rem 1.25rem;
-        position: relative;
         background: var(--colorGray);
         height: max-content;
 
-        h3 {
+        .heading {
 
         }
 
         .categories {
 
             &__category {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
                 
                 .category__name {
-
+                    text-transform: capitalize;
                 }
 
                 .category__tag {
+                    margin-left: 0.5rem;
+                    
+                    .tag__input {
+                        display: none;
 
+                        &:checked ~ .tag__label .label__checkbox {
+                            
+                            &::after {
+                                left: calc(90% - 1rem);
+                                background: var(--colorMain);
+                            }
+                        }
+                    }
+
+                    .tag__label {
+                        cursor: pointer;
+                        display: flex;
+                        width: max-content;
+                        gap: .5rem;
+                        align-items: center;
+
+                        .label__checkbox {
+                            position: relative;
+                            background: var(--colorBg);
+                            width: 2.5rem;
+                            height: 1.5rem;
+                            border-radius: var(--bdrsDefault);
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                width: 1rem;
+                                height: 1rem;
+                                border-radius: 50%;
+                                top: .25rem;
+                                left: 10%;
+                                background: var(--colorGrayLight);
+                                transition: var(--transitionDefault);
+                            }
+                        }
+
+                        .label__name {
+                            text-transform: capitalize;
+                            font-size: var(--fontSize4);
+                        }
+                    }
                 }
             }
         }

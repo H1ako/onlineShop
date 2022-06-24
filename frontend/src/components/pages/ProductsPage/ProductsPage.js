@@ -15,12 +15,22 @@ function ProductsPage() {
   const [ tags, setTags ] = useState([])
   const [ histories, setHistories ] = useState([])
   const [ categories, setCategories ] = useState([])
+  
+  const checkboxHandle = (e) => {
+    const tagName = e.target.value
 
+    if (tags.includes(tagName)) {
+      const newTags = tags.filter(tag => tag !== tagName)
+      setTags(newTags)
+    }
+    else {
+      setTags([tagName, ...tags])
+    }
+  }
 
   useEffect(() => {
     getProducts('all', tags, false)
     .then(data => {
-      console.log(data)
       setProducts(data)
     })
 
@@ -30,16 +40,24 @@ function ProductsPage() {
     getCategories()
     .then(data => setCategories(data))
   }, [tags])
+
   return (
     <div className="products-page">
       <aside>
-        <h3>Tags</h3>
+        <h2 className='heading'>Tags</h2>
         <div className="categories">
           {categories.map(category => 
             <ul className='categories__category'>
-              <h4 className='category__name'>{category.name}</h4>
+              <h3 className='category__name'>{category.name}</h3>
               {category?.tags.map(tag =>
-                <li className='category__tag'>{tag.name}</li>  
+                <li className='category__tag'>
+                  <input value={tag.name} type="checkbox" className='tag__input' id={`tag-checkbox-${tag.id}`} onChange={checkboxHandle} />
+                  <label htmlFor={`tag-checkbox-${tag.id}`} className='tag__label'>
+                    <div className="label__checkbox" />
+                    <span className="label__name">{tag.name}</span>
+                  </label>
+                  
+                </li>  
               )}
             </ul>
           )}

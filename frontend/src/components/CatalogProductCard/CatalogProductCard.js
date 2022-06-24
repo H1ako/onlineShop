@@ -7,9 +7,11 @@ function CatalogProductCard({product}) {
 
   return (
     <li className="catalog-product-card">
-      <img src={product.thumbnail} alt="" className="catalog-product-card__image" />
+      <a href={`/products/${product.id}`} >
+        <img src={product.thumbnail} alt="" className="catalog-product-card__image" />
+      </a>
       <div className="catalog-product-card__content">
-        <h3 className="content__name">{product.name}</h3>
+        <a href={`/products/${product.id}`} className="content__name">{product.name}</a>
         <ProductPrice price={product.price} discountPrice={product.discountPrice} discount={product.discount} />
       </div>
     </li>
