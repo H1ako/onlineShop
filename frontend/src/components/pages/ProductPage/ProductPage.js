@@ -67,7 +67,7 @@ function ProductPage() {
     getProductData(productId)
     .then(data => setProductData(data))
 
-    getProducts(3, [productData.brand], true)
+    getProducts(3, [`brand : ${productData.brand}`], true)
     .then(data => setFromThisBrandList(data))
     // eslint-disable-next-line
   }, [])

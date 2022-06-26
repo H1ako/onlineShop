@@ -54,7 +54,7 @@ class ProductListView(APIView):
         else:
             try:
                 if isRandom:
-                    productList = random.sample(productList, int(amount))
+                    productList = random.sample(productList, min(int(amount), len(productList)))
                 else:
                     productList = productList[:int(amount)]
             except Exception:

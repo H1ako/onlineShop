@@ -1,20 +1,24 @@
 // styles
 import './ProductsPage.scss'
 // global
-import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 // components
-import ProductList from '../../ProductList/ProductList';
 import HistoryList from '../../HistoryList/HistoryList';
 import CatalogProductCard from '../../CatalogProductCard/CatalogProductCard';
 // libs
 import { getCategories, getProducts, getViewHistory } from '../../../libs/dataGetters';
+// store
+import { updateQuery, updateQueryFromUrl, useSearch } from '../../../store/slices';
+
 
 function ProductsPage() {
   const [ products, setProducts ] = useState([])
   const [ tags, setTags ] = useState([])
   const [ histories, setHistories ] = useState([])
   const [ categories, setCategories ] = useState([])
+  const { searchQuery } = useSearch()
+  const dispatch = useDispatch()
   
   const checkboxHandle = (e) => {
     const tagName = e.target.value
@@ -41,16 +45,24 @@ function ProductsPage() {
     .then(data => setCategories(data))
   }, [tags])
 
+  useEffect(() => {
+    dispatch(updateQueryFromUrl())
+  }, [])
+
+  useEffect(() => {
+    console.log(searchQuery)
+  }, [searchQuery])
+
   return (
     <div className="products-page">
       <aside>
         <h2 className='heading'>Tags</h2>
         <div className="categories">
           {categories.map(category => 
-            <ul className='categories__category'>
+            <ul key={category.id} className='categories__category'>
               <h3 className='category__name'>{category.name}</h3>
               {category?.tags.map(tag =>
-                <li className='category__tag'>
+                <li key={tag.id} className='category__tag'>
                   <input value={`${category.name} : ${tag.name}`} type="checkbox" className='tag__input' id={`tag-checkbox-${tag.id}`} onChange={checkboxHandle} />
                   <label htmlFor={`tag-checkbox-${tag.id}`} className='tag__label'>
                     <div className="label__checkbox" />

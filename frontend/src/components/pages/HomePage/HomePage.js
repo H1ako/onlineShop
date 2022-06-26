@@ -43,7 +43,7 @@ function HomePage() {
     .then(data => setRecommendationList(data))
 
     // for sale list
-    getProducts(6, ['sale'], true)
+    getProducts(6, ['price : sale'], true)
     .then(data => setSaleProducts(data))
 
     // for view history
