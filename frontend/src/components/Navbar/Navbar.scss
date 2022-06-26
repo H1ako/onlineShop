@@ -45,10 +45,12 @@
 
         li {
             position: relative;
-            button {
+            .info__button {
                 display: flex;
                 align-items: center;
                 gap: $gapText;
+                text-decoration: none;
+                color: var(--colorText);
                 transition: var(--transitionDefault);
                 font-size: var(--fontSize4);
             }

@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { searchReducer } from './slices';
+import { searchReducer } from './slices/searchSlice'
+import { productsReducer } from './slices/productsSlice';
 
 export const store = configureStore({
-    reducer: { searchReducer },
+    reducer: { searchReducer, productsReducer },
     devTools: process.env.STATE !== 'production'
 })

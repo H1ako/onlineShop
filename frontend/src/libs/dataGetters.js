@@ -23,15 +23,17 @@ export async function getProductData(productId) {
     return data.product
 }
 
-export async function getProducts(amount='all', tags=[], isRandom=false) {
-    const tagsString = await tags.join(',')
+export async function getProducts(amount='all', tags=[], isRandom=false, searchQuery='') {
+    const tagsString = tags.join(',')
+    const url = `/api/products/${amount ? `?amount=${amount}` : ''}${tagsString ? `&tags=${tagsString}` : ''}${isRandom ? '&random' : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}`
 
-    const response = await fetch(`/api/products/${amount ? `?amount=${amount}` : ''}${tagsString ? `&tags=${tagsString}` : ''}${isRandom ? '&random' : ''}`, {
+    const response = await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         }
     })
+    console.log(url)
     const data = await response.json()
 
     return data.products

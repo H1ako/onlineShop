@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from customers.models import ViewHistory
 from products.models import Product, Tag, TagCategory
+from django.db.models import Q
 
 from products.serializers import ProductSerializer, TagCategorySerializer
 
@@ -46,7 +47,14 @@ class ProductListView(APIView):
                 tagsIds = Tag.objects.filter(category__name=category, name__in=tags).values_list('id', flat=True)
                 productList = productList.filter(tags__id__in=tagsIds)
         else:
-            productList = list(Product.objects.all())
+            productList = Product.objects.all()
+
+        if len(searchQuery):
+            inName = Q(name__icontains=searchQuery)
+            inCategorysName = Q(tags__category__name__icontains=searchQuery)
+            inDesc = Q(description__icontains=searchQuery)
+            inTagsName = Q(tags__name__icontains=searchQuery)
+            productList = list(productList.filter(inName | inDesc | inTagsName | inCategorysName).distinct())
 
         if amount == 'all':
             if isRandom:

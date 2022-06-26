@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { getUrlParam } from "../libs/helpers";
+import { getUrlParam } from "../../libs/helpers";
 
 const searchSlice = createSlice({
     name: 'search',

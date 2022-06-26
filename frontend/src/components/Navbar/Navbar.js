@@ -19,13 +19,13 @@ function Navbar() {
         </Link>
         <ul className='navbar__info'>
           <li>
-            <button title='categories'>
+            <Link className='info__button' to="/products/" title='categories'>
               <ViewListIcon className='navbar__icon' />
               Categories
-            </button>
+            </Link>
           </li>
           <li title='information about us'>
-            <button>
+            <button className='info__button'>
               <InformationCircleIcon className='navbar__icon' />
               Help
             </button>

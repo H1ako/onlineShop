@@ -9,11 +9,12 @@ import CatalogProductCard from '../../CatalogProductCard/CatalogProductCard';
 // libs
 import { getCategories, getProducts, getViewHistory } from '../../../libs/dataGetters';
 // store
-import { updateQuery, updateQueryFromUrl, useSearch } from '../../../store/slices';
+import { updateQueryFromUrl, useSearch } from '../../../store/slices/searchSlice';
+import { updateProducts, useProducts } from '../../../store/slices/productsSlice';
 
 
 function ProductsPage() {
-  const [ products, setProducts ] = useState([])
+  const { products } = useProducts()
   const [ tags, setTags ] = useState([])
   const [ histories, setHistories ] = useState([])
   const [ categories, setCategories ] = useState([])
@@ -33,9 +34,9 @@ function ProductsPage() {
   }
 
   useEffect(() => {
-    getProducts('all', tags, false)
+    getProducts('all', tags, false, searchQuery)
     .then(data => {
-      setProducts(data)
+      dispatch(updateProducts({products: data}))
     })
 
     getViewHistory()
@@ -48,10 +49,6 @@ function ProductsPage() {
   useEffect(() => {
     dispatch(updateQueryFromUrl())
   }, [])
-
-  useEffect(() => {
-    console.log(searchQuery)
-  }, [searchQuery])
 
   return (
     <div className="products-page">
