@@ -1,3 +1,4 @@
+import re
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from customers.models import ViewHistory
@@ -50,11 +51,17 @@ class ProductListView(APIView):
             productList = Product.objects.all()
 
         if len(searchQuery):
-            inName = Q(name__icontains=searchQuery)
-            inCategorysName = Q(tags__category__name__icontains=searchQuery)
-            inDesc = Q(description__icontains=searchQuery)
+            searchQuerySeparated = re.split(r'\W+', searchQuery)
+
             inTagsName = Q(tags__name__icontains=searchQuery)
-            productList = list(productList.filter(inName | inDesc | inTagsName | inCategorysName).distinct())
+            inName = Q()
+            inDesc = Q()
+            for queryWord in searchQuerySeparated:
+                inName |= Q(name__icontains=queryWord)
+                inDesc |= Q(description__icontains=queryWord)
+
+            productList = list(productList.filter(inName | inDesc | inTagsName).distinct())
+
 
         if amount == 'all':
             if isRandom:
