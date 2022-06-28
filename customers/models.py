@@ -78,6 +78,9 @@ class ViewHistory(models.Model):
     product = models.ForeignKey(Product, related_name='viewHistory', on_delete=models.DO_NOTHING)
     viewedAt = models.DateTimeField("Viewed At", editable=True, auto_now_add=True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
+
+    class Meta:
+        unique_together = ('customer', 'product')
     
     def __str__(self):
         return f"{self.customer} - {self.product}"

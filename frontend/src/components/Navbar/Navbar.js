@@ -1,16 +1,33 @@
 // styles
 import './Navbar.scss'
 // icons
-import { TruckIcon, LocationMarkerIcon, ShoppingBagIcon, HeartIcon, BellIcon } from '@heroicons/react/solid'
-import { InformationCircleIcon, ViewListIcon } from '@heroicons/react/outline'
+import { TruckIcon, LocationMarkerIcon, ShoppingBagIcon, HeartIcon, BellIcon, CogIcon } from '@heroicons/react/solid'
+import { InformationCircleIcon, ViewListIcon, LogoutIcon } from '@heroicons/react/outline'
+import logo from '../../static/images/logo.svg'
 // global
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 // components
 import Search from '../Search/Search';
+// libs
+import { getCustomerData } from '../../libs/dataGetters';
+// store
+import { updateCustomer, useCustomer } from '../../store/slices/customerSlice';
 
-import logo from '../../static/images/logo.svg'
 
 function Navbar() {
+  const dispatch = useDispatch()
+  const { customer } = useCustomer()
+
+  useEffect(() => {
+    getCustomerData()
+    .then(data => {
+      console.log(data)
+      dispatch(updateCustomer({customer: data}))
+    })
+  }, [])
+
   return (
     <div className="navbar">
       <div className="navbar__inner">
@@ -33,7 +50,7 @@ function Navbar() {
         </ul>
         <Search />
         <nav>
-          <ul>
+          <ul className='nav__links'>
             <li>
               <button title='your location'>
                 <LocationMarkerIcon className='navbar__icon' />
@@ -59,10 +76,37 @@ function Navbar() {
                 <ShoppingBagIcon className='navbar__icon' />
               </Link>
             </li>
-            <li>
+            <li className='navbar__customer'>
               <Link to='/profile' title='your profile'>
-                <img className='navbar__user-picture' alt="" />
+                <img src={customer.picture} className='customer__picture' alt="" />
               </Link>
+              <div className="customer__profile">
+                <Link to='/profile'>
+                  <div className="profile__about">
+                    <img src={customer.picture} alt="" className="about__picture" />
+                    <div className="about__info">
+                      <h5 className="info__id">#{customer.id}</h5>
+                      <h4 className="info__name">{`${customer.firstName} ${customer.lastName}`}</h4>
+                      <h5 className="info__email">{customer.email}</h5>
+                      <h5 className="info__phone">+{customer.phone}</h5>
+                    </div>
+                  </div>
+                </Link>
+                <ul className="profile__links">
+                    <li className='links__link'>
+                      <Link to="/settings">
+                        Settings
+                        <CogIcon className='link__icon' />
+                      </Link>
+                    </li>
+                    <li className='links__link'>
+                      <Link to="/api/customer/log-out">
+                        Log Out
+                        <LogoutIcon className='link__icon' />
+                      </Link>
+                    </li>
+                  </ul>
+              </div>
             </li>
           </ul>
         </nav>

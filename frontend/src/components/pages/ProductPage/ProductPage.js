@@ -101,13 +101,13 @@ function ProductPage() {
               <p className="additional-page__description">
                 {productData.description}
               </p>
-              {recommendationsList.length &&
+              {recommendationsList.length > 0 &&
                 <div className="additional-page__recommendations">
                   <h3 className='recommendations__heading'>Maybe you'll like this</h3>
                   <ProductList products={recommendationsList} />
                 </div>
               }
-              {fromThisBrandList.length &&
+              {fromThisBrandList.length > 0 &&
                 <div className="additional-page__brand-similarities">
                   <h3 className='brand-similarities__heading'>From this brand</h3>
                   <ProductList products={fromThisBrandList} />

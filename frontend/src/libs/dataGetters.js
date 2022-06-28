@@ -33,7 +33,6 @@ export async function getProducts(amount='all', tags=[], isRandom=false, searchQ
             'Content-Type': 'application/json;charset=utf-8',
         }
     })
-    console.log(url)
     const data = await response.json()
 
     return data.products

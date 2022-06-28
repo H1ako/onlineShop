@@ -6,7 +6,6 @@
     top: 0;
     left: 0;
     width: 100vw;
-    overflow: hidden;
     height: var(--navbarHeight);
     border-bottom: 1px solid var(--colorGray);
     background: linear-gradient(180deg, var(--colorBg) 5.23%, var(--colorBgTransparent) 100%);
@@ -81,25 +80,121 @@
     }
 
     nav {
-        ul {
+        .nav__links {
             display: flex;
             align-items: center;
             gap: $gap;
 
-            li {
-                a {
-                    .navbar__user-picture {
-                        $size: 3rem;
+            .navbar__icon:hover {
+                color: var(--colorMain);
+            }
 
-                        background: var(--colorText);
-                        width: $size;
-                        height: $size;
-                        border-radius: var(--bdrsDefault);
-                    }
+            .navbar__customer {
+                position: relative;
+                z-index: 10000;
+
+                &:hover .customer__profile {
+                    opacity: 1;
+                    user-select: all;
+                    pointer-events: all;
                 }
 
-                .navbar__icon:hover {
-                    color: var(--colorMain);
+                .customer__picture {
+                    $size: 3rem;
+
+                    background: var(--colorText);
+                    width: $size;
+                    height: $size;
+                    border-radius: var(--bdrsDefault);
+                    object-position: center;
+                    object-fit: cover;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                .customer__profile {
+                    background: var(--colorGray);
+                    padding: .8rem;
+                    position: absolute;
+                    right: 0;
+                    top: 100%;
+                    border-radius: var(--bdrsDefault);
+                    transition: var(--transitionDefault);
+                    opacity: 0;
+                    user-select: none;
+                    pointer-events: none;
+
+                    .profile__about {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        background: var(--colorGrayLight);
+                        border-radius: var(--bdrsDefault);
+                        padding: .75rem;
+
+                        .about__picture {
+                            flex-shrink: 1;
+                            width: 4rem;
+                            height: 4rem;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+
+                        .about__info {
+                            flex-shrink: 0;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: flex-end;
+                            gap: .25rem;
+                            color: var(--colorText);
+
+                            .info__id, .info__email, .info__phone {
+                                font-weight: 300;
+                            }
+    
+                            .info__name {
+                                white-space: nowrap;
+                                font-weight: 400;
+                            }
+                        }
+                    }
+
+                    .profile__links {
+                        margin-top: .5rem;
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.25rem;
+                        
+                        .links__link {
+                            width: 100%;
+                            padding: .35rem .65rem;
+                            border-radius: var(--bdrsDefault);
+                            transition: var(--transitionDefault);
+
+                            &:hover {
+                                background: var(--colorMain);
+                            }
+
+                            a {
+                                color: var(--colorWhite);
+                                display: flex;
+                                justify-content: flex-end;
+                                align-items: center;
+                                gap: 0.25rem;
+
+                                .link__icon {
+                                    width: 1.5rem;
+                                    height: 1.5rem;
+                                }
+                            }
+                        }
+                    }                    
                 }
             }
         }

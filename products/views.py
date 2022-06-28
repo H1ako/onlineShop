@@ -85,6 +85,7 @@ class ProductView(APIView):
 
         if req.user:
             viewHistory, created = ViewHistory.objects.get_or_create(customer=req.user, product=product)
+            print('asdasddasdasd')
 
             if not created:
                 viewHistory.updateViewedAt()
