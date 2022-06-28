@@ -63,7 +63,7 @@ function ProductsPage() {
                   <input value={`${category.name} : ${tag.name}`} type="checkbox" className='tag__input' id={`tag-checkbox-${tag.id}`} onChange={checkboxHandle} />
                   <label htmlFor={`tag-checkbox-${tag.id}`} className='tag__label'>
                     <div className="label__checkbox" />
-                    <span className="label__name">{tag.name}</span>
+                    <span className="label__name">{tag.name} ({tag.productsWithTag})</span>
                   </label>
                 </li>  
               )}
