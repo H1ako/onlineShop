@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, ViewHistory
+from .models import Customer, Delivery, ViewHistory
 from products.serializers import ProductSerializer
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -12,4 +12,11 @@ class ViewHistorySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ViewHistory
+        fields = '__all__'
+
+class DeliverySerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+    
+    class Meta:
+        model = Delivery
         fields = '__all__'

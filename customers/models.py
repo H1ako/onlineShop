@@ -48,8 +48,9 @@ class Delivery(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     quantity = models.PositiveSmallIntegerField('Quantity')
-    delivered = models.BooleanField('Is Delivered', default=False)
-    deliveredAt = models.DateTimeField("Will be Delivered At")
+    deliveryAddress = models.CharField("Delivery Address", max_length=255, null=True, blank=True)
+    arrivalDate = models.DateTimeField('will be delivered at', blank=True, null=True)
+    status = models.CharField('Status', max_length=100, blank=True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
     
     def __str__(self):

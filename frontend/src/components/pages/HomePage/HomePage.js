@@ -7,10 +7,9 @@ import HistoryList from '../../HistoryList/HistoryList';
 // global
 import { useState, useEffect } from 'react';
 // libs
-import { getProducts, getViewHistory } from '../../../libs/dataGetters';
+import { getProducts } from '../../../libs/dataGetters';
 
 function HomePage() {
-  const [ viewHistory, setViewHistory ] = useState([])
   const [ saleProducts, setSaleProducts ] = useState([])
   const [ recommendationList, setRecommendationList ] = useState([])
 
@@ -45,10 +44,6 @@ function HomePage() {
     // for sale list
     getProducts(6, ['price : sale'], true)
     .then(data => setSaleProducts(data))
-
-    // for view history
-    getViewHistory(6)
-    .then(data => setViewHistory(data))
   }, [])
 
   return (
@@ -104,7 +99,7 @@ function HomePage() {
         </section>
         <section className="history">
           <h3>History</h3>
-          <HistoryList histories={viewHistory} />
+          <HistoryList />
         </section>
       </main>
     </div>

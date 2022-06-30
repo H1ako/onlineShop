@@ -7,6 +7,7 @@ import HelpPage from "./components/pages/HelpPage/HelpPage";
 import HomePage from "./components/pages/HomePage/HomePage";
 import ProductPage from "./components/pages/ProductPage/ProductPage";
 import ProductsPage from "./components/pages/ProductsPage/ProductsPage";
+import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/help/' element={<HelpPage />} />
         <Route path='/products/:productId' element={<ProductPage />} />
         <Route path='/products/' element={<ProductsPage />} />
+        <Route path='/profile/' element={<ProfilePage />} />
       </Routes>
     </div>
   );

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import HistoryList from '../../HistoryList/HistoryList';
 import CatalogProductCard from '../../CatalogProductCard/CatalogProductCard';
 // libs
-import { getCategories, getProducts, getViewHistory } from '../../../libs/dataGetters';
+import { getCategories, getProducts } from '../../../libs/dataGetters';
 // store
 import { updateQueryFromUrl, useSearch } from '../../../store/slices/searchSlice';
 import { updateProducts, useProducts } from '../../../store/slices/productsSlice';
@@ -16,7 +16,6 @@ import { updateProducts, useProducts } from '../../../store/slices/productsSlice
 function ProductsPage() {
   const { products } = useProducts()
   const [ tags, setTags ] = useState([])
-  const [ histories, setHistories ] = useState([])
   const [ categories, setCategories ] = useState([])
   const { searchQuery } = useSearch()
   const dispatch = useDispatch()
@@ -38,9 +37,6 @@ function ProductsPage() {
     .then(data => {
       dispatch(updateProducts({products: data}))
     })
-
-    getViewHistory()
-    .then(data => setHistories(data))
 
     getCategories()
     .then(data => setCategories(data))
@@ -99,7 +95,7 @@ function ProductsPage() {
       </main>
       <footer>
         <h3>History</h3>
-        <HistoryList histories={histories} />
+        <HistoryList />
       </footer>
     </div>
   );

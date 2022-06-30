@@ -1,0 +1,182 @@
+.profile-page {
+    $marginTop: calc(var(--navbarHeight) + 1rem);
+    min-height: calc(100vh - $marginTop);
+
+    position: relative;
+    width: var(--widthContent);
+    margin: $marginTop auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+
+    main {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        .profile-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+
+            &__content {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                .content__link {
+                    color: var(--colorText);
+                    transition: var(--transitionDefault);
+    
+                    &:hover {
+                        color: var(--colorMain);
+                    }
+    
+                    .link__icon {
+                        width: 4rem;
+                        height: 4rem;
+                    }
+                }
+
+                .content__picture {
+                    border-radius: 50%;
+                    width: 18rem;
+                    height: 18rem;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+            
+            &__btn {
+                color: var(--colorText);
+                background: var(--colorGray);
+                transition: var(--transitionDefault);
+                border-radius: var(--bdrsDefault);
+                padding: 1rem 2rem;
+                text-decoration: none;
+                font-size: var(--fontSize4);
+
+                &:hover {
+                    background: var(--colorMain);
+                }
+            }
+        }
+
+        .profile-info {
+            background: var(--colorMain);
+            border-radius: var(--bdrsDefault);
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 60%;
+
+            &__id,
+            &__email,
+            &__phone,
+            &__address {
+                font-weight: 300;
+            }
+
+            &__id,
+            &__name,
+            &__email,
+            &__phone,
+            &__address {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+
+                .profile-info__icon {
+                    width: 2rem;
+                    height: 2rem;
+                }
+            }
+        }
+
+        .last-deliveries {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+
+            .delivery {
+                position: relative;
+                width: 90%;
+                border-radius: var(--bdrsDefault);
+                background: var(--colorGray);
+                padding: 2rem 2.5rem;
+                height: 3rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 50%;
+                    background: linear-gradient(90deg, var(--colorGray) 20%, rgba(40, 97, 207, 0.5) 100%);
+                    z-index: 11;
+                    border-radius: 0 var(--bdrsDefault) var(--bdrsDefault) 0;
+                }
+
+                &__icon {
+                    z-index: 12;
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    flex-shrink: 0;
+                }
+
+                &__info {
+                    z-index: 12;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+
+                    .info__arrival-date,
+                    .info__delivery-address {
+                        white-space: nowrap;
+                        font-weight: 300;
+                    }
+                }
+
+                &__product-info {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 12;
+
+                    .product-info__name {
+
+                    }
+                }
+
+                &__product-pic {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 50%;
+                    object-fit: cover;
+                    object-position: center;
+                    z-index: 10;
+                    border-radius: 0 var(--bdrsDefault) var(--bdrsDefault) 0;
+                }
+            }
+        }
+    }
+
+    footer {
+
+    }
+}
