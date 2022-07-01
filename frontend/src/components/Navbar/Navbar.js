@@ -23,7 +23,6 @@ function Navbar() {
   useEffect(() => {
     getCustomerData()
     .then(data => {
-      console.log(data)
       dispatch(updateCustomer({customer: data}))
     })
   }, [])

@@ -1,6 +1,6 @@
-from django.http import HttpResponse, JsonResponse
-from customers.serializers import CustomerSerializer, ViewHistorySerializer
-from .models import Customer, Cart, Delivery, Notification, Favourite, ViewHistory, ViewHistory
+from django.http import JsonResponse
+from customers.serializers import CustomerSerializer, DeliverySerializer, ViewHistorySerializer
+from .models import Customer, Cart, Delivery, Notification, Favourite, ViewHistory
 from products.models import Product
 
 from django.contrib.auth import authenticate, login
@@ -50,8 +50,21 @@ class ViewHistoryView(APIView):
         return Response(status=HTTP_200_OK)
             
         
-        
+class DeliveryView(APIView):
+    def get(self, req):
+        amount = req.GET.get('amount', 'all')
 
+        deliveries = req.user.deliveries.all().order_by('-arrivalDate')
+
+        if amount != 'all':
+            try:
+                deliveries = deliveries[:int(amount)]
+            except Exception:
+                pass
+
+        deliveriesData = DeliverySerializer(deliveries, many=True).data
+
+        return Response({'deliveries': deliveriesData})
 
 def notifications():
     pass
@@ -75,4 +88,5 @@ def loginf(req):
         if customer is not None:
             login(user=customer, request=req)
 
-        return JsonResponse({'isAuth': req.user.is_authenticated})
+        customerData = CustomerSerializer(customer).data
+        return JsonResponse({'isAuth': req.user.is_authenticated, 'user': customerData})

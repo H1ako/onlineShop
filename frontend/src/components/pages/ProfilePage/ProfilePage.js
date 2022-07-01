@@ -1,7 +1,6 @@
 // styles
 import './ProfilePage.scss'
 // icons
-import { TruckIcon } from '@heroicons/react/outline';
 import { BellIcon, HeartIcon, IdentificationIcon, LocationMarkerIcon, MailIcon, PhoneIcon, UserIcon } from '@heroicons/react/solid';
 // global
 import { useEffect } from 'react';
@@ -13,6 +12,7 @@ import HistoryList from '../../HistoryList/HistoryList';
 import { getCustomerData } from '../../../libs/dataGetters';
 // store
 import { updateCustomer, useCustomer } from '../../../store/slices/customerSlice';
+import SmallDeliveryList from '../../SmallDeliveryList/SmallDeliveryList';
 
 
 function ProfilePage() {
@@ -22,7 +22,6 @@ function ProfilePage() {
     useEffect(() => {
       getCustomerData()
       .then(data => {
-        console.log(data)
         dispatch(updateCustomer({customer: data}))
       })
     }, [])
@@ -67,21 +66,9 @@ function ProfilePage() {
           </h4>
         </section>
         <section className="last-deliveries">
-          <div className="delivery">
-            <TruckIcon className='delivery__icon' />
-            <div className="delivery__info">
-              <h4 className="info__arrival-date">
-                Arrival Date: 23 november 2022
-              </h4>
-              <h4 className="info__delivery-address">
-                To: Russia, Udmurt Repablic
-              </h4>
-            </div>
-            <div className="delivery__product-info">
-              <h3 className="product-info__name">Raf Simons</h3>
-            </div>
-            <img src="/media/productPictures/19-krossovki-adidas-x-raf-simons-ozweego-iii-759x500.jpg" alt="" className="delivery__product-pic" />
-          </div>
+          <SmallDeliveryList
+            amount={3}
+          />
         </section>
       </main>
       <footer>

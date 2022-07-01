@@ -45,16 +45,16 @@ class Cart(models.Model):
         return self.product
 
 class Delivery(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='deliveries')
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name='deliveries')
     quantity = models.PositiveSmallIntegerField('Quantity')
-    deliveryAddress = models.CharField("Delivery Address", max_length=255, null=True, blank=True)
+    address = models.CharField("Delivery Address", max_length=255, null=True, blank=True)
     arrivalDate = models.DateTimeField('will be delivered at', blank=True, null=True)
     status = models.CharField('Status', max_length=100, blank=True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
     
     def __str__(self):
-        return self.product
+        return f'{self.customer} - {self.product}'
 
 class Notification(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)

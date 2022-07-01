@@ -61,3 +61,17 @@ export async function getCustomerData() {
 
     return data.customer
 }
+
+export async function getDeliveries(amount='all') {
+    const url = `/api/customer/deliveries${amount ? `?amount=${amount}` : ''}`
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        }
+    })
+    const data = await response.json()
+
+    return data.deliveries
+}
