@@ -15,7 +15,7 @@ function SmallDeliveryList({ amount }) {
     useEffect(() => {
         getDeliveries(amount)
         .then(data => setDeliveries(data))
-    }, [])
+    }, [amount])
 
     function StatusDelivering({delivery}) {
         return (

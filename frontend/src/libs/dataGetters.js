@@ -34,7 +34,7 @@ export async function getProducts(amount='all', tags=[], isRandom=false, searchQ
         }
     })
     const data = await response.json()
-
+    
     return data.products
 }
 

@@ -13,10 +13,12 @@ import random
 
 class ProductListView(APIView):
     def get(self, req):
+        pageSize = 10
         tagsString = req.GET.get('tags', '')
         amount = req.GET.get('amount', 'all')
         isRandom = req.GET.get('random', False)
         searchQuery = req.GET.get('searchQuery', '')
+        page = int(req.GET.get('page', 1))
 
         def getTagsDictFromStr(tagsString):
             rawTagDict = list(e.split(' : ') for e in tagsString.split(','))
@@ -85,7 +87,6 @@ class ProductView(APIView):
 
         if req.user:
             viewHistory, created = ViewHistory.objects.get_or_create(customer=req.user, product=product)
-            print('asdasddasdasd')
 
             if not created:
                 viewHistory.updateViewedAt()

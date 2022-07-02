@@ -24,7 +24,7 @@ function ProfilePage() {
       .then(data => {
         dispatch(updateCustomer({customer: data}))
       })
-    }, [])
+    }, [dispatch])
 
   return (
     <div className="profile-page">

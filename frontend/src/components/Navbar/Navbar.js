@@ -25,7 +25,7 @@ function Navbar() {
     .then(data => {
       dispatch(updateCustomer({customer: data}))
     })
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="navbar">

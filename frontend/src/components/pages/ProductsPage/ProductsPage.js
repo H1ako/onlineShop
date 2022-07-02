@@ -40,11 +40,12 @@ function ProductsPage() {
 
     getCategories()
     .then(data => setCategories(data))
+    // eslint-disable-next-line
   }, [tags])
 
   useEffect(() => {
     dispatch(updateQueryFromUrl())
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="products-page">
@@ -77,7 +78,7 @@ function ProductsPage() {
             
           </ul>
         </section>
-        <section className="pages">
+        {/* <section className="pages">
           <ul className="pages__list">
             <li className="page__prev">prev</li>
             <li className="list__page">
@@ -91,7 +92,7 @@ function ProductsPage() {
             </li>
             <li className="page__next">next</li>
           </ul>
-        </section>
+        </section> */}
       </main>
       <footer>
         <h3>History</h3>
