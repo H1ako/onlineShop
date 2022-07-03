@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 // components
 import HistoryList from '../../HistoryList/HistoryList';
 import CatalogProductCard from '../../CatalogProductCard/CatalogProductCard';
+import TagsAside from '../../TagsAside/TagsAside';
 // libs
 import { getCategories, getProducts } from '../../../libs/dataGetters';
 // store
@@ -14,33 +15,16 @@ import { updateProducts, useProducts } from '../../../store/slices/productsSlice
 
 
 function ProductsPage() {
-  const { products } = useProducts()
-  const [ tags, setTags ] = useState([])
+  const { products, tags } = useProducts()
   const [ categories, setCategories ] = useState([])
   const { searchQuery } = useSearch()
   const dispatch = useDispatch()
   
-  const checkboxHandle = (e) => {
-    const tagName = e.target.value
-
-    if (tags.includes(tagName)) {
-      const newTags = tags.filter(tag => tag !== tagName)
-      setTags(newTags)
-    }
-    else {
-      setTags([tagName, ...tags])
-    }
-  }
-
   useEffect(() => {
     getProducts('all', tags, false, searchQuery)
     .then(data => {
       dispatch(updateProducts({products: data}))
     })
-
-    getCategories()
-    .then(data => setCategories(data))
-    // eslint-disable-next-line
   }, [tags])
 
   useEffect(() => {
@@ -49,25 +33,7 @@ function ProductsPage() {
 
   return (
     <div className="products-page">
-      <aside>
-        <h2 className='heading'>Tags</h2>
-        <div className="categories">
-          {categories.map(category => 
-            <ul key={category.id} className='categories__category'>
-              <h3 className='category__name'>{category.name}</h3>
-              {category?.tags.map(tag =>
-                <li key={tag.id} className='category__tag'>
-                  <input value={`${category.name} : ${tag.name}`} type="checkbox" className='tag__input' id={`tag-checkbox-${tag.id}`} onChange={checkboxHandle} />
-                  <label htmlFor={`tag-checkbox-${tag.id}`} className='tag__label'>
-                    <div className="label__checkbox" />
-                    <span className="label__name">{tag.name} ({tag.productsWithTag})</span>
-                  </label>
-                </li>  
-              )}
-            </ul>
-          )}
-        </div>
-      </aside>
+      <TagsAside />
       <main>
         <h4 className='current-tags'>Current tags: {tags.join(', ')}</h4>
         <section className="products">
