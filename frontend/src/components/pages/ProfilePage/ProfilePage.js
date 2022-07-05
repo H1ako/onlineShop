@@ -12,7 +12,7 @@ import HistoryList from '../../HistoryList/HistoryList';
 import { getCustomerData } from '../../../libs/dataGetters';
 // store
 import { updateCustomer, useCustomer } from '../../../store/slices/customerSlice';
-import SmallDeliveryList from '../../SmallDeliveryList/SmallDeliveryList';
+import SmallDeliveryList from '../../SmallDeliveriesList/SmallDeliveriesList';
 
 
 function ProfilePage() {

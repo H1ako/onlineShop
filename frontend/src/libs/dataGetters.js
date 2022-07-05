@@ -75,3 +75,17 @@ export async function getDeliveries(amount='all') {
 
     return data.deliveries
 }
+
+export async function getFavourites(amount='all') {
+    const url = `/api/customer/favourites${amount ? `?amount=${amount}` : ''}`
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        }
+    })
+    const data = await response.json()
+
+    return data.favourites
+}

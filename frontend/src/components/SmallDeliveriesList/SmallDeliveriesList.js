@@ -1,5 +1,5 @@
 // styles
-import './SmallDeliveryList.scss'
+import './SmallDeliveriesList.scss'
 // icons
 import { BadgeCheckIcon, BanIcon, TruckIcon } from '@heroicons/react/outline';
 // global
@@ -30,7 +30,7 @@ function SmallDeliveryList({ amount }) {
                     </h4>
                 </div>
                 <div className="delivery__product-info">
-                    <h3 className="product-info__name">{delivery.product?.name}</h3>
+                    <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
                 </div>
                 <img src={delivery.product?.thumbnail} alt="" className="delivery__product-pic" />
             </li>

@@ -1,14 +1,14 @@
 // styles
 import './ProductsPage.scss'
 // global
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 // components
 import HistoryList from '../../HistoryList/HistoryList';
 import CatalogProductCard from '../../CatalogProductCard/CatalogProductCard';
 import TagsAside from '../../TagsAside/TagsAside';
 // libs
-import { getCategories, getProducts } from '../../../libs/dataGetters';
+import { getProducts } from '../../../libs/dataGetters';
 // store
 import { updateQueryFromUrl, useSearch } from '../../../store/slices/searchSlice';
 import { updateProducts, useProducts } from '../../../store/slices/productsSlice';
@@ -16,7 +16,6 @@ import { updateProducts, useProducts } from '../../../store/slices/productsSlice
 
 function ProductsPage() {
   const { products, tags } = useProducts()
-  const [ categories, setCategories ] = useState([])
   const { searchQuery } = useSearch()
   const dispatch = useDispatch()
   
@@ -25,6 +24,7 @@ function ProductsPage() {
     .then(data => {
       dispatch(updateProducts({products: data}))
     })
+    // eslint-disable-next-line
   }, [tags])
 
   useEffect(() => {

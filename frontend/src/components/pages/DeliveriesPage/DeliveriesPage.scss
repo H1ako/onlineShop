@@ -1,0 +1,17 @@
+.deliveries-page {
+    $marginTop: calc(var(--navbarHeight) + 2rem);
+
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: var(--widthContent);
+    margin: $marginTop auto 0;
+
+    main {
+        position: relative;
+        width: 100%;
+    }
+}

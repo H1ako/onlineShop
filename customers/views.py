@@ -29,7 +29,6 @@ class ViewHistoryView(APIView):
                 pass
 
         viewHistoryData = ViewHistorySerializer(viewHistorySet, many=True).data
-
         return Response({'viewHistory': viewHistoryData})
     
     def post(self, req):
@@ -63,7 +62,6 @@ class DeliveryView(APIView):
                 pass
 
         deliveriesData = DeliverySerializer(deliveries, many=True).data
-
         return Response({'deliveries': deliveriesData})
 
 def notifications():

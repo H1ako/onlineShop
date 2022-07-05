@@ -4,21 +4,16 @@ from rest_framework.response import Response
 from customers.models import ViewHistory
 from products.models import Product, Tag, TagCategory
 from django.db.models import Q
-
 from products.serializers import ProductSerializer, TagCategorySerializer
-
 import random
 
 # Create your views here.
-
 class ProductListView(APIView):
     def get(self, req):
-        pageSize = 10
         tagsString = req.GET.get('tags', '')
         amount = req.GET.get('amount', 'all')
         isRandom = req.GET.get('random', False)
         searchQuery = req.GET.get('searchQuery', '')
-        page = int(req.GET.get('page', 1))
 
         def getTagsDictFromStr(tagsString):
             rawTagDict = list(e.split(' : ') for e in tagsString.split(','))

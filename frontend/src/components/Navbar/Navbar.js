@@ -66,7 +66,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to='/delivery' title='your delivery'>
+              <Link to='/deliveries' title='your delivery'>
                 <TruckIcon className='navbar__icon' />
               </Link>
             </li>
