@@ -16,7 +16,11 @@ class ViewHistorySerializer(serializers.ModelSerializer):
 
 class DeliverySerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
+    status = serializers.SerializerMethodField('getStatus')
     
     class Meta:
         model = Delivery
         fields = '__all__'
+    
+    def getStatus(self, delivery):
+        return delivery.get_status_display()

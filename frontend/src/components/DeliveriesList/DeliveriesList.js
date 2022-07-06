@@ -24,10 +24,10 @@ function DeliveriesList({ amount='all' }) {
                     Cancelled
                 </div>
             </div>
-            <h3 className="info__arrival-date">Arrival Date{delivery.arrivalDate}</h3>
-            <h3 className="info__address">To: {delivery.address}</h3>
+            <h4 className="info__arrival-date">Arrival Date{delivery.arrivalDate}</h4>
+            <h4 className="info__address">To: {delivery.address}</h4>
             <div className="delivery__product-info">
-                <h2 className="product-info__name">{delivery.product?.name}</h2>
+                <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
             </div>
             <img src={delivery.product?.thumbnail} alt="" className="delivery__product-pic" />
         </li>
@@ -42,13 +42,15 @@ function DeliveriesList({ amount='all' }) {
                     <TruckIcon className='status__icon' />
                     On The Way
                 </div>
-                <h3 className="info__arrival-date">Arrival Date: {delivery.arrivalDate}</h3>
-                <h3 className="info__address">To: {delivery.address}</h3>
+                <h4 className="info__arrival-date">Arrival Date: {delivery.arrivalDate}</h4>
+                <h4 className="info__address">To: {delivery.address}</h4>
+                <button className="info__cancel">Cancel</button>
             </div>
             <div className="delivery__product-info">
-                <h2 className="product-info__name">{delivery.product?.name}</h2>
+                <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
             </div>
             <img src={delivery.product?.thumbnail} alt="" className="delivery__product-pic" />
+            
         </li>
     )
   }
@@ -65,7 +67,7 @@ function DeliveriesList({ amount='all' }) {
             <h3 className="info__arrival-date">Arrived At: {delivery.arrivalDate}</h3>
             <h3 className="info__address">To: {delivery.address}</h3>
             <div className="delivery__product-info">
-                <h2 className="product-info__name">{delivery.product?.name}</h2>
+                <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
             </div>
             <img src={delivery.product?.thumbnail} alt="" className="delivery__product-pic" />
         </li>

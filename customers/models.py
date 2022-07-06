@@ -45,12 +45,18 @@ class Cart(models.Model):
         return self.product
 
 class Delivery(models.Model):
+    STATUS_TYPES = (
+        ('DELIVERING', 'delivering'),
+        ('DELIVERED', 'delivered'),
+        ('CANCELLED', 'cancelled')
+    )
+
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='deliveries')
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name='deliveries')
     quantity = models.PositiveSmallIntegerField('Quantity')
     address = models.CharField("Delivery Address", max_length=255, null=True, blank=True)
     arrivalDate = models.DateTimeField('will be delivered at', blank=True, null=True)
-    status = models.CharField('Status', max_length=100, blank=True)
+    status = models.CharField('Status', max_length=100, blank=True, choices=STATUS_TYPES)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
     
     def __str__(self):

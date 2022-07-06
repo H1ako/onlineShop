@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from customers.serializers import CustomerSerializer, DeliverySerializer, ViewHistorySerializer
 from .models import Customer, Cart, Delivery, Notification, Favourite, ViewHistory
 from products.models import Product
-
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -49,10 +49,9 @@ class ViewHistoryView(APIView):
         return Response(status=HTTP_200_OK)
             
         
-class DeliveryView(APIView):
+class DeliveriesListView(APIView):
     def get(self, req):
         amount = req.GET.get('amount', 'all')
-
         deliveries = req.user.deliveries.all().order_by('-arrivalDate')
 
         if amount != 'all':
@@ -63,6 +62,29 @@ class DeliveryView(APIView):
 
         deliveriesData = DeliverySerializer(deliveries, many=True).data
         return Response({'deliveries': deliveriesData})
+
+class DeliveryView(APIView):
+    permission_classes = [IsAuthenticated, ]
+    def get(self, req, deliveryId):
+        customer = req.user
+        delivery = customer.deliveries.filter(id=deliveryId)[0]
+
+        deliveryData = DeliverySerializer(delivery).data
+        return Response({'delivery': deliveryData})
+
+    # cancelling
+    def patch(self, req, deliveryId):
+        customer = req.user
+        delivery = customer.deliveries.filter(id=deliveryId)[0]
+        if delivery:
+            delivery.status = 'CANCELLED'
+            delivery.save()
+
+            deliveryData = DeliverySerializer(delivery).data
+            return Response({'delivery': deliveryData})
+
+        return Response({'error': 'There are not such a delivery'})
+
 
 def notifications():
     pass

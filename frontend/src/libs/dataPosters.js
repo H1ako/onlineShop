@@ -23,3 +23,17 @@ export async function login() {
 
     return data
 }
+
+export async function cancelDelivery(deliveryId) {
+    const response = await fetch(`/api/customer/delivery/${deliveryId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+    })
+
+    const data = await response.json()
+
+    return data
+}
