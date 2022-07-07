@@ -37,3 +37,17 @@ export async function cancelDelivery(deliveryId) {
 
     return data
 }
+
+export async function productFavouriteAction(productId) {
+    const response = await fetch(`/api/customer/favourite/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+    })
+
+    const data = await response.json()
+
+    return data
+}

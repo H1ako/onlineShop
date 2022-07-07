@@ -73,7 +73,7 @@ export async function getDeliveries(amount='all') {
     })
     const data = await response.json()
 
-    return data.deliveries
+    return data
 }
 
 export async function getFavourites(amount='all') {
@@ -87,5 +87,5 @@ export async function getFavourites(amount='all') {
     })
     const data = await response.json()
 
-    return data.favourites
+    return data
 }

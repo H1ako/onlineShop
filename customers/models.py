@@ -35,9 +35,9 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def getFullName(self):
         return f"{self.firstName} {self.lastName}"
 
-class Cart(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+class CartProduct(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cartProducts')
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name='carts')
     quantity = models.PositiveSmallIntegerField('Quantity')
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
@@ -73,7 +73,7 @@ class Notification(models.Model):
         return self.description
 
 class Favourite(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='favourites')
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
     

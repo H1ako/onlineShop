@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, Delivery, ViewHistory
+from .models import Customer, Delivery, Favourite, ViewHistory
 from products.serializers import ProductSerializer
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -24,3 +24,10 @@ class DeliverySerializer(serializers.ModelSerializer):
     
     def getStatus(self, delivery):
         return delivery.get_status_display()
+
+class FavouriteSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+    
+    class Meta:
+        model = Favourite
+        fields = '__all__'

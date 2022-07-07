@@ -5,9 +5,10 @@ urlpatterns = [
     path('', views.CustomerView.as_view()),
     path('notifications', views.notifications),
     path('settings', views.settings),
-    path('favourites', views.favourites),
-    path('deliveries', views.DeliveriesListView.as_view()),
+    path('deliveries', views.DeliveryListView.as_view()),
     path('deliveries/<int:deliveryId>', views.DeliveryView.as_view()),
+    path('favourites', views.FavouriteListView.as_view()),
+    path('favourites/<int:productId>', views.FavouriteView.as_view()),
     path('cart', views.cart),
     path('view-history', views.ViewHistoryView.as_view()),
     path('login', views.loginf)

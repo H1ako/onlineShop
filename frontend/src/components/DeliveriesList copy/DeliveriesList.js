@@ -46,9 +46,9 @@ function DeliveriesList({
                     <BanIcon className='status__icon' />
                     Cancelled
                 </div>
-                <h4 className="info__arrival-date">Arrival Date{delivery.arrivalDate}</h4>
-                <h4 className="info__address">To: {delivery.address}</h4>
             </div>
+            <h4 className="info__arrival-date">Arrival Date{delivery.arrivalDate}</h4>
+            <h4 className="info__address">To: {delivery.address}</h4>
             <div className="delivery__product-info">
                 <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
             </div>
@@ -86,9 +86,9 @@ function DeliveriesList({
                     <BadgeCheckIcon className='status__icon' />
                     Delivered
                 </div>
-                <h3 className="info__arrival-date">Arrived At: {delivery.arrivalDate}</h3>
-                <h3 className="info__address">To: {delivery.address}</h3>
             </div>
+            <h3 className="info__arrival-date">Arrived At: {delivery.arrivalDate}</h3>
+            <h3 className="info__address">To: {delivery.address}</h3>
             <div className="delivery__product-info">
                 <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
             </div>

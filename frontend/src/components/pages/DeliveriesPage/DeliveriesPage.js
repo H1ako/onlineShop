@@ -1,19 +1,20 @@
 // styles
 import './DeliveriesPage.scss'
 // global
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 // components
 import HistoryList from '../../HistoryList/HistoryList';
 import DeliveriesList from '../../DeliveriesList/DeliveriesList';
 
 
 function DeliveriesPage() {
-  const dispatch = useDispatch()
+  const [totalCost, setTotalCost] = useState('')
 
   return (
     <div className="deliveries-page">
       <main>
-        <DeliveriesList />
+        <h3 className='total-cost'>Total Cost: {totalCost}</h3>
+        <DeliveriesList setTotalCost={setTotalCost} />
       </main>
       <footer>
         <HistoryList />

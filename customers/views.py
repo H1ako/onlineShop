@@ -1,6 +1,6 @@
 from django.http import JsonResponse
-from customers.serializers import CustomerSerializer, DeliverySerializer, ViewHistorySerializer
-from .models import Customer, Cart, Delivery, Notification, Favourite, ViewHistory
+from customers.serializers import CustomerSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
+from .models import Customer, CartProduct, Delivery, Notification, Favourite, ViewHistory
 from products.models import Product
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login
@@ -49,10 +49,14 @@ class ViewHistoryView(APIView):
         return Response(status=HTTP_200_OK)
             
         
-class DeliveriesListView(APIView):
+class DeliveryListView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
     def get(self, req):
         amount = req.GET.get('amount', 'all')
         deliveries = req.user.deliveries.all().order_by('-arrivalDate')
+        prices = [int(price) for price in list(deliveries.values_list('product__price', flat=True))]
+        pricesSum = sum(prices)
 
         if amount != 'all':
             try:
@@ -61,10 +65,11 @@ class DeliveriesListView(APIView):
                 pass
 
         deliveriesData = DeliverySerializer(deliveries, many=True).data
-        return Response({'deliveries': deliveriesData})
+        return Response({'deliveries': deliveriesData, 'totalCost': pricesSum})
 
 class DeliveryView(APIView):
     permission_classes = [IsAuthenticated, ]
+
     def get(self, req, deliveryId):
         customer = req.user
         delivery = customer.deliveries.filter(id=deliveryId)[0]
@@ -76,6 +81,7 @@ class DeliveryView(APIView):
     def patch(self, req, deliveryId):
         customer = req.user
         delivery = customer.deliveries.filter(id=deliveryId)[0]
+
         if delivery:
             delivery.status = 'CANCELLED'
             delivery.save()
@@ -83,8 +89,43 @@ class DeliveryView(APIView):
             deliveryData = DeliverySerializer(delivery).data
             return Response({'delivery': deliveryData})
 
-        return Response({'error': 'There are not such a delivery'})
+        return Response({'error': 'There is not such a delivery'})
 
+class FavouriteListView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def get(self, req):
+        amount = req.GET.get('amount', 'all')
+        favourites = req.user.favourites.all().order_by('-createdAt')
+        prices = [int(price) for price in list(favourites.values_list('product__price', flat=True))]
+        pricesSum = sum(prices)
+
+        if amount != 'all':
+            try:
+                favourites = favourites[:int(amount)]
+            except Exception:
+                pass
+
+        favouritesData = FavouriteSerializer(favourites, many=True).data
+        return Response({'favourites': favouritesData, 'totalCost': pricesSum})
+
+class FavouriteView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def get(self, req, productId):
+        customer = req.user
+        favourite = customer.favourites.filter(product__id=productId)[0]
+
+        favouriteData = FavouriteSerializer(favourite).data
+        return Response({'favourite': favouriteData})
+
+    def post(self, req, productId):
+        customer = req.user
+
+        favourite, created = customer.favourites.get_or_create(product__id=productId)
+
+        if not created:
+            favourite.delete()
 
 def notifications():
     pass
@@ -92,8 +133,6 @@ def notifications():
 def settings():
     pass
 
-def favourites():
-    pass
 
 def delivery():
     pass
