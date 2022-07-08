@@ -1,8 +1,11 @@
 // styles
 import './ProductPrice.scss'
 // icons
-import { ShoppingBagIcon as ShoppingBagIconOutline, HeartIcon as HeartIconOutline } from '@heroicons/react/outline'
-import { HeartIcon, ShoppingBagIcon } from '@heroicons/react/solid'
+import { ShoppingBagIcon as ShoppingBagIconOutline } from '@heroicons/react/outline'
+import { ShoppingBagIcon } from '@heroicons/react/solid'
+// components
+import FavouriteBtn from '../FavouriteBtn/FavouriteBtn';
+
 
 function ProductPrice({
     price,
@@ -32,15 +35,7 @@ function ProductPrice({
                 </div>
             }
         </button>
-        { isFavourite ?
-            <button className='product-price__favourite' title='remove from favourites'>
-                <HeartIcon className='favourite__icon is-favourite' />
-            </button>
-        :
-            <button className='product-price__favourite' title='add to favourites'>
-                <HeartIconOutline className='favourite__icon' />
-            </button>
-        }
+        <FavouriteBtn productId={productId} isFavourite={isFavourite} />
     </div>
   );
 }

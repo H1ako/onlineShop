@@ -25,7 +25,7 @@ export async function getProductData(productId) {
 
 export async function getProducts(amount='all', tags=[], isRandom=false, searchQuery='') {
     const tagsString = tags.join(',')
-    const url = `/api/products/${amount ? `?amount=${amount}` : ''}${tagsString ? `&tags=${tagsString}` : ''}${isRandom ? '&random' : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}`
+    const url = `/api/products/${amount ? `?amount=${amount}` : ''}${tagsString ? `&tags=${tagsString}` : ''}${isRandom ? '&random=true' : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}`
 
     const response = await fetch(url, {
         method: 'GET',
@@ -78,6 +78,20 @@ export async function getDeliveries(amount='all') {
 
 export async function getFavourites(amount='all') {
     const url = `/api/customer/favourites${amount ? `?amount=${amount}` : ''}`
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        }
+    })
+    const data = await response.json()
+
+    return data
+}
+
+export async function getCart(amount='all') {
+    const url = `/api/customer/cart${amount ? `?amount=${amount}` : ''}`
 
     const response = await fetch(url, {
         method: 'GET',

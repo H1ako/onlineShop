@@ -57,28 +57,28 @@ class ProductListView(APIView):
                 inName |= Q(name__icontains=queryWord)
                 inDesc |= Q(description__icontains=queryWord)
 
-            productList = list(productList.filter(inName | inDesc | inTagsName).distinct())
+            productList = productList.filter(inName | inDesc | inTagsName).distinct()
 
 
         if amount == 'all':
             if isRandom:
-                productList = random.sample(productList, len(productList))
+                productList = random.sample(list(productList), len(productList))
         else:
             try:
                 if isRandom:
-                    productList = random.sample(productList, min(int(amount), len(productList)))
+                    productList = random.sample(list(productList), min(int(amount), len(productList)))
                 else:
-                    productList = productList[:int(amount)]
+                    productList = list(productList)[:int(amount)]
             except Exception:
                 pass
 
-        productsData = ProductSerializer(productList, many=True).data
+        productsData = ProductSerializer(productList, many=True, context={'request': req}).data
         return Response({'products': productsData})
 
 class ProductView(APIView):
     def get(self, req, productId):
         product = Product.objects.get(id=productId)
-        productData = ProductSerializer(product).data
+        productData = ProductSerializer(product, context={'request': req}).data
 
         if req.user:
             viewHistory, created = ViewHistory.objects.get_or_create(customer=req.user, product=product)
@@ -91,5 +91,5 @@ class ProductView(APIView):
 class CategoryView(APIView):
     def get(self, req):
         categories = TagCategory.objects.all()
-        categoriesData = TagCategorySerializer(categories, many=True).data
+        categoriesData = TagCategorySerializer(categories, many=True, context={'request': req}).data
         return Response({'categories': categoriesData})

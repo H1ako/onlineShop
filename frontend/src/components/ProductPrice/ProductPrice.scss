@@ -43,22 +43,4 @@
             }
         }
     }
-
-    &__favourite {
-        &:hover {
-            .favourite__icon {
-                color: var(--colorAccent);
-            }
-        }
-
-        .favourite__icon {
-            color: var(--colorText);
-            transition: var(--transitionDefault);
-            width: 2rem;
-
-            &.is-favourite {
-                color: var(--colorAccent);
-            }
-        }
-    }
 }

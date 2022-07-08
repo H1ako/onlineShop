@@ -14,7 +14,7 @@ function SmallDeliveryList({ amount }) {
 
     useEffect(() => {
         getDeliveries(amount)
-        .then(data => setDeliveries(data))
+        .then(data => setDeliveries(data.deliveries))
     }, [amount])
 
     function StatusDelivering({delivery}) {
@@ -50,7 +50,7 @@ function SmallDeliveryList({ amount }) {
                     </h4>
                 </div>
                 <div className="delivery__product-info">
-                    <h3 className="product-info__name">{delivery.product?.name}</h3>
+                    <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
                 </div>
                 <img src={delivery.product?.thumbnail} alt="" className="delivery__product-pic" />
             </li>
@@ -70,7 +70,7 @@ function SmallDeliveryList({ amount }) {
                     </h4>
                 </div>
                 <div className="delivery__product-info">
-                    <h3 className="product-info__name">{delivery.product?.name}</h3>
+                    <Link to={`/products/${delivery.product?.id}`} className="product-info__name">{delivery.product?.name}</Link>
                 </div>
                 <img src={delivery.product?.thumbnail} alt="" className="delivery__product-pic" />
             </li>

@@ -3,9 +3,10 @@ import './FavouritesList.scss'
 // global
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react'
+// components
+import ProductPrice from '../ProductPrice/ProductPrice';
 // libs
 import { getFavourites } from '../../libs/dataGetters'
-import { productFavouriteAction } from '../../libs/actionPosters';
 
 
 function FavouritesList({
@@ -25,10 +26,6 @@ function FavouritesList({
     })
   }
 
-  const favouriteBtnHandelr = (productId) => {
-    productFavouriteAction(productId)
-  }
-
   useEffect(() => {
     updateFavourites()
     
@@ -37,12 +34,18 @@ function FavouritesList({
 
   return (
     <ul className="favourites-list">
-      { favourites.map(favourite => 
-        <li className="favourites-list__favourite">
+      {favourites.map(favourite => (
+        <li key={favourite.id} className="favourites-list__favourite">
             <div className="favourite__info">
-                <h4 className="info__product-author">{favourite.product?.author}</h4>
-                <h4 className="info__product-price">{favourite.product?.price}</h4>
-                <button onClick={() => favouriteBtnHandelr(favourite.product?.id)}>fav</button>
+                <h3 className="info__product-creator">{favourite.product?.author} - {favourite.product?.brand}</h3>
+                <ProductPrice
+                    productId={favourite.product?.id}
+                    price={favourite.product?.price}
+                    discount={favourite.product?.discount}
+                    discountPrice={favourite.product?.discountPrice}
+                    isFavourite={favourite.product?.isFavourite}
+                    inCart={favourite.product?.inCart}
+                />
             </div>
             
             <div className="favourite__product-info">
@@ -50,7 +53,7 @@ function FavouritesList({
             </div>
             <img src={favourite.product?.thumbnail} alt="" className="favourite__product-pic" />
         </li>
-      )}
+      ))}
     </ul>
   )
 }

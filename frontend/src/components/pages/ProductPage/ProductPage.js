@@ -65,10 +65,16 @@ function ProductPage() {
 
   useEffect(() => {
     getProductData(productId)
-    .then(data => setProductData(data))
+    .then(product => {
+      setProductData(product)
 
-    getProducts(3, [`brand : ${productData.brand}`], true)
-    .then(data => setFromThisBrandList(data))
+        getProducts(3, [`brand : ${product.brand}`], true)
+        .then(products => {
+          setFromThisBrandList(products)
+        })
+    })
+
+    
     // eslint-disable-next-line
   }, [])
 

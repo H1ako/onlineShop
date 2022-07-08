@@ -3,6 +3,7 @@ export async function updateViewHistory(productId) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
         },
     })
     const data = await response.json()
@@ -15,7 +16,7 @@ export async function login() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
         },
     })
 
@@ -29,7 +30,7 @@ export async function cancelDelivery(deliveryId) {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
         },
     })
 
@@ -39,15 +40,65 @@ export async function cancelDelivery(deliveryId) {
 }
 
 export async function productFavouriteAction(productId) {
-    const response = await fetch(`/api/customer/favourite/${productId}`, {
+    const response = await fetch(`/api/customer/favourites/${productId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'X-CSRF-Token': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
         },
     })
 
     const data = await response.json()
+    return data
+}
 
+export async function addProductToCart(productId, amount=1) {
+    const fetchData = {
+        amount
+    }
+
+    const response = await fetch(`/api/customer/cart/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+        body: JSON.stringify(fetchData)
+    })
+
+    const data = await response.json()
+    return data
+}
+
+export async function removeProductFromCart(productId) {
+
+    const response = await fetch(`/api/customer/cart/${productId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+    })
+
+    const data = await response.json()
+    return data
+}
+
+export async function purcaseProduct(productId, amount=1) {
+    const fetchData = {
+        amount,
+        productId
+    }
+
+    const response = await fetch(`/api/customer/deliveries/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+        body: JSON.stringify(fetchData)
+    })
+
+    const data = await response.json()
     return data
 }

@@ -65,6 +65,16 @@
             align-items: center;
             justify-content: center;
             z-index: 12;
+
+            .product-info__name {
+                font-size: var(--fontSize2);
+                color: var(--colorText);
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     
         .delivery__product-pic {

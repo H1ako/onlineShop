@@ -1,0 +1,17 @@
+.favourite-btn {
+    &:hover {
+        .favourite-btn__icon {
+            color: var(--colorAccent);
+        }
+    }
+
+    &__icon {
+        color: var(--colorText);
+        transition: var(--transitionDefault);
+        width: 2rem;
+
+        &.is-favourite {
+            color: var(--colorAccent);
+        }
+    }
+}

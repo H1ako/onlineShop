@@ -9,7 +9,8 @@ urlpatterns = [
     path('deliveries/<int:deliveryId>', views.DeliveryView.as_view()),
     path('favourites', views.FavouriteListView.as_view()),
     path('favourites/<int:productId>', views.FavouriteView.as_view()),
-    path('cart', views.cart),
+    path('cart', views.CartListView.as_view()),
+    path('cart/<int:productId>', views.CartView.as_view()),
     path('view-history', views.ViewHistoryView.as_view()),
     path('login', views.loginf)
 ]

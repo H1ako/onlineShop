@@ -10,6 +10,7 @@ import ProductsPage from "./components/pages/ProductsPage/ProductsPage";
 import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
 import DeliveriesPage from "./components/pages/DeliveriesPage/DeliveriesPage";
 import FavouritesPage from "./components/pages/FavouritesPage/FavouritesPage";
+import CartPage from "./components/pages/CartPage/CartPage";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path='/profile/' element={<ProfilePage />} />
         <Route path='/deliveries/' element={<DeliveriesPage />} />
         <Route path='/favourites/' element={<FavouritesPage />} />
+        <Route path='/cart/' element={<CartPage />} />
       </Routes>
     </div>
   );

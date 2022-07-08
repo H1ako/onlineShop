@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Image, Product, Tag, TagCategory
+from rest_framework.fields import CurrentUserDefault
+
 
 class TagSerializer(serializers.ModelSerializer):
     productsWithTag = serializers.SerializerMethodField()
@@ -25,6 +27,7 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
+    # customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
     tags = TagSerializer(read_only=True, many=True)
     images = ImageSerializer(read_only=True, many=True)
     isFavourite = serializers.SerializerMethodField('getIsFavourite')
@@ -34,32 +37,23 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-    def getUser(self):
-        customer = None
-        request = self.context.get("request")
-
-        if request and hasattr(request, "user"):
-            customer = request.user
-
-        return customer
-        
     def getIsFavourite(self, product):
-        customer = self.getUser()
+        customer = self.context['request'].user
 
-        if not customer: return False
+        if not customer: return customer
 
         favourites = list(customer.favourites.filter(product=product))
 
         return len(favourites) > 0
 
     def getInCart(self, product):
-        customer = self.getUser()
+        customer = self.context['request'].user
         
-        if not customer: return 0
+        if not customer: return customer
 
-        cartProduct = customer.cartProducts.filter(product=product)[0]
+        cartProduct = customer.cart.filter(product=product)
 
-        if cartProduct:
-            return cartProduct.amount
+        if len(cartProduct):
+            return cartProduct[0].amount
         else:
             return 0

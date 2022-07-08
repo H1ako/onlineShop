@@ -36,10 +36,13 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         return f"{self.firstName} {self.lastName}"
 
 class CartProduct(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cartProducts')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cart')
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name='carts')
-    quantity = models.PositiveSmallIntegerField('Quantity')
+    amount = models.PositiveSmallIntegerField('amount', default=1)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
+
+    class Meta:
+        unique_together = ('customer', 'product')
 
     def __str__(self):
         return self.product
@@ -76,9 +79,12 @@ class Favourite(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='favourites')
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
+
+    class Meta:
+        unique_together = ('customer', 'product')
     
     def __str__(self):
-        return self.product
+        return f'{self.customer} - {self.product}'
 
 class ViewHistory(models.Model):
     customer = models.ForeignKey(Customer, related_name='viewHistory', on_delete=models.CASCADE)
