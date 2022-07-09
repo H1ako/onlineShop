@@ -6,12 +6,13 @@ import { InformationCircleIcon, ViewListIcon, LogoutIcon } from '@heroicons/reac
 import logo from '../../static/images/logo.svg'
 // global
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 // components
 import Search from '../Search/Search';
 // libs
 import { getCustomerData } from '../../libs/dataGetters';
+import UpdateLocationBtn from '../UpdateLocationBtn/UpdateLocationBtn';
 // store
 import { updateCustomer, useCustomer } from '../../store/slices/customerSlice';
 
@@ -19,11 +20,14 @@ import { updateCustomer, useCustomer } from '../../store/slices/customerSlice';
 function Navbar() {
   const dispatch = useDispatch()
   const { customer } = useCustomer()
+  const [ location, setLocation ] = useState('')
 
   useEffect(() => {
     getCustomerData()
     .then(data => {
       dispatch(updateCustomer({customer: data}))
+      console.log(data)
+      setLocation(data.address ?? '')
     })
   }, [dispatch])
 
@@ -50,10 +54,14 @@ function Navbar() {
         <Search />
         <nav>
           <ul className='nav__links'>
-            <li>
+            <li className='navbar__location'>
               <button title='your location'>
                 <LocationMarkerIcon className='navbar__icon' />
               </button>
+              <div className="location__window">
+                <input type="text" onChange={e => setLocation(e.target.value)} value={location} className="window__address" />
+                <UpdateLocationBtn location={location} />
+              </div>
             </li>
             <li>
               <Link to='/notifications' title='your notofications'>

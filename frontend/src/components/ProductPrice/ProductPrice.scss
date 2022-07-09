@@ -29,8 +29,11 @@
             }
         }
 
-        &:hover .btn__icon {
-            color: var(--colorMain);
+        &:hover,
+        &:focus-within {
+            .btn__icon {
+                color: var(--colorMain);
+            }
         }
 
         .btn__icon {

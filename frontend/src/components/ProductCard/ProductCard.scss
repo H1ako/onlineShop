@@ -6,7 +6,8 @@
     overflow: hidden;
     height: 12rem;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
         &:after {
             opacity: .75;
         }
@@ -81,7 +82,8 @@
             color: var(--colorText);
             text-decoration: none;
 
-            &:hover {
+            &:hover,
+            &:focus-within {
                 text-decoration: underline;
             }
         }

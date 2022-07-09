@@ -11,7 +11,8 @@
         text-decoration: none;
         font-size: var(--fontSize4);
 
-        &:hover {
+        &:hover,
+        &:focus-within {
             color: var(--colorMain);
             text-decoration: underline;
         }
@@ -71,7 +72,8 @@
                 color: var(--colorText);
                 text-decoration: none;
 
-                &:hover {
+                &:hover,
+                &:focus-within {
                     text-decoration: underline;
                 }
             }

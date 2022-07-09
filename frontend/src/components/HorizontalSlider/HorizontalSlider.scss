@@ -37,7 +37,8 @@
             width: 30px;
             transition: var(--transitionDefault);
 
-            &:hover {
+            &:hover,
+            &:focus-within {
                 color: var(--colorMain);
             }
         }
@@ -63,7 +64,8 @@
             transition: var(--transitionDefault);
             pointer-events: all;
 
-            &:hover {
+            &:hover,
+            &:focus-within {
                 opacity: .8;
             }
 

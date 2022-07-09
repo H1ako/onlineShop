@@ -67,7 +67,8 @@
                 transition: var(--transitionDefault);
             }
 
-            &:hover {
+            &:hover,
+            &:focus-within {
                 &::after {
                     transform: scaleX(1);
                 }
@@ -85,18 +86,69 @@
             align-items: center;
             gap: $gap;
 
-            .navbar__icon:hover {
+            .navbar__icon:hover,
+            .navbar__icon:focus-within {
                 color: var(--colorMain);
+            }
+
+            .navbar__location {
+                position: relative;
+
+                &:hover,
+                &:focus-within {
+                    .location__window {
+                        opacity: 1;
+                        user-select: all;
+                        pointer-events: all;
+                    }
+                }
+
+                .location__window {
+                    position: absolute;
+                    opacity: 0;
+                    user-select: none;
+                    pointer-events: none;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 1rem 2rem;
+                    background: var(--colorGray);
+                    border-radius: var(--bdrsDefault);
+                    transition: var(--transitionDefault);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1rem;
+
+                    .window__address {
+                        background: none;
+                        color: var(--colorText);
+                        outline: none;
+                        border: none;
+                        font-size: var(--fontSize4);
+                        text-align: center;
+                        transition: var(--transitionDefault);
+                        border-radius: var(--bdrsDefault);
+
+                        &:hover,
+                        &:focus-within {
+                            background: var(--colorGrayLight);
+                        }
+                    }
+                }
             }
 
             .navbar__customer {
                 position: relative;
                 z-index: 10000;
 
-                &:hover .customer__profile {
-                    opacity: 1;
-                    user-select: all;
-                    pointer-events: all;
+                &:hover,
+                &:focus-within {
+                    .customer__profile {
+                        opacity: 1;
+                        user-select: all;
+                        pointer-events: all;
+                    }
                 }
 
                 .customer__picture {
@@ -177,7 +229,8 @@
                             border-radius: var(--bdrsDefault);
                             transition: var(--transitionDefault);
 
-                            &:hover {
+                            &:hover,
+                            &:focus-within {
                                 background: var(--colorMain);
                             }
 

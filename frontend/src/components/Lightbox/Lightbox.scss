@@ -31,7 +31,8 @@
             color: var(--colorText);
             transition: var(--transitionDefault);
 
-            &:hover {
+            &:hover,
+            &:focus {
                 color: var(--colorMain);
             }
         }
@@ -64,7 +65,8 @@
                 transition: var(--transitionDefault);
                 pointer-events: all;
 
-                &:hover {
+                &:hover,
+                &:focus {
                     opacity: .8;
                 }
 

@@ -1,5 +1,6 @@
 .favourite-btn {
-    &:hover {
+    &:hover,
+    &:focus-within {
         .favourite-btn__icon {
             color: var(--colorAccent);
         }
@@ -13,7 +14,8 @@
         &.is-favourite {
             color: var(--colorAccent);
 
-            &:hover {
+            &:hover,
+            &:focus-within {
                 color: var(--colorText);
             }
         }

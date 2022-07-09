@@ -81,7 +81,8 @@
                 font-weight: 600;
                 text-decoration: none;
 
-                &:hover {
+                &:hover,
+                &:focus-within {
                     text-decoration: underline;
                 }
             }

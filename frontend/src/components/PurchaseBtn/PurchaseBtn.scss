@@ -6,7 +6,8 @@
     padding: .5rem 1.5rem;
     transition: var(--transitionDefault);
 
-    &:hover {
+    &:hover,
+    &:focus-within {
         background: var(--colorBg);
     }
 }

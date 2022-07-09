@@ -28,15 +28,13 @@
             color: var(--colorText);
             font-size: var(--fontSize3);
 
-            &:hover {
+            &:hover,
+            &:focus-within {
                 text-decoration: underline;
             }
         }
 
         .product-price {
-            // width: 100%;
-            // justify-content: space-between;
-
             &__btn {
                 height: 5rem;
             }

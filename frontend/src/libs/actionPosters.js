@@ -102,3 +102,27 @@ export async function purcaseProduct(productId, amount=1) {
     const data = await response.json()
     return data
 }
+
+export async function updateSettings(settings) {
+    // const settings = {
+    //     address,
+    //     firstName,
+    //     lastName,
+    //     password,
+    //     passwordAgain,
+    //     phone,
+    //     email,
+    //     picture,
+    // }
+    const response = await fetch(`/api/customer/deliveries/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+        body: JSON.stringify(settings)
+    })
+
+    const data = await response.json()
+    return data
+}
