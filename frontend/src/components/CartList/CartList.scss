@@ -1,4 +1,4 @@
-.deliveries-list {
+.cart-list {
     position: relative;
     width: 100%;
     display: flex;
@@ -6,7 +6,7 @@
     align-items: center;
     gap: 1rem;
 
-    &__delivery {
+    &__cart-product {
         position: relative;
         width: 70%;
         border-radius: var(--bdrsDefault);
@@ -28,7 +28,7 @@
             border-radius: 0 var(--bdrsDefault) var(--bdrsDefault) 0;
         }
 
-        .delivery__info {
+        .cart-product__info {
             z-index: 12;
             display: flex;
             flex-direction: column;
@@ -48,8 +48,8 @@
                 }
             }
 
-            .info__arrival-date,
-            .info__address {
+            .info__product-author,
+            .info__product-price {
                 font-weight: 300;
             }
 
@@ -62,9 +62,16 @@
                 outline: none;
                 border: none;
             }
+
+            .info__btns {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+                margin-top: auto;
+            }
         }
     
-        .delivery__product-info {
+        .cart-product__product-info {
             position: absolute;
             left: 50%;
             width: 50%;
@@ -87,7 +94,7 @@
             }
         }
     
-        .delivery__product-pic {
+        .cart-product__product-pic {
             position: absolute;
             right: 0;
             top: 0;

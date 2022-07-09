@@ -12,6 +12,10 @@
 
         &.is-favourite {
             color: var(--colorAccent);
+
+            &:hover {
+                color: var(--colorText);
+            }
         }
     }
 }

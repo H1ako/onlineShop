@@ -1,0 +1,12 @@
+.remove-from-cart-btn {
+    color: var(--colorText);
+    background: var(--colorAccent);
+    border-radius: var(--bdrsDefault);
+    font-size: var(--fontSize4);
+    padding: .5rem 1.5rem;
+    transition: var(--transitionDefault);
+
+    &:hover {
+        background: var(--colorBg);
+    }
+}

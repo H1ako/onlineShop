@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from customers.serializers import CustomerSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
+from customers.serializers import CartProductSerializer, CustomerSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
 from .models import Customer, ViewHistory
 from products.models import Product
 from rest_framework.permissions import IsAuthenticated
@@ -167,7 +167,7 @@ class CartListView(APIView):
             except Exception:
                 pass
 
-        cartData = FavouriteSerializer(cart, many=True, context={'request': req}).data
+        cartData = CartProductSerializer(cart, many=True, context={'request': req}).data
         return Response({'cartProducts': cartData, 'totalCost': pricesSum})
 
 class CartView(APIView):
@@ -176,9 +176,9 @@ class CartView(APIView):
     # add product to cart or change it's amount
     def post(self, req, productId):
         customer = req.user
-        amount = req.POST.get('amount', 1)
+        amount = int(req.POST.get('amount', 1))
         if amount < 1: return Response({'error': 'wrong amount'})
-        product = Product.objects.filter(productId)[0]
+        product = Product.objects.filter(id=productId)[0]
 
         cartProduct, created = customer.cart.get_or_create(product=product, amount=amount)
 
@@ -186,6 +186,7 @@ class CartView(APIView):
             cartProduct.amount = amount
             cartProduct.save()
 
+        cartProductData = CartProductSerializer(cartProduct, context={'request': req}).data
         return Response({'cartProduct': cartProduct})
 
     # remove product from cart

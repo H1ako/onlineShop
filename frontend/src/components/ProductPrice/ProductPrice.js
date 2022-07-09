@@ -5,6 +5,7 @@ import { ShoppingBagIcon as ShoppingBagIconOutline } from '@heroicons/react/outl
 import { ShoppingBagIcon } from '@heroicons/react/solid'
 // components
 import FavouriteBtn from '../FavouriteBtn/FavouriteBtn';
+import { addProductToCart } from '../../libs/actionPosters';
 
 
 function ProductPrice({
@@ -15,10 +16,13 @@ function ProductPrice({
     discount,
     discountPrice
 }) {
+    const btnClickHandler = () => {
+        addProductToCart(productId)
+    }
 
   return (
     <div className="product-price">
-        <button className="product-price__btn" title='add to cart'>
+        <button onClick={btnClickHandler} className="product-price__btn" title='add to cart'>
             { inCart > 0 ?
                 <ShoppingBagIcon className='btn__icon in-cart' title='in cart' />
             :
