@@ -7,9 +7,10 @@ import { purchaseProduct } from '../../libs/actionPosters'
 
 function PurhcaseBtn({
     productId,
+    amount
 }) {
     const btnClickHandler = () => {
-        purchaseProduct(productId)
+        purchaseProduct(productId, amount)
     }
 
     return (

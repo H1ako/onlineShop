@@ -26,7 +26,6 @@ function Navbar() {
     getCustomerData()
     .then(data => {
       dispatch(updateCustomer({customer: data}))
-      console.log(data)
       setLocation(data.address ?? '')
     })
   }, [dispatch])

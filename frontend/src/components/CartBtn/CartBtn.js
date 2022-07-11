@@ -13,6 +13,7 @@ function CartBtn({
 }) {
     const btnCLickHandler = () => {
         const amount = inCart > 0 ? 0 : 1
+        
         productCartAction(productId, amount)
     }
 
