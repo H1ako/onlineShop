@@ -2,14 +2,14 @@
 import './PurchaseBtn.scss'
 // icons
 // libs
-import { purcaseProduct } from '../../libs/actionPosters'
+import { purchaseProduct } from '../../libs/actionPosters'
 
 
 function PurhcaseBtn({
     productId,
 }) {
     const btnClickHandler = () => {
-        purcaseProduct(productId)
+        purchaseProduct(productId)
     }
 
     return (

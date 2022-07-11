@@ -52,7 +52,7 @@ export async function productFavouriteAction(productId) {
     return data
 }
 
-export async function addProductToCart(productId, amount=1) {
+export async function productCartAction(productId, amount=0) {
     const fetchData = {
         amount
     }
@@ -71,7 +71,6 @@ export async function addProductToCart(productId, amount=1) {
 }
 
 export async function removeProductFromCart(productId) {
-
     const response = await fetch(`/api/customer/cart/${productId}`, {
         method: 'DELETE',
         headers: {
@@ -84,13 +83,13 @@ export async function removeProductFromCart(productId) {
     return data
 }
 
-export async function purcaseProduct(productId, amount=1) {
+export async function purchaseProduct(productId, amount=1, address='customerAddress') {
     const fetchData = {
         amount,
-        productId
+        address
     }
 
-    const response = await fetch(`/api/customer/deliveries/`, {
+    const response = await fetch(`/api/customer/deliveries/${productId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',

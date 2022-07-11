@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Image, Product, Tag, TagCategory
-from rest_framework.fields import CurrentUserDefault
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -27,7 +26,6 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    # customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
     tags = TagSerializer(read_only=True, many=True)
     images = ImageSerializer(read_only=True, many=True)
     isFavourite = serializers.SerializerMethodField('getIsFavourite')
@@ -39,18 +37,14 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def getIsFavourite(self, product):
         customer = self.context['request'].user
-
         if not customer: return customer
-
         favourites = list(customer.favourites.filter(product=product))
 
         return len(favourites) > 0
 
     def getInCart(self, product):
         customer = self.context['request'].user
-        
         if not customer: return customer
-
         cartProduct = customer.cart.filter(product=product)
 
         if len(cartProduct):

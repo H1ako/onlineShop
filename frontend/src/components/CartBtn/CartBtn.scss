@@ -1,0 +1,23 @@
+.cart-btn {
+    &:hover,
+    &:focus-within {
+        .cart-btn__icon {
+            color: var(--colorMain);
+        }
+    }
+
+    &__icon {
+        transition: var(--transitionDefault);
+        color: var(--colorText);
+        width: 2rem;
+
+        &.in-cart {
+            color: var(--colorMain);
+
+            &:hover {
+                color: var(--colorText);
+            }
+        }
+    }
+}
+        

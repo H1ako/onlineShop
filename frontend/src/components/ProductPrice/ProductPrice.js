@@ -5,7 +5,6 @@ import { ShoppingBagIcon as ShoppingBagIconOutline } from '@heroicons/react/outl
 import { ShoppingBagIcon } from '@heroicons/react/solid'
 // components
 import FavouriteBtn from '../FavouriteBtn/FavouriteBtn';
-import { addProductToCart } from '../../libs/actionPosters';
 
 
 function ProductPrice({
@@ -17,7 +16,7 @@ function ProductPrice({
     discountPrice
 }) {
     const btnClickHandler = () => {
-        addProductToCart(productId)
+        return
     }
 
   return (

@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react'
 import { getCart } from '../../libs/dataGetters'
 // components
 import PurhcaseBtn from '../PurchaseBtn/PurchaseBtn';
-import RemoveFromCartBtn from '../RemoveFromCartBtn/RemoveFromCartBtn';
 import FavouriteBtn from '../FavouriteBtn/FavouriteBtn';
+import CartBtn from '../CartBtn/CartBtn';
 
 
 function CartList({
@@ -44,7 +44,7 @@ function CartList({
                 <h2 className="info__product-price">{cartProduct.product?.price}</h2>
                 <div className="info__btns">
                   <PurhcaseBtn productId={cartProduct.product?.id} />
-                  <RemoveFromCartBtn productId={cartProduct.product?.id} />
+                  <CartBtn productId={cartProduct.product?.id} inCart={cartProduct.product?.inCart} />
                   <FavouriteBtn productId={cartProduct.product?.id} isFavourite={cartProduct.product?.isFavourite} />
                 </div>
             </div>

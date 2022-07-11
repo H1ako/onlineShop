@@ -1,3 +1,4 @@
+from datetime import date
 from django.http import JsonResponse
 from customers.serializers import CartProductSerializer, CustomerSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
 from .models import Customer, ViewHistory
@@ -7,6 +8,7 @@ from django.contrib.auth import login
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from django.utils import timezone
 
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
@@ -72,16 +74,6 @@ class DeliveryListView(APIView):
         deliveriesData = DeliverySerializer(deliveries, many=True, context={'request': req}).data
         return Response({'deliveries': deliveriesData, 'totalCost': pricesSum})
 
-
-    def post(self, req):
-        product = Product.objects.get(id=9999)
-        return Response({'id': product.id})
-        # customer = req.user
-        # amount = req.POST.get('amount', None)
-        # if not amount: return Response({'error': 'no amount'})
-        # productId = req.POST.get('productId', None)
-        # product = Product.objects.get(id=productId)
-
         
 class DeliveryView(APIView):
     permission_classes = [IsAuthenticated, ]
@@ -94,6 +86,22 @@ class DeliveryView(APIView):
         deliveryData = DeliverySerializer(delivery).data
         return Response({'delivery': deliveryData})
 
+    # purchase product
+    def post(self, req, productId):
+        customer = req.user
+        amount = int(req.POST.get(amount, 0))
+        address = req.POST.get('address', customer.address)
+        if address == 'customerAddress': address = customer.address
+        now = timezone.now()
+        arrivalDate = date(
+            year=now.year,
+            month=now.month,
+            day=now.day + 7
+        )
+        if amount < 1: return Response({'error': 'incorrect amount number'})
+        product = Product.objects.filter(id=productId)[0]
+
+        customer.deliveries.create(product=product, amount=amount, status='DELIVERING', arrivalDate=arrivalDate)
     # cancelling
     def patch(self, req, deliveryId):
         customer = req.user
@@ -173,21 +181,27 @@ class CartListView(APIView):
 class CartView(APIView):
     permission_classes = [IsAuthenticated, ]
 
-    # add product to cart or change it's amount
+    # add product to cart or increase it's amount or remove it
     def post(self, req, productId):
         customer = req.user
-        amount = int(req.POST.get('amount', 1))
-        if amount < 1: return Response({'error': 'wrong amount'})
-        product = Product.objects.filter(id=productId)[0]
+        amount = int(req.POST.get('amount', 0))
+        product = Product.objects.get(id=productId)
+
+        # removes product if amount < 1
+        if amount < 1:
+            cartProduct = customer.cart.get(product=product)
+            cartProduct.delete()
+            return Response({'result': 'product was removed from the cart'})
 
         cartProduct, created = customer.cart.get_or_create(product=product, amount=amount)
 
+        # increases cart's product amount
         if not created:
-            cartProduct.amount = amount
+            cartProduct.amount += amount
             cartProduct.save()
 
         cartProductData = CartProductSerializer(cartProduct, context={'request': req}).data
-        return Response({'cartProduct': cartProduct})
+        return Response({'cartProduct': cartProductData})
 
     # remove product from cart
     def delete(self, req, productId):
@@ -204,11 +218,6 @@ def notifications():
 
 def settings():
     pass
-
-
-def delivery():
-    pass
-
 
 # @csrf_exempt
 def loginf(req):
