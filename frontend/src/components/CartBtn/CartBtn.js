@@ -10,11 +10,12 @@ import { productCartAction } from '../../libs/actionPosters'
 function CartBtn({
     productId,
     inCart,
+    amount=null
 }) {
     const btnCLickHandler = () => {
-        const amount = inCart > 0 ? 0 : 1
+        const fetchAmount = amount !== null ? amount : inCart > 0 ? 0 : 1
         
-        productCartAction(productId, amount)
+        productCartAction(productId, fetchAmount)
     }
 
     return (

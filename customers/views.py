@@ -9,9 +9,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.utils import timezone
-
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
+
 
 class CustomerView(APIView):
     permission_classes = [IsAuthenticated, ]
@@ -19,6 +18,50 @@ class CustomerView(APIView):
     def get(self, req):
         customerData = CustomerSerializer(req.user).data
         return Response({'customer': customerData})
+
+    def post(self, req):
+        customer = req.user
+        # data to update
+        print(req.data)
+        address = req.data.get('address', customer.address)
+        firstName = req.data.get('firstName', customer.firstName)
+        lastName = req.data.get('lastName', customer.lastName)
+        password = req.data.get('password', None)
+        passwordAgain = req.data.get('passwordAgain', None)
+        phone = req.data.get('phone', None)
+        email = req.data.get('email', None)
+        picture = req.data.get('picture', customer.picture)
+
+        # updates password
+        if password != None:
+            passwordsAreSimilars = password == passwordAgain
+
+            if passwordsAreSimilars:
+                customer.set_password(password)
+
+        # updates phone number
+        if phone != None:
+            customersWithPhone = Customer.objects.filter(phone=phone)
+            
+            if not len(customersWithPhone):
+                customer.phone = phone
+
+        # updates email
+        if email != None:
+            customersWithEmail = Customer.objects.filter(email=email)
+            
+            if not len(customersWithEmail):
+                customer.email = email
+
+        customer.address = address
+        customer.firstName = firstName
+        customer.lastName = lastName
+        customer.picture = picture
+        customer.save()
+
+        customerData = CustomerSerializer(customer).data
+        return Response({'customer': customerData})
+
 
 class ViewHistoryView(APIView):
     permission_classes = [IsAuthenticated, ]
@@ -34,27 +77,30 @@ class ViewHistoryView(APIView):
             except Exception:
                 pass
 
-        viewHistoryData = ViewHistorySerializer(viewHistorySet, many=True, context={'request': req}).data
+        viewHistoryData = ViewHistorySerializer(
+            viewHistorySet, many=True, context={'request': req}).data
         return Response({'viewHistory': viewHistoryData})
-    
+
     def post(self, req):
-        productId = req.POST.get('productId', 'Error')
+        productId = req.data.get('productId', 'Error')
         product = Product.objects.get(id=productId)
 
         if not product:
             return Response({'detailed': 'ERROR: Incorrect product id'}, status=HTTP_400_BAD_REQUEST)
 
-        viewHistory, created = ViewHistory.objects.get_or_create(product=product, customer=req.user)
+        viewHistory, created = ViewHistory.objects.get_or_create(
+            product=product, customer=req.user)
 
         if not created:
             viewHistory.updateViewedAt()
 
         if not viewHistory:
             return Response({'detailed': 'ERROR: view history was not created or updated'}, status=HTTP_400_BAD_REQUEST)
-        
-        return Response(status=HTTP_200_OK)
-            
-        
+
+        viewHistoryData = ViewHistorySerializer(viewHistory).data
+        return Response({'viewHistory': viewHistoryData})
+
+
 class DeliveryListView(APIView):
     permission_classes = [IsAuthenticated, ]
 
@@ -62,7 +108,8 @@ class DeliveryListView(APIView):
     def get(self, req):
         amount = req.GET.get('amount', 'all')
         deliveries = req.user.deliveries.all().order_by('-arrivalDate')
-        prices = [int(price) for price in list(deliveries.values_list('product__discountPrice', flat=True))]
+        prices = [int(price) for price in list(
+            deliveries.values_list('product__discountPrice', flat=True))]
         pricesSum = sum(prices)
 
         if amount != 'all':
@@ -71,17 +118,19 @@ class DeliveryListView(APIView):
             except Exception:
                 pass
 
-        deliveriesData = DeliverySerializer(deliveries, many=True, context={'request': req}).data
+        deliveriesData = DeliverySerializer(
+            deliveries, many=True, context={'request': req}).data
         return Response({'deliveries': deliveriesData, 'totalCost': pricesSum})
 
-        
+
 class DeliveryView(APIView):
     permission_classes = [IsAuthenticated, ]
 
-    # gets customer's delivery by delivery id    
-    def get(self, req, deliveryId):
+    # gets customer's delivery by delivery id
+    def get(self, req, productId):
         customer = req.user
-        delivery = customer.deliveries.filter(id=deliveryId)[0]
+        product = Product.objects.get(id=productId)
+        delivery = customer.deliveries.filter(product=product)[0]
 
         deliveryData = DeliverySerializer(delivery).data
         return Response({'delivery': deliveryData})
@@ -89,20 +138,25 @@ class DeliveryView(APIView):
     # purchase product
     def post(self, req, productId):
         customer = req.user
-        amount = int(req.POST.get(amount, 0))
-        address = req.POST.get('address', customer.address)
-        if address == 'customerAddress': address = customer.address
+        amount = int(req.data.get('amount', 0))
+        address = req.data.get('address', customer.address)
+        if address == 'customerAddress':
+            address = customer.address
         now = timezone.now()
         arrivalDate = date(
             year=now.year,
             month=now.month,
             day=now.day + 7
         )
-        if amount < 1: return Response({'error': 'incorrect amount number'})
+        if amount < 1:
+            return Response({'error': 'incorrect amount number'})
         product = Product.objects.filter(id=productId)[0]
 
-        customer.deliveries.create(product=product, amount=amount, status='DELIVERING', arrivalDate=arrivalDate)
+        delivery = customer.deliveries.create(
+            product=product, amount=amount, status='DELIVERING', arrivalDate=arrivalDate)
+        return Response({'delivery': delivery})
     # cancelling
+
     def patch(self, req, deliveryId):
         customer = req.user
         delivery = customer.deliveries.filter(id=deliveryId)[0]
@@ -111,10 +165,12 @@ class DeliveryView(APIView):
             delivery.status = 'CANCELLED'
             delivery.save()
 
-            deliveryData = DeliverySerializer(delivery, context={'request': req}).data
+            deliveryData = DeliverySerializer(
+                delivery, context={'request': req}).data
             return Response({'delivery': deliveryData})
 
         return Response({'error': 'There is not such a delivery'})
+
 
 class FavouriteListView(APIView):
     permission_classes = [IsAuthenticated, ]
@@ -123,7 +179,8 @@ class FavouriteListView(APIView):
     def get(self, req):
         amount = req.GET.get('amount', 'all')
         favourites = req.user.favourites.all().order_by('-createdAt')
-        prices = [int(price) for price in list(favourites.values_list('product__discountPrice', flat=True))]
+        prices = [int(price) for price in list(
+            favourites.values_list('product__discountPrice', flat=True))]
         pricesSum = sum(prices)
 
         if amount != 'all':
@@ -132,8 +189,10 @@ class FavouriteListView(APIView):
             except Exception:
                 pass
 
-        favouritesData = FavouriteSerializer(favourites, many=True, context={'request': req}).data
+        favouritesData = FavouriteSerializer(
+            favourites, many=True, context={'request': req}).data
         return Response({'favourites': favouritesData, 'totalCost': pricesSum})
+
 
 class FavouriteView(APIView):
     permission_classes = [IsAuthenticated, ]
@@ -143,7 +202,8 @@ class FavouriteView(APIView):
         customer = req.user
         favourite = customer.favourites.filter(product__id=productId)[0]
 
-        favouriteData = FavouriteSerializer(favourite, context={'request': req}).data
+        favouriteData = FavouriteSerializer(
+            favourite, context={'request': req}).data
         return Response({'favourite': favouriteData})
 
     # adds or removes product from customer's favourites
@@ -166,7 +226,8 @@ class CartListView(APIView):
     def get(self, req):
         amount = req.GET.get('amount', 'all')
         cart = req.user.cart.all().order_by('-createdAt')
-        prices = [int(price) for price in list(cart.values_list('product__discountPrice', flat=True))]
+        prices = [int(price) for price in list(
+            cart.values_list('product__discountPrice', flat=True))]
         pricesSum = sum(prices)
 
         if amount != 'all':
@@ -175,8 +236,10 @@ class CartListView(APIView):
             except Exception:
                 pass
 
-        cartData = CartProductSerializer(cart, many=True, context={'request': req}).data
+        cartData = CartProductSerializer(
+            cart, many=True, context={'request': req}).data
         return Response({'cartProducts': cartData, 'totalCost': pricesSum})
+
 
 class CartView(APIView):
     permission_classes = [IsAuthenticated, ]
@@ -184,7 +247,7 @@ class CartView(APIView):
     # add product to cart or increase it's amount or remove it
     def post(self, req, productId):
         customer = req.user
-        amount = int(req.POST.get('amount', 0))
+        amount = int(req.data.get('amount', 0))
         product = Product.objects.get(id=productId)
 
         # removes product if amount < 1
@@ -193,14 +256,16 @@ class CartView(APIView):
             cartProduct.delete()
             return Response({'result': 'product was removed from the cart'})
 
-        cartProduct, created = customer.cart.get_or_create(product=product, amount=amount)
+        cartProduct, created = customer.cart.get_or_create(
+            product=product, amount=amount)
 
         # increases cart's product amount
         if not created:
             cartProduct.amount += amount
             cartProduct.save()
 
-        cartProductData = CartProductSerializer(cartProduct, context={'request': req}).data
+        cartProductData = CartProductSerializer(
+            cartProduct, context={'request': req}).data
         return Response({'cartProduct': cartProductData})
 
     # remove product from cart
@@ -212,14 +277,15 @@ class CartView(APIView):
         cartProduct.delete()
         return Response({'result': 'removed from cart'})
 
-    
+
 def notifications():
     pass
+
 
 def settings():
     pass
 
-# @csrf_exempt
+
 def loginf(req):
     if req.method == 'POST':
         customer = Customer.objects.get(email='nikita@yandex.ru')

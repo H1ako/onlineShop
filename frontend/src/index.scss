@@ -1,116 +1,120 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
 
 :root {
-    // colors
-    --colorBg: #222428;
-    --colorBgTransparent: rgba(34, 36, 40, .2);
-    --colorMain: #2861CF;
-    --colorMainTransparent: rgba(40, 97, 207, 0.25);
-    --colorAccent: #CF2828;
-    --colorGray: #3C4047;
-    --colorGrayLight: #666C76;
-    --colorText: #FFFFFF;
-    --colorTextDark: #cccccc;
-    // border radiuses
-    --bdrsDefault: 10px;
-    // transitions
-    --transitionDefault: 200ms;
-    // font sizes
-    --fontSize1: clamp(3rem, 6vw, 5rem);
-    --fontSize2: clamp(1.75rem, 2.75vw, 2.25rem);
-    --fontSize3: clamp(1.2rem, 2.6vw, 1.8rem);
-    --fontSize4: clamp(.825rem, 2vw, 1.125rem);
-    --fontSize5: clamp(.5rem, 1vw, .825rem);
-    // sizes
-    --widthContent: min(90%, 1400px);
-    --navbarIconSize: 1.75rem;
-    --navbarHeight: 5.25rem;
-    //screen sizes
-    --sizeScreenSmallPhone: 320px;
-    --sizeScreenPhone: 480px;
-    --sizeScreenBigPhone: 640px;
-    --sizeScreenTablet: 960px;
-    --sizeScreenBigTablet: 1025px;
-    --sizeScreenDesktop: 1280px;
-    // grid templates
-    --gridTemplateColRec: repeat(3, minmax(15rem, 1fr));
-    --gridTemplateColSale: repeat(3, minmax(15rem, 1fr));
+  // colors
+  --colorBg: #222428;
+  --colorBgTransparent: rgba(34, 36, 40, 0.2);
+  --colorMain: #2861cf;
+  --colorMainTransparent: rgba(40, 97, 207, 0.25);
+  --colorAccent: #cf2828;
+  --colorGray: #3c4047;
+  --colorGrayLight: #666c76;
+  --colorText: #ffffff;
+  --colorTextDark: #cccccc;
+  // border radiuses
+  --bdrsDefault: 10px;
+  // transitions
+  --transitionDefault: 200ms;
+  // font sizes
+  --fontSize1: clamp(3rem, 6vw, 5rem);
+  --fontSize2: clamp(1.75rem, 2.75vw, 2.25rem);
+  --fontSize3: clamp(1.2rem, 2.6vw, 1.8rem);
+  --fontSize4: clamp(0.825rem, 2vw, 1.125rem);
+  --fontSize5: clamp(0.5rem, 1vw, 0.825rem);
+  // sizes
+  --widthContent: min(90%, 1400px);
+  --navbarIconSize: 1.75rem;
+  --navbarHeight: 5.25rem;
+  //screen sizes
+  --sizeScreenSmallPhone: 320px;
+  --sizeScreenPhone: 480px;
+  --sizeScreenBigPhone: 640px;
+  --sizeScreenTablet: 960px;
+  --sizeScreenBigTablet: 1025px;
+  --sizeScreenDesktop: 1280px;
+  // grid templates
+  --gridTemplateColRec: repeat(3, minmax(15rem, 1fr));
+  --gridTemplateColSale: repeat(3, minmax(15rem, 1fr));
 }
 
 *,
 *::after,
 *::before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5 {
-    margin-block: 0;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin-block: 0;
 }
 
 h1 {
-    font-size: var(--fontSize1);
+  font-size: var(--fontSize1);
 }
 
 h2 {
-    font-size: var(--fontSize2);
+  font-size: var(--fontSize2);
 }
 
 h3 {
-    font-size: var(--fontSize3);
+  font-size: var(--fontSize3);
 }
 
 h4 {
-    font-size: var(--fontSize4);
+  font-size: var(--fontSize4);
 }
 
 h5 {
-    font-size: var(--fontSize5);
+  font-size: var(--fontSize5);
 }
 
 button {
-    background: none;
-    padding: 0;
-    color: var(--colorText);
-    outline: none;
-    border: none;
-    cursor: pointer;
+  background: none;
+  padding: 0;
+  color: var(--colorText);
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
 
 body {
-    background: var(--colorBg);
-    color: var(--colorText);
-    font-family: 'Oswald', sans-serif;
-    font-weight: 300;
+  background: var(--colorBg);
+  color: var(--colorText);
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .fade-enter {
-    opacity: 0;
-    transform: translateY(40px);
-    user-select: none;
-    z-index: 1;
+  opacity: 0;
+  transform: translateY(40px);
+  user-select: none;
+  z-index: 1;
 }
 
 .fade-appear-active,
 .fade-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: var(--transitionDefault);
+  opacity: 1;
+  transform: translateY(0);
+  transition: var(--transitionDefault);
 }
 
 .fade-exit {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .fade-exit-active {
-    opacity: 0;
-    user-select: none;
-    transform: translateY(40px);
-    transition: var(--transitionDefault);
+  opacity: 0;
+  user-select: none;
+  transform: translateY(40px);
+  transition: var(--transitionDefault);
 }
