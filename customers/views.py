@@ -1,13 +1,14 @@
 from datetime import date
 from django.http import JsonResponse
 from customers.serializers import CartProductSerializer, CustomerSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
+from products.serializers import ProductSerializer
 from .models import Customer, ViewHistory
 from products.models import Product
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import login
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_400_BAD_REQUEST
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
@@ -42,14 +43,14 @@ class CustomerView(APIView):
         # updates phone number
         if phone != None:
             customersWithPhone = Customer.objects.filter(phone=phone)
-            
+
             if not len(customersWithPhone):
                 customer.phone = phone
 
         # updates email
         if email != None:
             customersWithEmail = Customer.objects.filter(email=email)
-            
+
             if not len(customersWithEmail):
                 customer.email = email
 
@@ -122,24 +123,13 @@ class DeliveryListView(APIView):
             deliveries, many=True, context={'request': req}).data
         return Response({'deliveries': deliveriesData, 'totalCost': pricesSum})
 
-
-class DeliveryView(APIView):
-    permission_classes = [IsAuthenticated, ]
-
-    # gets customer's delivery by delivery id
-    def get(self, req, productId):
-        customer = req.user
-        product = Product.objects.get(id=productId)
-        delivery = customer.deliveries.filter(product=product)[0]
-
-        deliveryData = DeliverySerializer(delivery).data
-        return Response({'delivery': deliveryData})
-
     # purchase product
-    def post(self, req, productId):
+    def post(self, req):
         customer = req.user
+        productId = int(req.data.get('productId', None))
         amount = int(req.data.get('amount', 0))
         address = req.data.get('address', customer.address)
+        print(address, req.data)
         if address == 'customerAddress':
             address = customer.address
         now = timezone.now()
@@ -154,10 +144,25 @@ class DeliveryView(APIView):
 
         delivery = customer.deliveries.create(
             product=product, amount=amount, status='DELIVERING', arrivalDate=arrivalDate)
-        return Response({'delivery': delivery})
-    # cancelling
 
-    def patch(self, req, deliveryId):
+        deliveryData = DeliverySerializer(
+            delivery, context={'request': req}).data
+        return Response({'delivery': deliveryData})
+
+
+class DeliveryView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    # gets customer's delivery by delivery id
+    def get(self, req, deliveryId):
+        customer = req.user
+        delivery = customer.deliveries.filter(id=deliveryId)[0]
+
+        deliveryData = DeliverySerializer(delivery).data
+        return Response({'delivery': deliveryData})
+
+    # cancelling
+    def delete(self, req, deliveryId):
         customer = req.user
         delivery = customer.deliveries.filter(id=deliveryId)[0]
 
@@ -216,7 +221,8 @@ class FavouriteView(APIView):
         if not created:
             favourite.delete()
 
-        return Response({'created': created})
+        productData = ProductSerializer(product, context={'request': req}).data
+        return Response({'created': created, 'product': productData})
 
 
 class CartListView(APIView):
@@ -264,9 +270,8 @@ class CartView(APIView):
             cartProduct.amount += amount
             cartProduct.save()
 
-        cartProductData = CartProductSerializer(
-            cartProduct, context={'request': req}).data
-        return Response({'cartProduct': cartProductData})
+        productData = ProductSerializer(product, context={'request': req}).data
+        return Response({'product': productData})
 
     # remove product from cart
     def delete(self, req, productId):

@@ -46,7 +46,7 @@ function DeliveriesList({
                     <BanIcon className='status__icon' />
                     Cancelled
                 </div>
-                <h4 className="info__arrival-date">Arrival Date{delivery.arrivalDate}</h4>
+                <h4 className="info__arrival-date">Arrival Date: {delivery.arrivalDate}</h4>
                 <h4 className="info__address">To: {delivery.address}</h4>
             </div>
             <div className="delivery__product-info">

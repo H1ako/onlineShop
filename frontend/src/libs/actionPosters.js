@@ -25,20 +25,6 @@ export async function login() {
   return data
 }
 
-export async function cancelDelivery(deliveryId) {
-  const response = await fetch(`/api/customer/delivery/${deliveryId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
-    },
-  })
-
-  const data = await response.json()
-
-  return data
-}
-
 export async function productFavouriteAction(productId) {
   const response = await fetch(`/api/customer/favourites/${productId}`, {
     method: "POST",
@@ -91,9 +77,10 @@ export async function purchaseProduct(
   const fetchData = {
     amount,
     address,
+    productId
   }
 
-  const response = await fetch(`/api/customer/deliveries/${productId}`, {
+  const response = await fetch(`/api/customer/deliveries`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -103,6 +90,20 @@ export async function purchaseProduct(
   })
 
   const data = await response.json()
+  return data
+}
+
+export async function cancelDelivery(deliveryId) {
+  const response = await fetch(`/api/customer/deliveries/${deliveryId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  })
+
+  const data = await response.json()
+
   return data
 }
 

@@ -6,7 +6,7 @@ urlpatterns = [
     path('notifications', views.notifications),
     path('settings', views.settings),
     path('deliveries', views.DeliveryListView.as_view()),
-    path('deliveries/<int:productId>', views.DeliveryView.as_view()),
+    path('deliveries/<int:deliveryId>', views.DeliveryView.as_view()),
     path('favourites', views.FavouriteListView.as_view()),
     path('favourites/<int:productId>', views.FavouriteView.as_view()),
     path('cart', views.CartListView.as_view()),

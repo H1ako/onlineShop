@@ -8,6 +8,8 @@ from products.serializers import ProductSerializer, TagCategorySerializer
 import random
 
 # Create your views here.
+
+
 class ProductListView(APIView):
     def get(self, req):
         tagsString = req.GET.get('tags', '')
@@ -37,12 +39,14 @@ class ProductListView(APIView):
             # e.g. [{'price': ['sale']}] -----> [['price', ['sale']]]
             # for slicing in the loop
             categoryAndTagsList = list(tagDict.items())
-            
-            tagsIds = Tag.objects.filter(category__name=categoryAndTagsList[0][0], name__in=categoryAndTagsList[0][1]).values_list('id', flat=True)
+
+            tagsIds = Tag.objects.filter(
+                category__name=categoryAndTagsList[0][0], name__in=categoryAndTagsList[0][1]).values_list('id', flat=True)
             productList = Product.objects.filter(tags__id__in=tagsIds)
 
             for category, tags in categoryAndTagsList[1:]:
-                tagsIds = Tag.objects.filter(category__name=category, name__in=tags).values_list('id', flat=True)
+                tagsIds = Tag.objects.filter(
+                    category__name=category, name__in=tags).values_list('id', flat=True)
                 productList = productList.filter(tags__id__in=tagsIds)
         else:
             productList = Product.objects.all()
@@ -57,39 +61,46 @@ class ProductListView(APIView):
                 inName |= Q(name__icontains=queryWord)
                 inDesc |= Q(description__icontains=queryWord)
 
-            productList = productList.filter(inName | inDesc | inTagsName).distinct()
-
+            productList = productList.filter(
+                inName | inDesc | inTagsName).distinct()
 
         if amount == 'all':
             if isRandom:
-                productList = random.sample(list(productList), len(productList))
+                productList = random.sample(
+                    list(productList), len(productList))
         else:
             try:
                 if isRandom:
-                    productList = random.sample(list(productList), min(int(amount), len(productList)))
+                    productList = random.sample(
+                        list(productList), min(int(amount), len(productList)))
                 else:
                     productList = list(productList)[:int(amount)]
             except Exception:
                 pass
 
-        productsData = ProductSerializer(productList, many=True, context={'request': req}).data
+        productsData = ProductSerializer(
+            productList, many=True, context={'request': req}).data
         return Response({'products': productsData})
+
 
 class ProductView(APIView):
     def get(self, req, productId):
         product = Product.objects.get(id=productId)
-        productData = ProductSerializer(product, context={'request': req}).data
 
         if req.user:
-            viewHistory, created = ViewHistory.objects.get_or_create(customer=req.user, product=product)
+            viewHistory, created = ViewHistory.objects.get_or_create(
+                customer=req.user, product=product)
 
             if not created:
                 viewHistory.updateViewedAt()
-        
+
+        productData = ProductSerializer(product, context={'request': req}).data
         return Response({'product': productData})
+
 
 class CategoryView(APIView):
     def get(self, req):
         categories = TagCategory.objects.all()
-        categoriesData = TagCategorySerializer(categories, many=True, context={'request': req}).data
+        categoriesData = TagCategorySerializer(
+            categories, many=True, context={'request': req}).data
         return Response({'categories': categoriesData})
