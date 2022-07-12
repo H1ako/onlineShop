@@ -25,7 +25,7 @@ function Navbar() {
   useEffect(() => {
     getCustomerData()
     .then(data => {
-      dispatch(updateCustomer({customer: data}))
+      dispatch(updateCustomer({customer: data.id ? data : {}}))
       setLocation(data.address ?? '')
     })
   }, [dispatch])
@@ -52,69 +52,71 @@ function Navbar() {
         </ul>
         <Search />
         <nav>
-          <ul className='nav__links'>
-            <li className='navbar__location'>
-              <button title='your location'>
-                <LocationMarkerIcon className='navbar__icon' />
-              </button>
-              <div className="location__window">
-                <input type="text" onChange={e => setLocation(e.target.value)} value={location} className="window__address" />
-                <UpdateLocationBtn location={location} />
-              </div>
-            </li>
-            <li>
-              <Link to='/notifications' title='your notofications'>
-                <BellIcon className='navbar__icon' />
-              </Link>
-            </li>
-            <li>
-              <Link to='/favourites' title='your favourites'>
-                <HeartIcon className='navbar__icon' />
-              </Link>
-            </li>
-            <li>
-              <Link to='/deliveries' title='your delivery'>
-                <TruckIcon className='navbar__icon' />
-              </Link>
-            </li>
-            <li>
-              <Link to='/cart' title='your cart'>
-                <ShoppingBagIcon className='navbar__icon' />
-              </Link>
-            </li>
-            <li className='navbar__customer'>
-              <Link to='/profile' title='your profile'>
-                <img src={customer.picture} className='customer__picture' alt="" />
-              </Link>
-              <div className="customer__profile">
-                <Link to='/profile'>
-                  <div className="profile__about">
-                    <img src={customer.picture} alt="" className="about__picture" />
-                    <div className="about__info">
-                      <h5 className="info__id">#{customer.id}</h5>
-                      <h4 className="info__name">{`${customer.firstName} ${customer.lastName}`}</h4>
-                      <h5 className="info__email">{customer.email}</h5>
-                      <h5 className="info__phone">+{customer.phone}</h5>
-                    </div>
-                  </div>
+          { customer.id &&
+            <ul className='nav__links'>
+              <li className='navbar__location'>
+                <button title='your location'>
+                  <LocationMarkerIcon className='navbar__icon' />
+                </button>
+                <div className="location__window">
+                  <input type="text" onChange={e => setLocation(e.target.value)} value={location} className="window__address" />
+                  <UpdateLocationBtn location={location} />
+                </div>
+              </li>
+              <li>
+                <Link to='/notifications' title='your notofications'>
+                  <BellIcon className='navbar__icon' />
                 </Link>
-                <ul className="profile__links">
-                    <li className='links__link'>
-                      <Link to="/settings">
-                        Settings
-                        <CogIcon className='link__icon' />
-                      </Link>
-                    </li>
-                    <li className='links__link'>
-                      <Link to="/api/customer/log-out">
-                        Log Out
-                        <LogoutIcon className='link__icon' />
-                      </Link>
-                    </li>
-                  </ul>
-              </div>
-            </li>
-          </ul>
+              </li>
+              <li>
+                <Link to='/favourites' title='your favourites'>
+                  <HeartIcon className='navbar__icon' />
+                </Link>
+              </li>
+              <li>
+                <Link to='/deliveries' title='your delivery'>
+                  <TruckIcon className='navbar__icon' />
+                </Link>
+              </li>
+              <li>
+                <Link to='/cart' title='your cart'>
+                  <ShoppingBagIcon className='navbar__icon' />
+                </Link>
+              </li>
+              <li className='navbar__customer'>
+                <Link to='/profile' title='your profile'>
+                  <img src={customer.picture} className='customer__picture' alt="" />
+                </Link>
+                <div className="customer__profile">
+                  <Link to='/profile'>
+                    <div className="profile__about">
+                      <img src={customer.picture} alt="" className="about__picture" />
+                      <div className="about__info">
+                        <h5 className="info__id">#{customer.id}</h5>
+                        <h4 className="info__name">{`${customer.firstName} ${customer.lastName}`}</h4>
+                        <h5 className="info__email">{customer.email}</h5>
+                        <h5 className="info__phone">+{customer.phone}</h5>
+                      </div>
+                    </div>
+                  </Link>
+                  <ul className="profile__links">
+                      <li className='links__link'>
+                        <Link to="/settings">
+                          Settings
+                          <CogIcon className='link__icon' />
+                        </Link>
+                      </li>
+                      <li className='links__link'>
+                        <Link to="/api/customer/log-out">
+                          Log Out
+                          <LogoutIcon className='link__icon' />
+                        </Link>
+                      </li>
+                    </ul>
+                </div>
+              </li>
+            </ul>
+          }
         </nav>
       </div>
     </div>

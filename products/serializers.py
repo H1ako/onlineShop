@@ -37,14 +37,14 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def getIsFavourite(self, product):
         customer = self.context['request'].user
-        if not customer: return customer
+        if not customer.is_authenticated: return False
         favourites = list(customer.favourites.filter(product=product))
 
         return len(favourites) > 0
 
     def getInCart(self, product):
         customer = self.context['request'].user
-        if not customer: return customer
+        if not customer.is_authenticated: return 0
         cartProduct = customer.cart.filter(product=product)
 
         if len(cartProduct):

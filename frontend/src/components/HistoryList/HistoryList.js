@@ -10,7 +10,7 @@ function HistoryList({ amount=6 }) {
 
   useEffect(() => {
     getViewHistory(amount)
-    .then(data => setHistories(data))
+    .then(data => setHistories(data.length ? data : []))
   }, [amount])
 
   return (
