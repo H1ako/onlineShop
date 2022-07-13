@@ -1,0 +1,80 @@
+.window-area {
+  &__sign-in-window {
+    position: relative;
+    background: var(--colorGray);
+    border-radius: var(--bdrsDefault);
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    .sign-in-window__heading {
+      font-weight: 300;
+    }
+
+    .sign-in-window__close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+
+      .close__icon {
+        width: 2rem;
+      }
+    }
+
+    .sign-in-window__potential-customer {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .potential-customer__picture {
+        $size: 15rem;
+
+        object-fit: cover;
+        object-position: center;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+      }
+
+      .potential-customer__name {
+        font-weight: 300;
+      }
+    }
+
+    .sign-in-window__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .form__email,
+      .form__password {
+        border-radius: var(--bdrsDefault);
+        background: var(--colorGrayLight);
+        outline: none;
+        border: none;
+        padding: .5rem 1.5rem;
+        width: min(30rem, 90vw);
+        color: var(--colorText);
+        font-size: var(--fontSize4);
+        
+        &::placeholder {
+          color: var(--colorText);
+          opacity: .75;
+        }
+      }
+
+      .form__btn {
+        border-radius: var(--bdrsDefault);
+        background: var(--colorMain);
+        padding: .5rem 1.5rem;
+        color: var(--colorText);
+        font-size: var(--fontSize4);
+      }
+    }
+  }
+}

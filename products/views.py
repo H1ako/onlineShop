@@ -7,8 +7,6 @@ from django.db.models import Q
 from products.serializers import ProductSerializer, TagCategorySerializer
 import random
 
-# Create your views here.
-
 
 class ProductListView(APIView):
     def get(self, req):
@@ -85,9 +83,10 @@ class ProductListView(APIView):
 
 class ProductView(APIView):
     def get(self, req, productId):
+        customer = req.user
         product = Product.objects.get(id=productId)
 
-        if req.user:
+        if customer.is_authenticated:
             viewHistory, created = ViewHistory.objects.get_or_create(
                 customer=req.user, product=product)
 

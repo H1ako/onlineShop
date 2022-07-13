@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 // components
 import Search from '../Search/Search';
+import SignBtns from '../SignBtns/SignBtns';
 // libs
 import { getCustomerData } from '../../libs/dataGetters';
 import UpdateLocationBtn from '../UpdateLocationBtn/UpdateLocationBtn';
@@ -52,7 +53,7 @@ function Navbar() {
         </ul>
         <Search />
         <nav>
-          { customer.id &&
+          { customer.email ?
             <ul className='nav__links'>
               <li className='navbar__location'>
                 <button title='your location'>
@@ -107,15 +108,17 @@ function Navbar() {
                         </Link>
                       </li>
                       <li className='links__link'>
-                        <Link to="/api/customer/log-out">
+                        <a href="/api/auth/">
                           Log Out
                           <LogoutIcon className='link__icon' />
-                        </Link>
+                        </a>
                       </li>
                     </ul>
                 </div>
               </li>
             </ul>
+            :
+            <SignBtns />
           }
         </nav>
       </div>

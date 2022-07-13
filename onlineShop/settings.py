@@ -31,6 +31,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://2182-78-85-4-236.eu.ngrok.io'
+]
+
 
 # Application definition
 
@@ -44,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'customers',
-    'products'
+    'products',
+    'authentication'
 ]
 
 MIDDLEWARE = [

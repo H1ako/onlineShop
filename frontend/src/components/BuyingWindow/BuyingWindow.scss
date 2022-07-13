@@ -1,14 +1,4 @@
-.buying-window-area {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-  background: var(--colorMainTransparent);
-  z-index: 9999;
-
+.window-area {
   &__buying-window {
     position: relative;
     background: var(--colorGray);
@@ -21,6 +11,16 @@
 
     .buying-window__heading {
       font-weight: 300;
+    }
+
+    .buying-window__close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+
+      .close__icon {
+        width: 2rem;
+      }
     }
 
     .buying-window__product {

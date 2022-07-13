@@ -1,3 +1,64 @@
+// authentication
+export async function signIn(email, password) {
+  const fetchData = {
+    email,
+    password
+  }
+
+  const response = await fetch(`/api/auth/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+    body: JSON.stringify(fetchData)
+  })
+
+  const data = await response.json()
+
+  return data
+}
+
+export async function signUp(signUpData) {
+  const response = await fetch(`/api/auth/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+    body: JSON.stringify(signUpData)
+  })
+
+  const data = await response.json()
+
+  return data
+}
+
+// customer's
+export async function updateSettings(settings) {
+  // const settings = {
+  //     address,
+  //     firstName,
+  //     lastName,
+  //     password,
+  //     passwordAgain,
+  //     phone,
+  //     email,
+  //     picture,
+  // }
+  const response = await fetch(`/api/customer/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+    body: JSON.stringify(settings),
+  })
+
+  const data = await response.json()
+  return data
+}
+
 export async function updateViewHistory(productId) {
   const response = await fetch(`/api/view-history/${productId}`, {
     method: "POST",
@@ -6,20 +67,6 @@ export async function updateViewHistory(productId) {
       "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
     },
   })
-  const data = await response.json()
-
-  return data
-}
-
-export async function login() {
-  const response = await fetch(`/api/customer/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
-    },
-  })
-
   const data = await response.json()
 
   return data
@@ -69,6 +116,7 @@ export async function removeProductFromCart(productId) {
   return data
 }
 
+// product's
 export async function purchaseProduct(
   productId,
   amount = 1,
@@ -77,7 +125,7 @@ export async function purchaseProduct(
   const fetchData = {
     amount,
     address,
-    productId
+    productId,
   }
 
   const response = await fetch(`/api/customer/deliveries`, {
@@ -104,29 +152,5 @@ export async function cancelDelivery(deliveryId) {
 
   const data = await response.json()
 
-  return data
-}
-
-export async function updateSettings(settings) {
-  // const settings = {
-  //     address,
-  //     firstName,
-  //     lastName,
-  //     password,
-  //     passwordAgain,
-  //     phone,
-  //     email,
-  //     picture,
-  // }
-  const response = await fetch(`/api/customer/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
-    },
-    body: JSON.stringify(settings),
-  })
-
-  const data = await response.json()
   return data
 }

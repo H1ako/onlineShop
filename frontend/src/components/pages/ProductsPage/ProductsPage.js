@@ -12,9 +12,11 @@ import { getProducts } from '../../../libs/dataGetters';
 // store
 import { updateQueryFromUrl, useSearch } from '../../../store/slices/searchSlice';
 import { updateProducts, useProducts } from '../../../store/slices/productsSlice';
+import { useCustomer } from '../../../store/slices/customerSlice';
 
 
 function ProductsPage() {
+  const { customer } = useCustomer()
   const { products, tags } = useProducts()
   const { searchQuery } = useSearch()
   const dispatch = useDispatch()
@@ -25,7 +27,7 @@ function ProductsPage() {
       dispatch(updateProducts({products: data}))
     })
     // eslint-disable-next-line
-  }, [tags])
+  }, [tags, customer])
 
   useEffect(() => {
     dispatch(updateQueryFromUrl())
@@ -44,21 +46,6 @@ function ProductsPage() {
             
           </ul>
         </section>
-        {/* <section className="pages">
-          <ul className="pages__list">
-            <li className="page__prev">prev</li>
-            <li className="list__page">
-              1
-            </li>
-            <li className="list__page">
-              2
-            </li>
-            <li className="list__page">
-              3
-            </li>
-            <li className="page__next">next</li>
-          </ul>
-        </section> */}
       </main>
       <footer>
         <h3>History</h3>

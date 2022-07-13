@@ -7,11 +7,14 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import { getDeliveries } from '../../libs/dataGetters'
 import { cancelDelivery } from '../../libs/actionPosters';
+// store
+import { useCustomer } from '../../store/slices/customerSlice';
 
 function DeliveriesList({
     amount='all',
     setTotalCost=null
 }) {
+  const { customer } = useCustomer()
   const [ deliveries, setDeliveries ] = useState([])
 
   const updateDeliveries = () => {
@@ -34,7 +37,7 @@ function DeliveriesList({
     updateDeliveries()
     
     // eslint-disable-next-line
-  }, [amount])
+  }, [amount, customer])
 
   
 

@@ -52,6 +52,7 @@ export async function getCategories() {
 
 export async function getCustomerData() {
     const response = await fetch(`/api/customer/`, {
+        
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -60,6 +61,23 @@ export async function getCustomerData() {
     const data = await response.json()
 
     return data.customer
+}
+
+export async function getCustomerDataByEmail(email) {
+    const fetchData = {
+        email
+    }
+    const response = await fetch(`/api/customer/specific`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+        },
+        body: JSON.stringify(fetchData)
+    })
+    const data = await response.json()
+
+    return data
 }
 
 export async function getDeliveries(amount='all') {

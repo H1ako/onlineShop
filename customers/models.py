@@ -8,8 +8,8 @@ from products.models import Product
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
-    firstName = models.CharField("First name", max_length=50)
-    lastName = models.CharField("Last name", max_length=50)
+    firstName = models.CharField("First name", max_length=15, blank=True)
+    lastName = models.CharField("Last name", max_length=30, blank=True)
     password = models.CharField(max_length=100)
     email = models.EmailField("Email", unique=True)
     phone = models.CharField("Phone", max_length=20,

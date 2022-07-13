@@ -4,17 +4,24 @@ import { useSelector } from "react-redux";
 const customerSlice = createSlice({
     name: 'customer',
     initialState: {
-        customer: {}
+        customer: {},
+        signInwindowIsVisible: false
     },
     reducers: {
         updateCustomer: (state, action) => {
             state.customer = action.payload.customer
         },
+        openSignInWindow: (state) => {
+            state.signInwindowIsVisible = true
+        },
+        closeSignInWindow: (state) => {
+            state.signInwindowIsVisible = false
+        }
     }
 })
 
 export const useCustomer = () => useSelector(state => state.customerReducer)
 
-export const { updateCustomer } = customerSlice.actions
+export const { updateCustomer, openSignInWindow, closeSignInWindow } = customerSlice.actions
 
 export const customerReducer = customerSlice.reducer

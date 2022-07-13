@@ -1,5 +1,7 @@
 // styles
 import "./BuyingWindow.scss"
+// icons
+import { XIcon } from "@heroicons/react/solid"
 // global
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
@@ -35,11 +37,11 @@ function BuyingWindow() {
   }, [productId])
 
   return (
-    <div className="buying-window-area">
-      <div className="buying-window-area__buying-window">
+    <div className="window-area">
+      <div className="window-area__buying-window">
         <h3 className="buying-window__heading">Buying Window</h3>
         <button onClick={close} className="buying-window__close">
-          Close
+          <XIcon className="close__icon" />
         </button>
         <div className="buying-window__product">
           <img src={product.thumbnail} alt="" className="product__picture" />

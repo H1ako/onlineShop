@@ -93,6 +93,18 @@ ul {
   margin: 0;
 }
 
+.window-area {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  background: var(--colorMainTransparent);
+  z-index: 9999;
+}
+
 .fade-enter {
   opacity: 0;
   transform: translateY(40px);

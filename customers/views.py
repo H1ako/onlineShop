@@ -10,20 +10,20 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
 
 
 class CustomerView(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def get(self, req):
-        customerData = CustomerSerializer(req.user).data
+        customer = req.user
+
+        customerData = CustomerSerializer(customer).data
         return Response({'customer': customerData})
 
     def post(self, req):
         customer = req.user
         # data to update
-        print(req.data)
         address = req.data.get('address', customer.address)
         firstName = req.data.get('firstName', customer.firstName)
         lastName = req.data.get('lastName', customer.lastName)
@@ -62,6 +62,25 @@ class CustomerView(APIView):
 
         customerData = CustomerSerializer(customer).data
         return Response({'customer': customerData})
+
+
+class SpecificCustomerView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, req):
+        email = req.data.get('email', None)
+
+        if not email:
+            return Response({'error': 'no email'})
+
+        try:
+            customer = Customer.objects.get(email=email)
+        except:
+            return Response({'error': 'no customer with such email'})
+
+        customerData = CustomerSerializer(customer).data
+        return Response({'customer': customerData, 'result': 'success'})
 
 
 class ViewHistoryView(APIView):
@@ -129,7 +148,6 @@ class DeliveryListView(APIView):
         productId = int(req.data.get('productId', None))
         amount = int(req.data.get('amount', 0))
         address = req.data.get('address', customer.address)
-        print(address, req.data)
         if address == 'customerAddress':
             address = customer.address
         now = timezone.now()
@@ -285,17 +303,3 @@ class CartView(APIView):
 
 def notifications():
     pass
-
-
-def settings():
-    pass
-
-
-def loginf(req):
-    if req.method == 'POST':
-        customer = Customer.objects.get(email='nikita@yandex.ru')
-        if customer is not None:
-            login(user=customer, request=req)
-
-        customerData = CustomerSerializer(customer).data
-        return JsonResponse({'isAuth': req.user.is_authenticated, 'user': customerData})

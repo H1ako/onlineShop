@@ -1,0 +1,21 @@
+.sign-btns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &__sign-in,
+  &__sign-up {
+    border-radius: var(--bdrsDefault);
+    padding: 0.5rem 1.5rem;
+    color: var(--colorText);
+  }
+
+  &__sign-in {
+    background: var(--colorGray);
+  }
+
+  &__sign-up {
+    background: var(--colorMain);
+    text-decoration: none;
+  }
+}

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 // components
 import Navbar from "./components/Navbar/Navbar"
 import BuyingWindow from "./components/BuyingWindow/BuyingWindow"
+import SignInWindow from "./components/SignInWindow/SignInWindow"
 // pages
 import HelpPage from "./components/pages/HelpPage/HelpPage"
 import HomePage from "./components/pages/HomePage/HomePage"
@@ -14,16 +15,17 @@ import FavouritesPage from "./components/pages/FavouritesPage/FavouritesPage"
 import CartPage from "./components/pages/CartPage/CartPage"
 // store
 import { useBuyingWindow } from "./store/slices/buyingWindowSlice"
+import { useCustomer } from "./store/slices/customerSlice"
 
 function App() {
   const { isVisible } = useBuyingWindow()
+  const { signInwindowIsVisible } = useCustomer()
 
   return (
     <div className="App">
       <Navbar />
-      {isVisible &&
-        <BuyingWindow />
-      }
+      {signInwindowIsVisible && <SignInWindow />}
+      {isVisible && <BuyingWindow />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/help/" element={<HelpPage />} />
