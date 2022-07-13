@@ -37,7 +37,7 @@ function DeliveriesList({
     updateDeliveries()
     
     // eslint-disable-next-line
-  }, [amount, customer])
+  }, [amount, customer.id])
 
   
 

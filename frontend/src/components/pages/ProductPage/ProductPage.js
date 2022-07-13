@@ -12,8 +12,11 @@ import ProductPrice from '../../ProductPrice/ProductPrice';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 // libs
 import { getProductData, getProducts } from '../../../libs/dataGetters';
+// store
+import { useCustomer } from '../../../store/slices/customerSlice';
 
 function ProductPage() {
+  const { customer } = useCustomer()
   const { productId } = useParams()
   const [ isScrolled, setIsScrolled ] = useState(false)
   const [ productData, setProductData ] = useState({})
@@ -76,7 +79,7 @@ function ProductPage() {
 
     
     // eslint-disable-next-line
-  }, [])
+  }, [customer.id])
 
   return (
     <div className="product-page" onWheel={scrollHandler}>

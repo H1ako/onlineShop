@@ -47,7 +47,7 @@ function HomePage() {
 
     // for sale list
     getProducts(6, ["price : sale"], true).then((data) => setSaleProducts(data))
-  }, [customer])
+  }, [customer.id])
 
   return (
     <div className="home-page">

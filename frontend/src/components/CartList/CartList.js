@@ -11,6 +11,8 @@ import PurhcaseBtn from '../PurchaseBtn/PurchaseBtn';
 import FavouriteBtn from '../FavouriteBtn/FavouriteBtn';
 import CartBtn from '../CartBtn/CartBtn';
 import NumberField from '../NumberField/NumberField';
+// store
+import { useCustomer } from '../../store/slices/customerSlice';
 
 
 function CartListProduct({ cartProduct }) {
@@ -42,6 +44,7 @@ function CartList({
   setTotalCost = null
 }) {
   const [cartProducts, setCartProducts] = useState([])
+  const { customer } = useCustomer()
 
   const updateCart = () => {
     getCart(amount)
@@ -58,7 +61,7 @@ function CartList({
     updateCart()
 
     // eslint-disable-next-line
-  }, [amount])
+  }, [amount, customer.id])
 
   return (
     <ul className="cart-list">

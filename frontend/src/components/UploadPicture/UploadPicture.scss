@@ -1,0 +1,54 @@
+.upload-picture {
+    $pictureSize: 15em;
+
+    &__input {
+        display: none;
+    }
+
+    label {
+        display: block;
+        position: relative;
+        width: $pictureSize;
+        height: $pictureSize;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &::before, &::after {
+            top: -1px; left: -1px;
+            position: absolute;
+            opacity: 0;
+            transition: var(--transitionDefault);
+            width: calc(100% + 2px);
+            height: calc(100% + 2px);
+            border-radius: 50%;
+            z-index: 1;
+            display: grid;
+            place-content: center;
+        }
+        
+        &::before {
+            content: '';
+            background: var(--colorMainTransparent);
+        }
+
+        &::after {
+            content: 'Upload Picture';
+        }
+
+        &:hover {
+            &::before, &::after {
+                opacity: .8;
+            }
+        }
+
+        .upload-picture__picture {
+            background-color: var(--colorGray);
+            border-radius: 50%;
+            width: $pictureSize;
+            height: $pictureSize;
+            object-position: center;
+            object-fit: cover;
+        }
+    }
+    
+}

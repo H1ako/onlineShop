@@ -13,6 +13,7 @@ import ProfilePage from "./components/pages/ProfilePage/ProfilePage"
 import DeliveriesPage from "./components/pages/DeliveriesPage/DeliveriesPage"
 import FavouritesPage from "./components/pages/FavouritesPage/FavouritesPage"
 import CartPage from "./components/pages/CartPage/CartPage"
+import SignUpPage from "./components/pages/SignUpPage/SignUpPage"
 // store
 import { useBuyingWindow } from "./store/slices/buyingWindowSlice"
 import { useCustomer } from "./store/slices/customerSlice"
@@ -35,6 +36,7 @@ function App() {
         <Route path="/deliveries/" element={<DeliveriesPage />} />
         <Route path="/favourites/" element={<FavouritesPage />} />
         <Route path="/cart/" element={<CartPage />} />
+        <Route path="/sign-up/" element={<SignUpPage />} />
       </Routes>
     </div>
   )

@@ -19,14 +19,15 @@ export async function signIn(email, password) {
   return data
 }
 
-export async function signUp(signUpData) {
+export async function signUp(signUpFormData) {
   const response = await fetch(`/api/auth/`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json;charset=utf-8",
       "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      // "Content-Type": "multipart/form-data",
+      "type": "formData"
     },
-    body: JSON.stringify(signUpData)
+    body: signUpFormData
   })
 
   const data = await response.json()

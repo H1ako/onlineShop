@@ -69,14 +69,14 @@ function SignInWindow() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            type="text"
+            type="email"
             className="form__email"
           />
           <input
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            type="text"
+            type="password"
             className="form__password"
           />
           <button onClick={signInHandler} className="form__btn">

@@ -4,9 +4,6 @@ from customers.models import Customer
 from django.contrib.auth import login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.views.decorators.csrf import csrf_exempt
-
-# Create your views here.
 
 
 class AuthenticationView(APIView):
@@ -21,6 +18,7 @@ class AuthenticationView(APIView):
 
     # sign up
     def post(self, req):
+        print('asdsad')
         # data to update
         address = req.data.get('address', None)
         firstName = req.data.get('firstName', None)
@@ -29,7 +27,7 @@ class AuthenticationView(APIView):
         passwordAgain = req.data.get('passwordAgain', None)
         phone = req.data.get('phone', None)
         email = req.data.get('email', None)
-        picture = req.data.get('picture', None)
+        picture = req.FILES.get('picture', None)
 
         # updates password
         if password != None and email != None:
@@ -44,7 +42,7 @@ class AuthenticationView(APIView):
                 login(req, customer)
 
                 customerData = CustomerSerializer(customer).data
-                return Response({'customer': customerData})
+                return Response({'customer': customerData, 'result': 'success'})
 
             return Response({'error': 'passwords are not similar'})
 

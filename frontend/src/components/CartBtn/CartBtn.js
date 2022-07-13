@@ -15,7 +15,7 @@ function CartBtn({ productId, inCart, amount = null }) {
     const fetchAmount = amount !== null ? amount : inCart > 0 ? 0 : 1
 
     productCartAction(productId, fetchAmount).then((data) => {
-      inCartDisplay(data.product?.inCart)
+      setInCartDisplay(data.product?.inCart)
     })
   }
 

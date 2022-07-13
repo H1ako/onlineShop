@@ -4,8 +4,8 @@ import "./HistoryList.scss"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getViewHistory } from "../../libs/dataGetters"
-import { useCustomer } from "../../store/slices/customerSlice"
 // store
+import { useCustomer } from "../../store/slices/customerSlice"
 
 function HistoryList({ amount = 6 }) {
   const [histories, setHistories] = useState([])
@@ -13,7 +13,7 @@ function HistoryList({ amount = 6 }) {
 
   useEffect(() => {
     getViewHistory(amount).then((data) => setHistories(data.length ? data : []))
-  }, [amount, customer])
+  }, [amount, customer.id])
 
   return (
     <ul className="history-list">

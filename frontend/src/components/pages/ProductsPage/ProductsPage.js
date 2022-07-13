@@ -27,7 +27,7 @@ function ProductsPage() {
       dispatch(updateProducts({products: data}))
     })
     // eslint-disable-next-line
-  }, [tags, customer])
+  }, [tags, customer.id])
 
   useEffect(() => {
     dispatch(updateQueryFromUrl())
