@@ -18,7 +18,6 @@ class AuthenticationView(APIView):
 
     # sign up
     def post(self, req):
-        print('asdsad')
         # data to update
         address = req.data.get('address', None)
         firstName = req.data.get('firstName', None)
@@ -58,10 +57,10 @@ class AuthenticationView(APIView):
 
         customer = Customer.objects.get(email=email)
         passwordIsCorrect = customer.check_password(password)
-
         if passwordIsCorrect:
             login(req, customer)
+
             customerData = CustomerSerializer(customer).data
             return Response({'customer': customerData, 'result': 'success'})
-
+            
         return Response({'error': 'wrong password'})

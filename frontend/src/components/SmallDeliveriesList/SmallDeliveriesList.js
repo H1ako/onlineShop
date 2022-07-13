@@ -4,18 +4,21 @@ import './SmallDeliveriesList.scss'
 import { BadgeCheckIcon, BanIcon, TruckIcon } from '@heroicons/react/outline';
 // global
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 // libs
 import { getDeliveries } from '../../libs/dataGetters';
-import { Link } from 'react-router-dom';
+// store
+import { useCustomer } from '../../store/slices/customerSlice';
 
 
 function SmallDeliveryList({ amount }) {
+    const { customer } = useCustomer()
     const [ deliveries, setDeliveries ] = useState([])
 
     useEffect(() => {
         getDeliveries(amount)
         .then(data => setDeliveries(data.deliveries))
-    }, [amount])
+    }, [amount, customer.id])
 
     function StatusDelivering({delivery}) {
         return (
