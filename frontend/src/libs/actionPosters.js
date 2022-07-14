@@ -52,7 +52,7 @@ export async function updateSettings(settingsFormData) {
       "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
       "type": "formData"
     },
-    body: JSON.stringify(settingsFormData),
+    body: settingsFormData
   })
 
   const data = await response.json()
