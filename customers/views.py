@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.forms import ValidationError
 from customers.serializers import CartProductSerializer, CustomerSerializer, CustomerUpdateSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
@@ -118,16 +118,10 @@ class DeliveryListView(APIView):
         productId = int(req.data.get('productId', None))
         amount = int(req.data.get('amount', 0))
         address = req.data.get('address', customer.address)
-        print(address)
         if address == 'customerAddress':
             address = customer.address
-            print(customer.address)
         now = timezone.now()
-        arrivalDate = date(
-            year=now.year,
-            month=now.month,
-            day=now.day + 7
-        )
+        arrivalDate = now + timedelta(days=7)
         if amount < 1:
             return Response({'error': 'incorrect amount number'})
         product = Product.objects.filter(id=productId)[0]
