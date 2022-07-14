@@ -1,11 +1,9 @@
 from datetime import date
-from django.http import JsonResponse
 from customers.serializers import CartProductSerializer, CustomerSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
 from products.serializers import ProductSerializer
 from .models import Customer, ViewHistory
 from products.models import Product
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth import login
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
@@ -27,41 +25,45 @@ class CustomerView(APIView):
         address = req.data.get('address', customer.address)
         firstName = req.data.get('firstName', customer.firstName)
         lastName = req.data.get('lastName', customer.lastName)
-        password = req.data.get('password', None)
-        passwordAgain = req.data.get('passwordAgain', None)
+        oldPassword = req.data.get('oldPassword', None)
+        newPassword = req.data.get('newPassword', None)
+        newPasswordAgain = req.data.get('newPasswordAgain', None)
         phone = req.data.get('phone', None)
         email = req.data.get('email', None)
         picture = req.data.get('picture', customer.picture)
 
-        # updates password
-        if password != None:
-            passwordsAreSimilars = password == passwordAgain
+        print(req.data)
+        print(req.FILES)
+        # # updates password
+        # if oldPassword != None:
+        #     if customer.check_password(oldPassword):
+        #         passwordsAreSimilars = newPassword == newPasswordAgain
 
-            if passwordsAreSimilars:
-                customer.set_password(password)
+        #         if passwordsAreSimilars:
+        #             customer.set_password(newPassword)
 
-        # updates phone number
-        if phone != None:
-            customersWithPhone = Customer.objects.filter(phone=phone)
+        # # updates phone number
+        # if phone != None:
+        #     customersWithPhone = Customer.objects.filter(phone=phone)
 
-            if not len(customersWithPhone):
-                customer.phone = phone
+        #     if not len(customersWithPhone):
+        #         customer.phone = phone
 
-        # updates email
-        if email != None:
-            customersWithEmail = Customer.objects.filter(email=email)
+        # # updates email
+        # if email != None:
+        #     customersWithEmail = Customer.objects.filter(email=email)
 
-            if not len(customersWithEmail):
-                customer.email = email
+        #     if not len(customersWithEmail):
+        #         customer.email = email
 
-        customer.address = address
-        customer.firstName = firstName
-        customer.lastName = lastName
-        customer.picture = picture
-        customer.save()
+        # customer.address = address
+        # customer.firstName = firstName
+        # customer.lastName = lastName
+        # customer.picture = picture
+        # customer.save()
 
-        customerData = CustomerSerializer(customer).data
-        return Response({'customer': customerData})
+        # customerData = CustomerSerializer(customer).data
+        # return Response({'customer': customerData, 'result': 'success'})
 
 
 class SpecificCustomerView(APIView):

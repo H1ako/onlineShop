@@ -28,7 +28,11 @@ function SignInWindow() {
   const signInHandler = () => {
     signIn(email, password).then((data) => {
       if (data.result === "success") {
-        dispatch(updateCustomer({'customer': data.customer?.email ? data.customer : {} }))
+        dispatch(
+          updateCustomer({
+            customer: data.customer?.email ? data.customer : {},
+          })
+        )
         close()
       }
     })

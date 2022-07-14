@@ -24,7 +24,6 @@ export async function signUp(signUpFormData) {
     method: "POST",
     headers: {
       "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
-      // "Content-Type": "multipart/form-data",
       "type": "formData"
     },
     body: signUpFormData
@@ -36,7 +35,7 @@ export async function signUp(signUpFormData) {
 }
 
 // customer's
-export async function updateSettings(settings) {
+export async function updateSettings(settingsFormData) {
   // const settings = {
   //     address,
   //     firstName,
@@ -50,10 +49,10 @@ export async function updateSettings(settings) {
   const response = await fetch(`/api/customer/`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json;charset=utf-8",
       "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      "type": "formData"
     },
-    body: JSON.stringify(settings),
+    body: JSON.stringify(settingsFormData),
   })
 
   const data = await response.json()

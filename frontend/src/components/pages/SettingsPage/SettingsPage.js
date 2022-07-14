@@ -1,37 +1,43 @@
 // styles
-import "./SignUpPage.scss"
+import "./SettingsPage.scss"
 // global
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 // libs
-import { signUp } from "../../../libs/actionPosters"
+import { signUp, updateSettings } from "../../../libs/actionPosters"
 // components
 import UploadPicture from "../../UploadPicture/UploadPicture"
-import { updateCustomer } from "../../../store/slices/customerSlice"
+import {
+  updateCustomer,
+  useCustomer,
+} from "../../../store/slices/customerSlice"
 
-function SignUpPage() {
+function SettingsPage() {
   const dispatch = useDispatch()
+  const { customer } = useCustomer()
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [passwordAgain, setPasswordAgain] = useState("")
+  const [oldPassword, setOldPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [newPasswordAgain, setNewPasswordAgain] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [picture, setPicture] = useState(null)
   const [phone, setPhone] = useState("")
   const [address, setAddress] = useState("")
 
-  const signUpHandler = () => {
+  const updateSettingsHadler = () => {
     const newCustomerData = new FormData()
     if (picture != null) newCustomerData.append("picture", picture)
     newCustomerData.append("email", email)
-    newCustomerData.append("password", password)
-    newCustomerData.append("passwordAgain", passwordAgain)
+    newCustomerData.append("newPassword", newPassword)
+    newCustomerData.append("oldPassword", oldPassword)
+    newCustomerData.append("newPasswordAgain", newPasswordAgain)
     newCustomerData.append("firstName", firstName)
     newCustomerData.append("lastName", lastName)
     newCustomerData.append("phone", phone)
     newCustomerData.append("address", address)
 
-    signUp(newCustomerData).then((data) => {
+    updateSettings(newCustomerData).then((data) => {
       if (data.result === "success") {
         dispatch(
           updateCustomer({ customer: data.customer.email ? data.customer : {} })
@@ -40,12 +46,27 @@ function SignUpPage() {
     })
   }
 
+  const updateFormToCustomerData = () => {
+    setEmail(customer.email)
+    setFirstName(customer.firstName)
+    setLastName(customer.lastName)
+    setPicture(customer.picture)
+    setPhone(customer.phone)
+    setAddress(customer.address)
+  }
+
+  useEffect(() => {
+    updateFormToCustomerData()
+
+    // eslint-disable-next-line
+  }, [customer.id])
+
   return (
-    <div className="sign-up-page">
+    <div className="settings-page">
       <main>
         <h3 className="heading">Sign Up</h3>
-        <div encType="multipart/form-data" className="form">
-          <UploadPicture setPicture={setPicture} />
+        <div className="form">
+          <UploadPicture picture={picture} setPicture={setPicture} />
           <div className="form__name">
             <input
               placeholder="First Name"
@@ -77,22 +98,31 @@ function SignUpPage() {
             type="tel"
             className="form__phone"
           />
+          <h3>To Change Password</h3>
           <div className="form__passwords">
             <input
-              placeholder="Password"
+              placeholder="Old Password"
               required={true}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
               type="password"
-              className="passwords__password"
+              className="passwords__old-password"
             />
             <input
-              placeholder="Password Again"
+              placeholder="New Password"
               required={true}
-              value={passwordAgain}
-              onChange={(e) => setPasswordAgain(e.target.value)}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
               type="password"
-              className="passwords__password-again"
+              className="passwords__new-password"
+            />
+            <input
+              placeholder="New Password Again"
+              required={true}
+              value={newPasswordAgain}
+              onChange={(e) => setNewPasswordAgain(e.target.value)}
+              type="password"
+              className="passwords__new-password-again"
             />
           </div>
           <input
@@ -102,8 +132,8 @@ function SignUpPage() {
             type="text"
             className="form__address"
           />
-          <button onClick={signUpHandler} className="form__btn">
-            Sign Up
+          <button onClick={updateSettingsHadler} className="form__btn">
+            Update Settings
           </button>
         </div>
       </main>
@@ -111,4 +141,4 @@ function SignUpPage() {
   )
 }
 
-export default SignUpPage
+export default SettingsPage

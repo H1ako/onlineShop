@@ -14,6 +14,7 @@ import DeliveriesPage from "./components/pages/DeliveriesPage/DeliveriesPage"
 import FavouritesPage from "./components/pages/FavouritesPage/FavouritesPage"
 import CartPage from "./components/pages/CartPage/CartPage"
 import SignUpPage from "./components/pages/SignUpPage/SignUpPage"
+import SettingsPage from "./components/pages/SettingsPage/SettingsPage"
 // store
 import { useBuyingWindow } from "./store/slices/buyingWindowSlice"
 import { useCustomer } from "./store/slices/customerSlice"
@@ -37,6 +38,7 @@ function App() {
         <Route path="/favourites/" element={<FavouritesPage />} />
         <Route path="/cart/" element={<CartPage />} />
         <Route path="/sign-up/" element={<SignUpPage />} />
+        <Route path="/settings/" element={<SettingsPage />} />
       </Routes>
     </div>
   )
