@@ -27,7 +27,7 @@ function SettingsPage() {
 
   const updateSettingsHadler = () => {
     const newCustomerData = new FormData()
-    if (picture != null) newCustomerData.append("picture", picture)
+    if (typeof picture === 'object') newCustomerData.append("picture", picture)
     newCustomerData.append("email", email)
     newCustomerData.append("newPassword", newPassword)
     newCustomerData.append("oldPassword", oldPassword)
@@ -38,6 +38,7 @@ function SettingsPage() {
     newCustomerData.append("address", address)
 
     updateSettings(newCustomerData).then((data) => {
+      console.log(data)
       if (data.result === "success") {
         dispatch(
           updateCustomer({ customer: data.customer.email ? data.customer : {} })
@@ -64,7 +65,7 @@ function SettingsPage() {
   return (
     <div className="settings-page">
       <main>
-        <h3 className="heading">Sign Up</h3>
+        <h3 className="heading">Settings</h3>
         <div className="form">
           <UploadPicture picture={picture} setPicture={setPicture} />
           <div className="form__name">
@@ -98,6 +99,13 @@ function SettingsPage() {
             type="tel"
             className="form__phone"
           />
+          <input
+            placeholder="Delivery Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            type="text"
+            className="form__address"
+          />
           <h3>To Change Password</h3>
           <div className="form__passwords">
             <input
@@ -125,13 +133,6 @@ function SettingsPage() {
               className="passwords__new-password-again"
             />
           </div>
-          <input
-            placeholder="Delivery Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            type="text"
-            className="form__address"
-          />
           <button onClick={updateSettingsHadler} className="form__btn">
             Update Settings
           </button>

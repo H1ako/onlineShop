@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from customers.serializers import CustomerSerializer
 from customers.models import Customer
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -55,12 +55,11 @@ class AuthenticationView(APIView):
         if not email or not password:
             return Response({'error': 'incorrect data'})
 
-        customer = Customer.objects.get(email=email)
-        passwordIsCorrect = customer.check_password(password)
-        if passwordIsCorrect:
+        customer = authenticate(req, username=email, password=password)
+        if customer is not None:
             login(req, customer)
 
             customerData = CustomerSerializer(customer).data
             return Response({'customer': customerData, 'result': 'success'})
-            
+
         return Response({'error': 'wrong password'})

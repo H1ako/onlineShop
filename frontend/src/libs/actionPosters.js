@@ -1,8 +1,10 @@
+import Cookies from "universal-cookie"
+
 // authentication
 export async function signIn(email, password) {
   const fetchData = {
     email,
-    password
+    password,
   }
 
   const response = await fetch(`/api/auth/`, {
@@ -11,11 +13,10 @@ export async function signIn(email, password) {
       "Content-Type": "application/json;charset=utf-8",
       "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
     },
-    body: JSON.stringify(fetchData)
+    body: JSON.stringify(fetchData),
   })
 
   const data = await response.json()
-
   return data
 }
 
@@ -24,9 +25,9 @@ export async function signUp(signUpFormData) {
     method: "POST",
     headers: {
       "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
-      "type": "formData"
+      type: "formData",
     },
-    body: signUpFormData
+    body: signUpFormData,
   })
 
   const data = await response.json()
@@ -46,13 +47,15 @@ export async function updateSettings(settingsFormData) {
   //     email,
   //     picture,
   // }
+  const cookies = new Cookies()
+
   const response = await fetch(`/api/customer/`, {
     method: "POST",
     headers: {
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
-      "type": "formData"
+      "X-CSRFTOKEN": cookies.get("csrftoken"),
+      type: "formData",
     },
-    body: settingsFormData
+    body: settingsFormData,
   })
 
   const data = await response.json()
@@ -60,11 +63,13 @@ export async function updateSettings(settingsFormData) {
 }
 
 export async function updateViewHistory(productId) {
+  const cookies = new Cookies()
+
   const response = await fetch(`/api/view-history/${productId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      "X-CSRFTOKEN": cookies.get("csrftoken"),
     },
   })
   const data = await response.json()
@@ -73,11 +78,13 @@ export async function updateViewHistory(productId) {
 }
 
 export async function productFavouriteAction(productId) {
+  const cookies = new Cookies()
+
   const response = await fetch(`/api/customer/favourites/${productId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      "X-CSRFTOKEN": cookies.get("csrftoken"),
     },
   })
 
@@ -86,6 +93,7 @@ export async function productFavouriteAction(productId) {
 }
 
 export async function productCartAction(productId, amount = 0) {
+  const cookies = new Cookies()
   const fetchData = {
     amount,
   }
@@ -94,7 +102,7 @@ export async function productCartAction(productId, amount = 0) {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      "X-CSRFTOKEN": cookies.get("csrftoken"),
     },
     body: JSON.stringify(fetchData),
   })
@@ -104,11 +112,13 @@ export async function productCartAction(productId, amount = 0) {
 }
 
 export async function removeProductFromCart(productId) {
+  const cookies = new Cookies()
+
   const response = await fetch(`/api/customer/cart/${productId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      "X-CSRFTOKEN": cookies.get("csrftoken"),
     },
   })
 
@@ -122,6 +132,7 @@ export async function purchaseProduct(
   amount = 1,
   address = "customerAddress"
 ) {
+  const cookies = new Cookies()
   const fetchData = {
     amount,
     address,
@@ -132,7 +143,7 @@ export async function purchaseProduct(
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      "X-CSRFTOKEN": cookies.get("csrftoken"),
     },
     body: JSON.stringify(fetchData),
   })
@@ -142,11 +153,13 @@ export async function purchaseProduct(
 }
 
 export async function cancelDelivery(deliveryId) {
+  const cookies = new Cookies()
+
   const response = await fetch(`/api/customer/deliveries/${deliveryId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFTOKEN": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      "X-CSRFTOKEN": cookies.get("csrftoken"),
     },
   })
 

@@ -5,15 +5,16 @@ from customers.managers import CustomerManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from products.models import Product
+from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import MinLengthValidator
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
     firstName = models.CharField("First name", max_length=15, blank=True)
     lastName = models.CharField("Last name", max_length=30, blank=True)
-    password = models.CharField(max_length=100)
+    password = models.CharField(max_length=100, validators=[MinLengthValidator(8)])
     email = models.EmailField("Email", unique=True)
-    phone = models.CharField("Phone", max_length=20,
-                             null=True, blank=True, unique=True)
+    phone = PhoneNumberField(_("Phone"), null=True, blank=True)
     address = models.CharField(
         "Address", max_length=255, null=True, blank=True)
     picture = models.ImageField(
