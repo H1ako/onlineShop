@@ -24,7 +24,6 @@ class CustomerView(APIView):
     def post(self, req):
         customer = req.user
         serializer = CustomerUpdateSerializer(instance=customer, data=req.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
 
