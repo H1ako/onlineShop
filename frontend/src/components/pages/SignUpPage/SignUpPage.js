@@ -22,7 +22,7 @@ function SignUpPage() {
 
   const signUpHandler = () => {
     const newCustomerData = new FormData()
-    if (picture != null) newCustomerData.append("picture", picture)
+    if (typeof picture === 'object' && picture !== null) newCustomerData.append("picture", picture)
     newCustomerData.append("email", email)
     newCustomerData.append("password", password)
     newCustomerData.append("passwordAgain", passwordAgain)

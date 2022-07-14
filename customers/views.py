@@ -118,8 +118,10 @@ class DeliveryListView(APIView):
         productId = int(req.data.get('productId', None))
         amount = int(req.data.get('amount', 0))
         address = req.data.get('address', customer.address)
+        print(address)
         if address == 'customerAddress':
             address = customer.address
+            print(customer.address)
         now = timezone.now()
         arrivalDate = date(
             year=now.year,
@@ -131,7 +133,7 @@ class DeliveryListView(APIView):
         product = Product.objects.filter(id=productId)[0]
 
         delivery = customer.deliveries.create(
-            product=product, amount=amount, status='DELIVERING', arrivalDate=arrivalDate)
+            product=product, amount=amount, status='DELIVERING', arrivalDate=arrivalDate, address=address)
 
         deliveryData = DeliverySerializer(
             delivery, context={'request': req}).data

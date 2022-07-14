@@ -43,7 +43,7 @@ function Navbar() {
     setLocation(customer.address ?? "")
 
     // eslint-disable-next-line
-  }, [customer.id])
+  }, [customer.address])
 
   return (
     <div className="navbar">

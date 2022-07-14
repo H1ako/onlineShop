@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from customers.serializers import CustomerSerializer
+from customers.serializers import CustomerSerializer, CustomerSignUpSerializer
 from customers.models import Customer
 from django.contrib.auth import login, logout, authenticate
 from rest_framework.views import APIView
@@ -19,33 +19,14 @@ class AuthenticationView(APIView):
     # sign up
     def post(self, req):
         # data to update
-        address = req.data.get('address', None)
-        firstName = req.data.get('firstName', None)
-        lastName = req.data.get('lastName', None)
-        password = req.data.get('password', None)
-        passwordAgain = req.data.get('passwordAgain', None)
-        phone = req.data.get('phone', None)
-        email = req.data.get('email', None)
-        picture = req.FILES.get('picture', None)
+        serializer = CustomerSignUpSerializer(data=req.data)
+        if serializer.is_valid():
+            customer = serializer.save()
+            login(req, customer)
 
-        # updates password
-        if password != None and email != None:
-            passwordsAreSimilars = password == passwordAgain
-
-            if passwordsAreSimilars:
-                customer = Customer.objects.create(
-                    address=address, firstName=firstName, lastName=lastName, phone=phone, email=email, picture=picture)
-                customer.set_password(password)
-                customer.save()
-
-                login(req, customer)
-
-                customerData = CustomerSerializer(customer).data
-                return Response({'customer': customerData, 'result': 'success'})
-
-            return Response({'error': 'passwords are not similar'})
-
-        return Response({'error': 'email or phone is incorrect'})
+            customerData = CustomerSerializer(customer).data
+            return Response({'customer': customerData, 'result': 'success'})
+        return Response({'error': serializer.errors})
 
     # log in
     def put(self, req):
