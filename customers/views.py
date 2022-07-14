@@ -1,4 +1,6 @@
 from datetime import date
+
+from django.forms import ValidationError
 from customers.serializers import CartProductSerializer, CustomerSerializer, CustomerUpdateSerializer, DeliverySerializer, FavouriteSerializer, ViewHistorySerializer
 from products.serializers import ProductSerializer
 from .models import Customer, ViewHistory
@@ -22,6 +24,7 @@ class CustomerView(APIView):
     def post(self, req):
         customer = req.user
         serializer = CustomerUpdateSerializer(instance=customer, data=req.data)
+        print(serializer)
         if serializer.is_valid():
             serializer.save()
 
@@ -29,7 +32,7 @@ class CustomerView(APIView):
             return Response({'customer': customerData, 'result': 'success'})
 
         customerData = CustomerSerializer(customer).data
-        return Response({'customer': customerData, 'result': 'error', 'error': 'invalid form data'})
+        return Response({'customer': customerData, 'result': 'error', 'error': serializer.errors})
 
 
 class SpecificCustomerView(APIView):

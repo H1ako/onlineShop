@@ -22,7 +22,6 @@ class CustomerUpdateSerializer(serializers.ModelSerializer):
         }
 
     def update(self, customer, data):
-        
         try:
             if data['oldPassword']:
                 customer.set_password(data['newPassword'])

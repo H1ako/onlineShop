@@ -27,7 +27,10 @@ function SettingsPage() {
 
   const updateSettingsHadler = () => {
     const newCustomerData = new FormData()
-    if (typeof picture === 'object') newCustomerData.append("picture", picture)
+    if (typeof picture === 'object' && picture !== null) {
+      console.log(typeof picture)
+      newCustomerData.append("picture", picture)
+    }
     newCustomerData.append("email", email)
     newCustomerData.append("newPassword", newPassword)
     newCustomerData.append("oldPassword", oldPassword)
